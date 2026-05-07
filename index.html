@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poutine Hub — Toronto's Finest Poutine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+<style>
+  :root {
+    /* Brand */
+    --gold:#F5A623; --gold-dark:#C8820F; --red:#C41E3A; --red-light:#E8294A;
+    /* Light Theme */
+    --bg:#FAFAF7; --bg2:#F5EDE0; --bg3:#FFF8F0;
+    --card:#FFFFFF; --card2:#FFF8F2;
+    --border:#EAE0D5; --border2:#DDD0C0;
+    --text:#1C1008; --text2:#3D2B1A; --muted:#9A8F87;
+    /* Accents */
+    --green:#27AE60; --blue:#2980B9;
+    /* Legacy aliases so existing JS still works */
+    --dark:#1C1008;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans',system-ui,sans-serif;overflow-x:hidden}
+  h1,h2,h3,.hero-title,.section-title{font-family:'Playfair Display',Georgia,serif}
+  ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--red);border-radius:3px}
+
+  /* ── Scroll progress bar ── */
+  #scrollProgress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--red),var(--gold));z-index:99999;width:0%;transition:width 0.08s linear;pointer-events:none}
+
+  /* ── Grain texture overlay ── */
+  body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:0.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");background-size:180px}
+
+  /* DAILY SPECIAL BANNER */
+  #specialBanner{display:none;background:linear-gradient(90deg,var(--red),#8B0000);border-bottom:1px solid rgba(255,255,255,0.1);padding:10px 5%;position:fixed;top:0;width:100%;z-index:1001;text-align:center}
+  #specialBanner.show{display:block}
+  .banner-inner{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+  .banner-inner .tag{background:rgba(255,255,255,0.2);padding:3px 10px;border-radius:20px;font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:1px}
+  .banner-inner .msg{font-size:0.88rem;font-weight:600}
+  .banner-inner .discount{background:var(--gold);color:#000;padding:3px 12px;border-radius:20px;font-size:0.8rem;font-weight:800}
+  .banner-close{position:absolute;right:20px;top:50%;transform:translateY(-50%);background:none;border:none;color:white;cursor:pointer;font-size:1.1rem;opacity:0.7}
+  .banner-close:hover{opacity:1}
+
+  /* ── MARQUEE STRIP ── */
+  .marquee-strip{background:var(--red);padding:11px 0;overflow:hidden;position:relative}
+  .marquee-inner{display:flex;gap:0;animation:marqueeRun 28s linear infinite;width:max-content}
+  .marquee-inner span{color:#fff;font-size:0.78rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:0 22px;white-space:nowrap}
+  .marquee-inner .dot{color:var(--gold);padding:0 4px}
+  @keyframes marqueeRun{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ── NAV ── */
+  nav{position:fixed;width:100%;z-index:1000;background:rgba(250,250,247,0.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:72px;transition:box-shadow 0.3s}
+  nav.scrolled{box-shadow:0 2px 24px rgba(28,16,8,0.08)}
+  .nav-logo{display:flex;align-items:center;gap:11px;text-decoration:none}
+  .nav-logo-icon{width:40px;height:40px;background:var(--red);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:21px}
+  .nav-logo-text{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:var(--text)}
+  .nav-logo-text span{color:var(--red)}
+  .nav-links{display:flex;gap:30px;list-style:none}
+  .nav-links a{color:var(--text2);text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s;position:relative}
+  .nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:2px;background:var(--red);transition:width 0.25s}
+  .nav-links a:hover{color:var(--red)}.nav-links a:hover::after{width:100%}
+  .nav-actions{display:flex;align-items:center;gap:10px}
+  .btn-cart{background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:8px 15px;border-radius:50px;cursor:pointer;font-size:0.82rem;display:flex;align-items:center;gap:6px;transition:all 0.2s;font-family:'DM Sans',sans-serif}
+  .btn-cart:hover{border-color:var(--red);color:var(--red)}
+  .cart-count{background:var(--red);color:#fff;border-radius:50%;width:18px;height:18px;font-size:0.67rem;display:flex;align-items:center;justify-content:center;font-weight:700}
+  .btn-login{background:var(--red);color:#fff;border:none;padding:9px 20px;border-radius:50px;cursor:pointer;font-weight:700;font-size:0.82rem;transition:all 0.25s;font-family:'DM Sans',sans-serif}
+  .btn-login:hover{background:var(--red-light);transform:translateY(-1px);box-shadow:0 6px 20px rgba(196,30,58,0.3)}
+  .btn-user{background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:9px 16px;border-radius:50px;cursor:pointer;font-size:0.82rem;font-weight:600;display:none;align-items:center;gap:6px;transition:all 0.2s}
+  .btn-user:hover{border-color:var(--red);color:var(--red)}
+
+  /* ── HERO ── */
+  #hero{min-height:100vh;display:flex;align-items:center;background:var(--bg);position:relative;overflow:hidden;padding:72px 5% 0}
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 75% 40%,rgba(245,166,35,0.12) 0%,transparent 55%),radial-gradient(ellipse at 15% 70%,rgba(196,30,58,0.07) 0%,transparent 50%)}
+  /* Large decorative letter behind hero */
+  #hero::before{content:'P';position:absolute;right:-2%;top:50%;transform:translateY(-50%);font-family:'Playfair Display',serif;font-size:clamp(320px,40vw,520px);font-weight:900;color:var(--red);opacity:0.04;line-height:1;pointer-events:none;user-select:none}
+  .hero-content{position:relative;z-index:1;max-width:660px}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:24px}
+  .hero-eyebrow .line{width:36px;height:2px;background:var(--red)}
+  .hero-eyebrow span{color:var(--red);font-size:0.78rem;font-weight:700;letter-spacing:3px;text-transform:uppercase}
+  .hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(196,30,58,0.06);border:1px solid rgba(196,30,58,0.2);color:var(--red);padding:6px 14px;border-radius:50px;font-size:0.78rem;font-weight:600;margin-bottom:22px}
+  .hero-badge span{width:6px;height:6px;background:var(--red);border-radius:50%;animation:pulse 1.5s infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.4;transform:scale(0.7)}}
+  .hero-title{font-size:clamp(3rem,6.5vw,5.2rem);font-weight:900;line-height:1.0;margin-bottom:22px;color:var(--text);letter-spacing:-1px}
+  .hero-title .hl{color:var(--gold);font-style:italic}
+  .hero-title .hlr{color:var(--red)}
+  .hero-title .stroke{-webkit-text-stroke:2px var(--red);color:transparent}
+  .hero-sub{font-size:1.05rem;color:var(--muted);line-height:1.7;margin-bottom:34px;max-width:480px;font-weight:400}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+  .btn-primary{background:var(--red);color:#fff;padding:14px 30px;border-radius:50px;border:none;font-weight:700;font-size:0.95rem;cursor:pointer;transition:all 0.25s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif}
+  .btn-primary:hover{background:var(--red-light);transform:translateY(-3px);box-shadow:0 12px 30px rgba(196,30,58,0.35)}
+  .btn-secondary{background:transparent;color:var(--text);padding:14px 30px;border-radius:50px;border:2px solid var(--border2);font-weight:600;font-size:0.95rem;cursor:pointer;transition:all 0.25s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif}
+  .btn-secondary:hover{border-color:var(--red);color:var(--red);transform:translateY(-2px)}
+  .hero-stats{display:flex;gap:0;margin-top:52px;border-top:1px solid var(--border);padding-top:28px}
+  .stat{display:flex;flex-direction:column;padding-right:32px;border-right:1px solid var(--border);margin-right:32px}
+  .stat:last-child{border:none;margin:0}
+  .stat-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--red);line-height:1}
+  .stat-label{font-size:0.75rem;color:var(--muted);margin-top:3px;font-weight:500}
+  .hero-visual{position:absolute;right:5%;top:50%;transform:translateY(-50%);width:420px;height:420px;display:flex;align-items:center;justify-content:center;font-size:180px}
+  .hero-visual::before{content:'';position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,rgba(245,166,35,0.15),rgba(196,30,58,0.1),rgba(245,166,35,0.15));animation:spin 12s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .float{animation:float 4s ease-in-out infinite;display:block;position:relative;z-index:1}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-18px) rotate(2deg)}}
+
+  /* ── SECTIONS ── */
+  section{padding:100px 5%}
+  .section-label{color:var(--red);font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+  .section-label::before{content:'';width:24px;height:2px;background:var(--red)}
+  .section-title{font-size:clamp(2rem,4vw,3.2rem);font-weight:900;margin-bottom:16px;line-height:1.1;color:var(--text);letter-spacing:-0.5px}
+  .section-sub{color:var(--muted);font-size:1rem;max-width:520px;line-height:1.7}
+
+  /* ── ABOUT ── */
+  #about{background:var(--bg2)}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:60px}
+  .about-text p{color:var(--muted);line-height:1.85;margin-bottom:16px;font-size:0.95rem}
+  .about-highlights{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px}
+  .hl-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;transition:all 0.3s}
+  .hl-card:hover{border-color:var(--red);transform:translateY(-3px);box-shadow:0 8px 24px rgba(196,30,58,0.08)}
+  .hl-card .icon{font-size:1.5rem;margin-bottom:8px}
+  .hl-card h4{font-size:0.88rem;font-weight:700;margin-bottom:3px}
+  .hl-card p{font-size:0.78rem;color:var(--muted)}
+  .about-image{background:linear-gradient(135deg,var(--bg2),var(--cream3,#F0E6D6));border-radius:24px;height:440px;display:flex;align-items:center;justify-content:center;font-size:110px;border:1px solid var(--border);position:relative;overflow:hidden}
+  .about-image::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 60% 40%,rgba(245,166,35,0.15) 0%,transparent 65%)}
+  .about-image::after{content:'EST. 2024';position:absolute;bottom:20px;right:22px;font-family:'Playfair Display',serif;font-size:0.7rem;font-weight:700;color:var(--red);letter-spacing:3px;opacity:0.5}
+
+  /* ── MENU ── */
+  #menu{background:var(--bg)}
+  .menu-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px}
+  .tab{padding:9px 20px;border-radius:50px;border:1.5px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;font-size:0.82rem;font-weight:600;transition:all 0.22s;font-family:'DM Sans',sans-serif}
+  .tab.active{background:var(--red);border-color:var(--red);color:#fff}
+  .tab:hover:not(.active){border-color:var(--red);color:var(--red)}
+  .tab.combo-tab{border-color:rgba(196,30,58,0.35);color:var(--red)}
+  .tab.combo-tab.active{background:var(--red);border-color:var(--red);color:#fff}
+  .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+
+  /* ── MENU CARD (Five Guys bold style) ── */
+  .menu-card{background:var(--card);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);position:relative;box-shadow:0 2px 8px rgba(28,16,8,0.04)}
+  .menu-card:hover{transform:translateY(-8px);border-color:var(--red);box-shadow:0 20px 40px rgba(196,30,58,0.12)}
+  .menu-card.sold-out-card{opacity:0.65}
+  .menu-card.combo-card{border-color:rgba(245,166,35,0.4)}
+  .menu-card.combo-card:hover{border-color:var(--gold)}
+  .menu-card-img{height:160px;background:linear-gradient(135deg,var(--bg2),var(--bg3));display:flex;align-items:center;justify-content:center;font-size:62px;position:relative;border-bottom:1px solid var(--border)}
+  .menu-card.combo-card .menu-card-img{background:linear-gradient(135deg,rgba(245,166,35,0.08),rgba(196,30,58,0.06))}
+  .sold-out-overlay{position:absolute;inset:0;background:rgba(250,250,247,0.8);display:flex;align-items:center;justify-content:center}
+  .sold-out-text{background:var(--red);color:#fff;padding:6px 16px;border-radius:50px;font-weight:800;font-size:0.78rem;text-transform:uppercase;letter-spacing:1px}
+  .menu-badge{position:absolute;top:12px;left:12px;color:#fff;font-size:0.62rem;font-weight:800;padding:4px 10px;border-radius:50px;text-transform:uppercase;letter-spacing:0.5px}
+  .menu-badge.deal,.menu-badge.hot{background:var(--red)}
+  .menu-badge.new{background:var(--green)}
+  .menu-badge.bestseller{background:#6d28d9}
+  .menu-badge.save{background:var(--gold);color:#000;font-size:0.7rem}
+  .menu-card-body{padding:18px}
+  .menu-card-name{font-weight:800;font-size:1rem;margin-bottom:4px;color:var(--text);font-family:'DM Sans',sans-serif}
+  .menu-card-desc{color:var(--muted);font-size:0.8rem;line-height:1.55;margin-bottom:14px}
+  .menu-card-footer{display:flex;justify-content:space-between;align-items:center}
+  .price-wrap{display:flex;flex-direction:column}
+  .menu-price{font-size:1.15rem;font-weight:900;color:var(--red);font-family:'Playfair Display',serif}
+  .original-price{font-size:0.72rem;color:var(--muted);text-decoration:line-through}
+  .btn-add{background:var(--red);color:#fff;border:none;width:36px;height:36px;border-radius:50%;cursor:pointer;font-weight:900;font-size:1.1rem;transition:all 0.22s;display:flex;align-items:center;justify-content:center}
+  .btn-add:hover{background:var(--red-light);transform:scale(1.15);box-shadow:0 6px 16px rgba(196,30,58,0.35)}
+  .btn-add.added{background:var(--green)}
+  .btn-add.soldout{background:var(--bg2);color:var(--muted);border:1px solid var(--border);cursor:not-allowed;font-size:0.7rem}
+  .combo-savings{background:rgba(245,166,35,0.1);border:1px solid rgba(245,166,35,0.3);border-radius:6px;padding:5px 10px;font-size:0.75rem;color:var(--gold-dark);font-weight:700;margin-bottom:10px}
+
+  /* ── POINTS ── */
+  #points{background:var(--bg2)}
+  .points-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-top:48px}
+  .points-card{background:var(--card);border:1.5px solid var(--border);border-radius:20px;padding:28px;text-align:center;transition:all 0.3s}
+  .points-card:hover{border-color:var(--red);transform:translateY(-6px);box-shadow:0 16px 36px rgba(196,30,58,0.1)}
+  .points-card.featured{border-color:var(--gold);box-shadow:0 8px 24px rgba(245,166,35,0.1)}
+  .points-icon{font-size:2.6rem;margin-bottom:14px}
+  .points-tier{font-size:1.1rem;font-weight:900;margin-bottom:6px;font-family:'Playfair Display',serif}
+  .points-tier.bronze{color:#B87333}.points-tier.silver{color:#888}.points-tier.gold{color:var(--gold-dark)}
+  .points-range{font-size:0.78rem;color:var(--muted);margin-bottom:16px}
+  .points-benefits{list-style:none;text-align:left}
+  .points-benefits li{font-size:0.83rem;color:var(--text2);padding:5px 0;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
+  .points-benefits li:last-child{border:none}
+  .points-benefits li::before{content:'✓';color:var(--red);font-weight:800;font-size:0.9rem}
+  .points-cta{margin-top:48px;background:var(--red);border-radius:24px;padding:40px;display:flex;justify-content:space-between;align-items:center}
+  .points-cta h3{font-size:1.5rem;font-weight:900;margin-bottom:6px;color:#fff;font-family:'Playfair Display',serif}
+  .points-cta p{color:rgba(255,255,255,0.75);font-size:0.9rem}
+  .points-cta .btn-primary{background:#fff;color:var(--red)}
+  .points-cta .btn-primary:hover{background:var(--bg2);box-shadow:0 8px 24px rgba(0,0,0,0.15)}
+
+  /* ── LOCATIONS ── */
+  #locations{background:var(--bg)}
+  .locations-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:52px}
+  .location-card{background:var(--card);border:1.5px solid var(--border);border-radius:24px;overflow:hidden;transition:all 0.3s;box-shadow:0 2px 12px rgba(28,16,8,0.05)}
+  .location-card:hover{border-color:var(--red);box-shadow:0 16px 40px rgba(196,30,58,0.1);transform:translateY(-4px)}
+  .location-header{background:var(--red);padding:28px;display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--border)}
+  .location-num{width:50px;height:50px;background:rgba(255,255,255,0.2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:#fff;flex-shrink:0}
+  .location-name{font-size:1.1rem;font-weight:800;color:#fff}
+  .location-area{font-size:0.82rem;color:rgba(255,255,255,0.7);margin-top:2px}
+  .location-body{padding:24px}
+  .location-info{display:flex;flex-direction:column;gap:14px;margin-bottom:22px}
+  .location-row{display:flex;gap:12px;align-items:flex-start}
+  .location-row .icon{font-size:1.1rem;margin-top:1px;flex-shrink:0}
+  .location-row .label{font-size:0.72rem;color:var(--muted);margin-bottom:2px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+  .location-row .value{font-size:0.88rem;font-weight:500;color:var(--text)}
+  .hours-row{display:flex;justify-content:space-between;font-size:0.8rem;padding:4px 0;border-bottom:1px solid var(--border)}
+  .hours-row:last-child{border:none}
+  .hours-row .day{color:var(--muted)}.hours-row .time{font-weight:600;color:var(--text)}
+  .location-actions{display:flex;gap:10px}
+  .btn-directions{flex:1;background:var(--red);color:#fff;border:none;padding:11px;border-radius:50px;font-weight:700;cursor:pointer;font-size:0.82rem;transition:all 0.22s}
+  .btn-directions:hover{background:var(--red-light);transform:translateY(-2px)}
+  .btn-call{flex:1;background:transparent;color:var(--text);border:1.5px solid var(--border2);padding:11px;border-radius:50px;font-weight:600;cursor:pointer;font-size:0.82rem;transition:all 0.22s}
+  .btn-call:hover{border-color:var(--red);color:var(--red)}
+
+  /* ── MODALS ── */
+  .modal-overlay{position:fixed;inset:0;background:rgba(28,16,8,0.6);backdrop-filter:blur(4px);z-index:2000;display:none;align-items:center;justify-content:center}
+  .modal-overlay.open{display:flex}
+  .modal{background:var(--card);border:1px solid var(--border);border-radius:24px;width:92%;max-width:480px;max-height:88vh;overflow-y:auto;box-shadow:0 32px 80px rgba(28,16,8,0.2)}
+  .modal-header{padding:22px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--card);z-index:1}
+  .modal-header h2{font-size:1.15rem;font-weight:800;font-family:'Playfair Display',serif}
+  .modal-close{background:var(--bg2);border:1px solid var(--border);color:var(--muted);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+  .modal-close:hover{background:var(--red);color:#fff;border-color:var(--red)}
+  .modal-body{padding:24px}
+  .cart-items{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
+  .cart-item{display:flex;gap:12px;align-items:center;background:var(--bg2);border-radius:14px;padding:14px;border:1px solid var(--border)}
+  .cart-item-icon{font-size:1.9rem}
+  .cart-item-info{flex:1}
+  .cart-item-name{font-weight:700;font-size:0.9rem;color:var(--text)}
+  .cart-item-price{color:var(--red);font-size:0.83rem;font-weight:700}
+  .cart-item-qty{display:flex;align-items:center;gap:8px}
+  .qty-btn{width:28px;height:28px;border-radius:50%;background:var(--card);border:1.5px solid var(--border);color:var(--text);cursor:pointer;font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+  .qty-btn:hover{border-color:var(--red);color:var(--red)}
+  .qty-num{font-weight:800;font-size:0.9rem;min-width:20px;text-align:center}
+  .cart-summary{background:var(--bg2);border-radius:14px;padding:16px;border:1px solid var(--border)}
+  .cart-row{display:flex;justify-content:space-between;margin-bottom:8px;font-size:0.88rem}
+  .cart-row:last-child{margin:0;padding-top:9px;border-top:1.5px solid var(--border);font-weight:900;font-size:1rem}
+  .cart-row .label{color:var(--muted)}.cart-row .total{color:var(--red)}
+  .cart-points-note{background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.25);border-radius:10px;padding:11px;margin:14px 0;font-size:0.82rem;color:var(--gold-dark);display:flex;align-items:center;gap:8px}
+  .btn-checkout{width:100%;background:var(--red);color:#fff;border:none;padding:14px;border-radius:50px;font-weight:800;font-size:0.95rem;cursor:pointer;margin-top:14px;transition:all 0.25s;font-family:'DM Sans',sans-serif}
+  .btn-checkout:hover{background:var(--red-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(196,30,58,0.3)}
+  .cart-empty{text-align:center;padding:40px 0;color:var(--muted)}
+  .cart-empty .icon{font-size:3rem;margin-bottom:12px}
+
+  /* ── AUTH MODAL ── */
+  .auth-tabs{display:flex;gap:4px;background:var(--bg2);border-radius:12px;padding:4px;margin-bottom:22px}
+  .auth-tab{flex:1;padding:8px;border-radius:9px;border:none;background:transparent;color:var(--muted);cursor:pointer;font-weight:600;font-size:0.88rem;transition:all 0.2s}
+  .auth-tab.active{background:var(--red);color:#fff}
+  .form-group{margin-bottom:14px}
+  .form-group label{display:block;font-size:0.78rem;font-weight:700;color:var(--muted);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px}
+  .form-group input{width:100%;background:var(--bg2);border:1.5px solid var(--border);color:var(--text);padding:11px 14px;border-radius:12px;font-size:0.9rem;transition:border-color 0.2s;font-family:'DM Sans',sans-serif}
+  .form-group input:focus{outline:none;border-color:var(--red)}
+  .btn-auth{width:100%;background:var(--red);color:#fff;border:none;padding:13px;border-radius:50px;font-weight:800;font-size:0.95rem;cursor:pointer;margin-top:8px;transition:all 0.25s;font-family:'DM Sans',sans-serif}
+  .btn-auth:hover{background:var(--red-light);transform:translateY(-2px);box-shadow:0 8px 24px rgba(196,30,58,0.3)}
+  .btn-social{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;background:#fff;color:#111;border:1.5px solid var(--border2);padding:12px;border-radius:50px;font-weight:600;font-size:0.88rem;cursor:pointer;margin-bottom:10px;transition:all 0.2s;font-family:'DM Sans',sans-serif}
+  .btn-social:hover{border-color:var(--red);box-shadow:0 4px 12px rgba(196,30,58,0.1);transform:translateY(-1px)}
+  .btn-social-apple{background:#000;color:#fff;border-color:#000}.btn-social-apple:hover{background:#222;border-color:#222}
+  .btn-social-ms{background:#fff;color:var(--text);border-color:var(--border2)}
+  .btn-social-phone{background:var(--bg2);color:var(--text);border-color:var(--border2)}
+
+  /* ── DASHBOARD ── */
+  #dashboard{display:none;padding:100px 5% 60px;background:var(--bg)}
+  #dashboard.visible{display:block}
+  .user-card{background:var(--red);border-radius:24px;padding:32px;display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+  .user-avatar{width:58px;height:58px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:10px}
+  .user-name{font-size:1.25rem;font-weight:900;color:#fff;font-family:'Playfair Display',serif}
+  .user-tier{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.15);color:#fff;padding:4px 12px;border-radius:20px;font-size:0.78rem;font-weight:600;margin-top:4px}
+  .user-points-display{text-align:right}
+  .points-big{font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:#fff;line-height:1}
+  .points-label{color:rgba(255,255,255,0.7);font-size:0.82rem}
+  .progress-bar{background:rgba(255,255,255,0.2);border-radius:4px;height:5px;margin-top:10px;overflow:hidden}
+  .progress-fill{background:#fff;height:100%;border-radius:4px;transition:width 0.5s}
+  .dashboard-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:22px}
+  .dash-card{background:var(--card);border:1.5px solid var(--border);border-radius:18px;padding:24px;box-shadow:0 2px 8px rgba(28,16,8,0.04)}
+  .dash-card h3{font-size:0.78rem;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;font-weight:700}
+  .dash-card .value{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--red)}
+  .dash-card .sub{font-size:0.72rem;color:var(--muted);margin-top:4px}
+  .order-history{margin-top:28px}
+  .order-history h3{font-size:1.1rem;font-weight:800;margin-bottom:16px;font-family:'Playfair Display',serif}
+  .order-item{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+  .order-item .order-id{font-size:0.78rem;color:var(--muted)}
+  .order-item .order-date{font-size:0.88rem;font-weight:700}
+  .order-item .order-total{color:var(--red);font-weight:900;font-family:'Playfair Display',serif}
+  .order-item .order-status{background:rgba(39,174,96,0.1);color:var(--green);border:1px solid rgba(39,174,96,0.3);padding:3px 10px;border-radius:50px;font-size:0.72rem;font-weight:700}
+
+  /* ── FOOTER ── */
+  footer{background:var(--text);color:rgba(255,255,255,0.85);padding:64px 5% 32px}
+  .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+  .footer-brand p{color:rgba(255,255,255,0.55);font-size:0.83rem;line-height:1.7;margin-top:12px;max-width:280px}
+  .footer-col h4{font-size:0.82rem;font-weight:800;margin-bottom:16px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold)}
+  .footer-col ul{list-style:none}
+  .footer-col li{margin-bottom:10px}
+  .footer-col a{color:rgba(255,255,255,0.55);text-decoration:none;font-size:0.85rem;transition:color 0.2s}
+  .footer-col a:hover{color:var(--gold)}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center}
+  .footer-bottom p{color:rgba(255,255,255,0.4);font-size:0.78rem}
+
+  /* ── TOAST ── */
+  .toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:13px 20px;z-index:9999;display:flex;align-items:center;gap:10px;transform:translateY(100px);opacity:0;transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);font-size:0.88rem;box-shadow:0 16px 40px rgba(28,16,8,0.25)}
+  .toast.show{transform:translateY(0);opacity:1}
+  .footer-social{display:flex;gap:9px}
+  .social-btn{width:34px;height:34px;background:var(--card2);border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.95rem;transition:all 0.2s;text-decoration:none}
+  .social-btn:hover{border-color:var(--gold)}
+
+  /* TOAST */
+  .toast{position:fixed;bottom:22px;right:22px;background:var(--card);border:1px solid var(--gold);border-radius:11px;padding:12px 18px;z-index:3000;display:flex;align-items:center;gap:9px;transform:translateY(100px);opacity:0;transition:all 0.3s;font-size:0.88rem}
+  .toast.show{transform:translateY(0);opacity:1}
+
+  @media(max-width:768px){.nav-links{display:none}.hero-visual{display:none}.about-grid,.locations-grid,.points-grid,.dashboard-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}.hero-stats{gap:18px}.points-cta{flex-direction:column;gap:18px;text-align:center}.user-card{flex-direction:column;gap:18px;text-align:center}.user-points-display{text-align:center}}
+
+  .diet-tags{display:flex;flex-wrap:wrap;gap:4px;margin:5px 0}
+  .diet-tag{font-size:0.68rem;padding:2px 7px;border-radius:20px;font-weight:600}
+  .tag-spicy{background:rgba(220,60,30,0.18);color:#e04020}
+  .tag-vegan{background:rgba(46,204,113,0.15);color:#27ae60}
+  .tag-vegetarian{background:rgba(46,204,113,0.1);color:#2ecc71}
+  .tag-gf{background:rgba(245,166,35,0.15);color:#e09520}
+  .cal-info{font-size:0.72rem;color:var(--muted);margin:3px 0}
+  .item-rating{display:flex;align-items:center;gap:4px;margin:4px 0}
+  .stars{color:#F5A623;font-size:0.78rem;letter-spacing:1px}
+  .rating-num{font-weight:700;font-size:0.82rem;color:var(--gold)}
+  .review-count{font-size:0.72rem;color:var(--muted)}
+  .fav-btn{position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.55);border:none;border-radius:50%;width:30px;height:30px;cursor:pointer;font-size:0.9rem;display:flex;align-items:center;justify-content:center;transition:transform 0.2s;z-index:2}
+  .fav-btn:hover,.fav-btn.active{transform:scale(1.2)}
+  .location-sel{background:var(--card2);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:8px;font-size:0.78rem;cursor:pointer;font-weight:600}
+  .location-sel:focus{outline:none;border-color:var(--gold)}
+  .order-type-tabs{display:flex;gap:8px;margin-bottom:14px}
+  .order-type-tab{flex:1;padding:11px;border:2px solid var(--border);border-radius:10px;background:transparent;color:var(--text);cursor:pointer;font-weight:700;font-size:0.85rem;transition:all 0.2s;text-align:center}
+  .order-type-tab.active{border-color:var(--gold);background:rgba(245,166,35,0.1);color:var(--gold)}
+  .checkout-section{margin:12px 0;padding:13px;background:var(--card2);border-radius:10px}
+  .checkout-section h4{margin:0 0 9px 0;font-size:0.85rem;color:var(--muted);font-weight:700}
+  .addr-input{width:100%;background:var(--card);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:8px;font-size:0.85rem;box-sizing:border-box}
+  .addr-input:focus{outline:none;border-color:var(--gold)}
+  .tip-options{display:flex;gap:7px}
+  .tip-btn{flex:1;padding:8px 4px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text);cursor:pointer;font-size:0.8rem;font-weight:600;transition:all 0.2s}
+  .tip-btn.active{border-color:var(--gold);background:rgba(245,166,35,0.1);color:var(--gold)}
+  .promo-wrap{display:flex;gap:7px;margin-top:5px}
+  .promo-input{flex:1;background:var(--card);border:1px solid var(--border);color:var(--text);padding:9px 11px;border-radius:8px;font-size:0.83rem}
+  .promo-input:focus{outline:none;border-color:var(--gold)}
+  .btn-promo{background:var(--gold);color:#000;border:none;padding:9px 13px;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.8rem}
+  .promo-ok{color:#2ecc71;font-size:0.75rem;margin-top:4px;font-weight:600}
+  .schedule-toggle{display:flex;gap:8px;margin-bottom:9px}
+  .schedule-btn{flex:1;padding:9px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text);cursor:pointer;font-size:0.82rem;font-weight:600;transition:all 0.2s}
+  .schedule-btn.active{border-color:var(--gold);background:rgba(245,166,35,0.1);color:var(--gold)}
+  .time-slots{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .slot-btn{padding:6px 11px;border:1px solid var(--border);border-radius:7px;background:transparent;color:var(--text);cursor:pointer;font-size:0.78rem;font-weight:600;transition:all 0.2s}
+  .slot-btn.active{border-color:var(--gold);background:rgba(245,166,35,0.1);color:var(--gold)}
+  .confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:5000;display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+  .confirm-overlay.open{display:flex}
+  .confirm-box{background:var(--card);border:1px solid var(--border);border-radius:20px;width:90%;max-width:440px;padding:28px;text-align:center}
+  .confirm-icon{font-size:3.2rem;margin-bottom:10px}
+  .confirm-title{font-size:1.35rem;font-weight:900;color:var(--gold);margin-bottom:4px}
+  .confirm-id{font-size:0.8rem;color:var(--muted);margin-bottom:18px}
+  .tracker{display:flex;justify-content:space-between;margin:18px 0;position:relative}
+  .tracker::before{content:'';position:absolute;top:19px;left:8%;right:8%;height:2px;background:var(--border);z-index:0}
+  .tracker-fill{position:absolute;top:19px;left:8%;height:2px;background:var(--gold);transition:width 1.2s ease;z-index:1;width:0%}
+  .track-step{display:flex;flex-direction:column;align-items:center;gap:5px;z-index:2}
+  .track-icon{width:38px;height:38px;border-radius:50%;background:var(--card2);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:0.95rem;transition:all 0.6s}
+  .track-icon.done{background:var(--gold);border-color:var(--gold)}
+  .track-icon.active{border-color:var(--gold);animation:pulse 1.5s infinite}
+  .track-label{font-size:0.62rem;color:var(--muted);font-weight:600;text-align:center;max-width:55px}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(245,166,35,0.4)}50%{box-shadow:0 0 0 8px rgba(245,166,35,0)}}
+
+  /* ── 416-style Hero Stagger Animations ── */
+  @keyframes heroFadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes heroFadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes counterUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+  @keyframes bgPan{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  @keyframes scaleIn{from{opacity:0;transform:scale(0.85)}to{opacity:1;transform:scale(1)}}
+  @keyframes slideLeft{from{opacity:0;transform:translateX(60px)}to{opacity:1;transform:translateX(0)}}
+  @keyframes slideRight{from{opacity:0;transform:translateX(-60px)}to{opacity:1;transform:translateX(0)}}
+  @keyframes confettiFall{0%{transform:translateY(-10px) rotate(0deg);opacity:1}100%{transform:translateY(60px) rotate(720deg);opacity:0}}
+  @keyframes progressFill{from{width:0}to{width:var(--target-width)}}
+
+  .hero-badge{animation:heroFadeUp 0.7s ease both}
+  .hero-title{animation:heroFadeUp 0.8s 0.15s ease both}
+  .hero-sub{animation:heroFadeUp 0.8s 0.3s ease both}
+  .hero-actions{animation:heroFadeUp 0.8s 0.45s ease both}
+  .hero-stats{animation:heroFadeUp 0.8s 0.6s ease both}
+  .hero-visual{animation:scaleIn 1s 0.3s ease both}
+
+  /* ── Parallax divider between sections ── */
+  .parallax-divider{position:relative;height:220px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+  .parallax-divider .pd-bg{position:absolute;inset:-40px 0;background-attachment:fixed;background-size:cover;background-position:center;filter:brightness(0.35)}
+  .parallax-divider .pd-content{position:relative;z-index:1;text-align:center;color:#fff}
+  .parallax-divider .pd-content h2{font-size:clamp(1.6rem,4vw,2.6rem);font-weight:900;letter-spacing:-0.5px}
+  .parallax-divider .pd-content p{color:rgba(255,255,255,0.7);margin-top:8px;font-size:0.95rem}
+
+  /* ── Five Guys bold menu style ── */
+  .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
+  .menu-cat-header{display:flex;align-items:center;gap:14px;margin:36px 0 16px;padding-bottom:12px;border-bottom:3px solid var(--gold)}
+  .menu-cat-header h3{font-size:1.5rem;font-weight:900;letter-spacing:-0.5px}
+  .menu-cat-header .cat-count{background:var(--gold);color:#000;font-size:0.72rem;font-weight:800;padding:3px 9px;border-radius:20px}
+  .menu-card-v2{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);cursor:pointer;position:relative}
+  .menu-card-v2:hover{transform:translateY(-8px) scale(1.02);border-color:var(--gold);box-shadow:0 20px 40px rgba(0,0,0,0.4),0 0 0 1px rgba(245,166,35,0.3)}
+  .menu-card-v2 .mc-img{height:180px;background:linear-gradient(135deg,#1a1200,#2a1800);display:flex;align-items:center;justify-content:center;font-size:72px;position:relative;overflow:hidden}
+  .menu-card-v2 .mc-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(0,0,0,0.5))}
+  .menu-card-v2 .mc-badge{position:absolute;top:10px;left:10px;z-index:2;background:var(--gold);color:#000;font-size:0.68rem;font-weight:800;padding:3px 9px;border-radius:20px}
+  .menu-card-v2 .mc-body{padding:16px}
+  .menu-card-v2 .mc-name{font-size:1.05rem;font-weight:800;margin-bottom:4px}
+  .menu-card-v2 .mc-desc{font-size:0.8rem;color:var(--muted);line-height:1.5;margin-bottom:10px}
+  .menu-card-v2 .mc-foot{display:flex;justify-content:space-between;align-items:center}
+  .menu-card-v2 .mc-price{font-size:1.25rem;font-weight:900;color:var(--gold)}
+  .menu-card-v2 .mc-add{background:var(--gold);color:#000;border:none;width:36px;height:36px;border-radius:50%;font-size:1.2rem;font-weight:900;cursor:pointer;transition:all 0.2s;display:flex;align-items:center;justify-content:center}
+  .menu-card-v2 .mc-add:hover{transform:scale(1.15);background:#e09520}
+  .menu-card-v2 .mc-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
+
+  /* ── Chipotle-style customization steps ── */
+  .step-bar{display:flex;gap:0;margin-bottom:20px;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
+  .step-item{flex:1;padding:8px 4px;text-align:center;font-size:0.68rem;font-weight:700;background:var(--card2);color:var(--muted);transition:all 0.3s;position:relative}
+  .step-item.active{background:var(--gold);color:#000}
+  .step-item.done{background:rgba(46,204,113,0.15);color:var(--green)}
+
+  /* ── Tim Hortons loyalty progress ── */
+  .loyalty-header{text-align:center;margin-bottom:36px}
+  .loyalty-progress-wrap{background:var(--card2);border:1px solid var(--border);border-radius:20px;padding:28px;margin-bottom:28px;position:relative;overflow:hidden}
+  .loyalty-progress-wrap::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,166,35,0.04),transparent);pointer-events:none}
+  .lp-tier-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+  .lp-tier-name{font-size:1.1rem;font-weight:900}
+  .lp-pts-display{font-size:2.2rem;font-weight:900;color:var(--gold);line-height:1}
+  .lp-pts-label{font-size:0.72rem;color:var(--muted);font-weight:600}
+  .lp-bar-track{height:14px;background:var(--card);border-radius:10px;overflow:hidden;margin:16px 0 8px;position:relative}
+  .lp-bar-fill{height:100%;border-radius:10px;background:linear-gradient(90deg,var(--red),var(--gold));transition:width 1.2s cubic-bezier(0.34,1.56,0.64,1);position:relative}
+  .lp-bar-fill::after{content:'';position:absolute;top:0;right:0;bottom:0;width:20px;background:rgba(255,255,255,0.3);filter:blur(4px);border-radius:10px}
+  .lp-milestones{display:flex;gap:10px;margin-top:16px}
+  .lp-milestone{flex:1;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:10px 8px;text-align:center;transition:all 0.3s}
+  .lp-milestone.unlocked{border-color:var(--gold);background:rgba(245,166,35,0.08)}
+  .lp-milestone .lpm-pts{font-size:0.7rem;color:var(--muted);font-weight:700}
+  .lp-milestone .lpm-reward{font-size:1.4rem;margin:4px 0}
+  .lp-milestone .lpm-label{font-size:0.62rem;color:var(--muted)}
+  .confetti-piece{position:fixed;width:8px;height:8px;border-radius:2px;pointer-events:none;animation:confettiFall 0.8s ease-out forwards;z-index:9999}
+  .eta-badge{background:rgba(245,166,35,0.1);border:1px solid var(--gold);border-radius:10px;padding:9px 15px;margin:14px 0;font-size:0.88rem;color:var(--gold);font-weight:700}
+  .custom-opt-group{margin:13px 0}
+  .custom-opt-group h4{font-size:0.83rem;color:var(--muted);margin:0 0 7px 0;font-weight:700}
+  .opt-btns{display:flex;flex-wrap:wrap;gap:7px}
+  .opt-btn{padding:7px 13px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--text);cursor:pointer;font-size:0.8rem;transition:all 0.2s}
+  .opt-btn.active{border-color:var(--gold);background:rgba(245,166,35,0.12);color:var(--gold)}
+  .special-input{width:100%;background:var(--card2);border:1px solid var(--border);color:var(--text);padding:9px 12px;border-radius:8px;font-size:0.83rem;resize:none;box-sizing:border-box;margin-top:6px;font-family:inherit}
+  .special-input:focus{outline:none;border-color:var(--gold)}
+  .referral-card{background:linear-gradient(135deg,var(--card2),var(--card));border:1px solid var(--gold);border-radius:14px;padding:18px;text-align:center;margin:14px 0}
+  .ref-code{font-size:1.5rem;font-weight:900;color:var(--gold);letter-spacing:4px;margin:6px 0}
+  .btn-copy{background:var(--gold);color:#000;border:none;padding:7px 15px;border-radius:8px;font-weight:700;cursor:pointer;font-size:0.8rem;margin-top:7px}
+  .star-picker{display:flex;gap:8px;justify-content:center;font-size:2.2rem;cursor:pointer;margin:14px 0}
+  .star-picker span{transition:transform 0.15s;color:var(--border)}
+  .star-picker span.lit{color:var(--gold);transform:scale(1.15)}
+  .push-banner{background:var(--card2);border-bottom:1px solid var(--border);padding:9px 20px;display:flex;align-items:center;justify-content:space-between;font-size:0.8rem;gap:10px}
+  .push-banner.hidden{display:none}
+  .wait-badge{background:rgba(46,204,113,0.1);border:1px solid #2ecc71;color:#2ecc71;border-radius:8px;padding:5px 11px;font-size:0.78rem;font-weight:700;margin-top:5px;display:inline-block}
+  .favs-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .fav-chip{background:var(--card2);border:1px solid var(--border);border-radius:20px;padding:6px 13px;font-size:0.8rem;cursor:pointer;transition:border-color 0.2s;display:flex;align-items:center;gap:5px}
+  .fav-chip:hover{border-color:var(--gold)}
+  .reorder-btn{background:var(--card2);border:1px solid var(--gold);color:var(--gold);padding:5px 11px;border-radius:7px;cursor:pointer;font-size:0.75rem;font-weight:700;margin-top:6px}
+  .reorder-btn:hover{background:rgba(245,166,35,0.1)}
+
+  .menu-card-img img{width:100%;height:100%;object-fit:cover;border-radius:12px 12px 0 0;display:block}
+  .menu-card-img{position:relative;overflow:hidden}
+  .logo-img{height:36px;width:auto;object-fit:contain;border-radius:6px}
+</style>
+  <!-- Capacitor / Mobile App Ready -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="format-detection" content="telephone=no">
+  <style>
+    /* iOS safe area insets for notch/home bar */
+    body { padding-top: env(safe-area-inset-top); padding-bottom: env(safe-area-inset-bottom); }
+    .navbar { padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
+  </style>
+  <!-- Firebase Auth -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script>
+    // TODO: Replace with your Firebase config from console.firebase.google.com
+    const firebaseConfig = {
+      apiKey: "AIzaSyBxQycg5yG8yA4wF7iugaxSa2F1kk-hZAY",
+      authDomain: "poutine-hub.firebaseapp.com",
+      projectId: "poutine-hub",
+      storageBucket: "poutine-hub.firebasestorage.app",
+      messagingSenderId: "1047236154680",
+      appId: "1:1047236154680:web:6458c0f77f9e91e1db9dcd",
+      measurementId: "G-20BXBN49XT"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+</head>
+<body>
+
+<!-- SCROLL PROGRESS -->
+<div id="scrollProgress"></div>
+
+<!-- DAILY SPECIAL BANNER -->
+<div id="specialBanner">
+  <div class="banner-inner">
+    <span class="tag">🔥 Today's Special</span>
+    <span class="msg" id="bannerMsg">Loading special...</span>
+    <span class="discount" id="bannerDiscount">SAVE $0</span>
+  </div>
+  <button class="banner-close" onclick="dismissBanner()">✕</button>
+</div>
+
+<!-- MARQUEE STRIP -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>🍟 Poutine Hub</span><span class="dot">✦</span>
+    <span>Classic Poutine</span><span class="dot">✦</span>
+    <span>Butter Chicken Poutine</span><span class="dot">✦</span>
+    <span>Tikka Masala Poutine</span><span class="dot">✦</span>
+    <span>Toronto's #1 Poutine</span><span class="dot">✦</span>
+    <span>Open Late Thu–Sat</span><span class="dot">✦</span>
+    <span>4.9★ on Google</span><span class="dot">✦</span>
+    <span>Two Locations</span><span class="dot">✦</span>
+    <span>🍟 Poutine Hub</span><span class="dot">✦</span>
+    <span>Classic Poutine</span><span class="dot">✦</span>
+    <span>Butter Chicken Poutine</span><span class="dot">✦</span>
+    <span>Tikka Masala Poutine</span><span class="dot">✦</span>
+    <span>Toronto's #1 Poutine</span><span class="dot">✦</span>
+    <span>Open Late Thu–Sat</span><span class="dot">✦</span>
+    <span>4.9★ on Google</span><span class="dot">✦</span>
+    <span>Two Locations</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <a href="#hero" class="nav-logo">
+    <div class="nav-logo-icon" id="navLogoIcon">🍟</div>
+    <div class="nav-logo-text">Poutine <span>Hub</span></div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#points">Rewards</a></li>
+    <li><a href="#locations">Locations</a></li>
+  </ul>
+  <div class="nav-actions">
+    <select class="location-sel" id="locationSel" onchange="setLocation(this.value)" title="Select location"><option value="parliament">📍 Parliament St</option><option value="dundas">📍 Dundas St</option></select> <button class="btn-cart" onclick="openCart()">🛒 Cart <span class="cart-count" id="cartCount">0</span></button>
+    <button class="btn-login" id="loginBtn" onclick="openLogin()">Sign In</button>
+    <button class="btn-user" id="userBtn" onclick="openDashboard()">👤 <span id="userNameNav">Account</span></button>
+    <button class="btn-login" id="logoutBtn" onclick="handleLogout()" style="display:none;background:transparent;border:1px solid var(--border);color:var(--muted)">Sign Out</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><div class="line"></div><span>Toronto's Finest Poutine</span></div>
+    <div class="hero-badge"><span></span> Now Open — Two Toronto Locations</div>
+    <h1 class="hero-title">A Poutine A Day<br>Keeps Your <span class="hlr">Cravings</span><br><span class="hl">Away 🍟</span></h1>
+    <p class="hero-sub">Toronto's most loved fusion poutine spot. From classic Canadian comfort to bold Indian-fusion flavours — reinventing poutine one bowl at a time.</p>
+    <div class="hero-actions">
+      <a href="#menu" class="btn-primary">🛒 Order Now</a>
+      <a href="#about" class="btn-secondary">📖 Our Story</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><span class="stat-num">4.9★</span><span class="stat-label">Google Rating</span></div>
+      <div class="stat"><span class="stat-num">1,038+</span><span class="stat-label">Reviews</span></div>
+      <div class="stat"><span class="stat-num">2</span><span class="stat-label">Locations</span></div>
+    </div>
+  </div>
+  <div class="hero-visual"><div class="float">🍟</div></div>
+</section>
+
+<!-- PARALLAX DIVIDER -->
+<div class="parallax-divider">
+  <div class="pd-bg" style="background-image:linear-gradient(135deg,#1a0800,#0f0f0f,#1a0500)"></div>
+  <div class="pd-content" data-aos="fade-up">
+    <h2>🍟 Toronto's Most Loved Fusion Poutine</h2>
+    <p>Bold flavours. Real ingredients. Reinventing comfort food since day one.</p>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label" data-aos="fade-up">Our Story</div>
+  <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Born in Toronto.<br>Built on Flavour.</h2>
+  <div class="about-grid">
+    <div class="about-text" data-aos="fade-right" data-aos-delay="150">
+      <p>Poutine Hub started with a simple idea: take Canada's most beloved comfort food and give it a bold, multicultural twist that reflects the true spirit of Toronto.</p>
+      <p>We opened our first location on Parliament Street in the heart of Regent Park. The response was overwhelming — Toronto was hungry for something new.</p>
+      <p>Our fusion poutines — from the legendary Butter Chicken Poutine to the fiery Tikka Masala Poutine — quickly became the talk of the city. We expanded to Dundas Street East to serve even more of the city we love.</p>
+      <div class="about-highlights">
+        <div class="hl-card" data-aos="zoom-in" data-aos-delay="200"><div class="icon">🏆</div><h4>4.9 Star Rating</h4><p>1,038 five-star Google reviews</p></div>
+        <div class="hl-card" data-aos="zoom-in" data-aos-delay="280"><div class="icon">🌶️</div><h4>Fusion Flavours</h4><p>Indian-Canadian fusion done right</p></div>
+        <div class="hl-card" data-aos="zoom-in" data-aos-delay="360"><div class="icon">🕐</div><h4>Late Night</h4><p>Open until 2AM Thu–Sat</p></div>
+        <div class="hl-card" data-aos="zoom-in" data-aos-delay="440"><div class="icon">🛵</div><h4>Delivery</h4><p>DoorDash, UberEats & SkipTheDishes</p></div>
+      </div>
+    </div>
+    <div class="about-image" data-aos="fade-left" data-aos-delay="200">🍟</div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="section-label" data-aos="fade-up">What We Serve</div>
+  <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Our Menu</h2>
+  <div id="sheetsNotice" style="display:none;background:rgba(52,152,219,0.08);border:1px solid rgba(52,152,219,0.2);border-radius:10px;padding:10px 16px;margin-bottom:20px;font-size:0.82rem;color:var(--blue)">✅ Menu loaded from Google Sheets</div>
+  <div class="menu-tabs">
+    <button class="tab active" onclick="filterMenu('all',this)">All Items</button>
+    <button class="tab combo-tab" onclick="filterMenu('combos',this)">🔥 Combo Deals</button>
+    <button class="tab" onclick="filterMenu('fusion',this)">🌶️ Fusion Poutines</button>
+    <button class="tab" onclick="filterMenu('classic',this)">🍟 Classic Poutines</button>
+    <button class="tab" onclick="filterMenu('sides',this)">🧀 Sides</button>
+    <button class="tab" onclick="filterMenu('mac',this)">🧆 Mac & Cheese</button>
+    <button class="tab" onclick="filterMenu('drinks',this)">🥤 Drinks</button>
+  </div>
+  <div class="menu-grid" id="menuGrid"></div>
+</section>
+
+<!-- PARALLAX DIVIDER 2 -->
+<div class="parallax-divider">
+  <div class="pd-bg" style="background-image:linear-gradient(135deg,#0a0a1a,#0f0f0f,#1a0800)"></div>
+  <div class="pd-content" data-aos="zoom-in">
+    <h2>🏆 Join the Rewards Program</h2>
+    <p>Earn points every order. Redeem for free poutine.</p>
+  </div>
+</div>
+
+<!-- POINTS -->
+<section id="points">
+  <div class="section-label" data-aos="fade-up">Loyalty Program</div>
+  <h2 class="section-title" data-aos="fade-up" data-aos-delay="80">Earn While You Eat</h2>
+
+  <!-- Tim Hortons-style animated progress card -->
+  <div class="loyalty-progress-wrap" data-aos="fade-up" data-aos-delay="150" id="loyaltyCard">
+    <div class="lp-tier-row">
+      <div>
+        <div style="font-size:0.75rem;color:var(--muted);font-weight:700;margin-bottom:4px">YOUR TIER</div>
+        <div class="lp-tier-name" id="lpTierName">🥉 Bronze Member</div>
+      </div>
+      <div style="text-align:right">
+        <div class="lp-pts-display" id="lpPoints">0</div>
+        <div class="lp-pts-label">POINTS</div>
+      </div>
+    </div>
+    <div class="lp-bar-track">
+      <div class="lp-bar-fill" id="lpBarFill" style="width:0%"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--muted);margin-bottom:16px">
+      <span id="lpBarLabel">0 pts</span>
+      <span id="lpBarNext">5,000 pts to Silver 🥈</span>
+    </div>
+    <div class="lp-milestones">
+      <div class="lp-milestone" id="ms1"><div class="lpm-pts">1,000 pts</div><div class="lpm-reward">☕</div><div class="lpm-label">Free Drink</div></div>
+      <div class="lp-milestone" id="ms2"><div class="lpm-pts">2,500 pts</div><div class="lpm-reward">🍟</div><div class="lpm-label">Free Side</div></div>
+      <div class="lp-milestone" id="ms3"><div class="lpm-pts">5,000 pts</div><div class="lpm-reward">🥈</div><div class="lpm-label">Silver Tier</div></div>
+      <div class="lp-milestone" id="ms4"><div class="lpm-pts">10,000 pts</div><div class="lpm-reward">🎁</div><div class="lpm-label">Free Poutine</div></div>
+    </div>
+  </div>
+
+  <div class="points-grid">
+    <div class="points-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="points-icon">🥉</div><div class="points-tier bronze">Bronze</div>
+      <div class="points-range">0 – 4,999 Points</div>
+      <ul class="points-benefits"><li>Earn 10 pts per $1 spent</li><li>Birthday bonus (500 pts)</li><li>Early access to new items</li></ul>
+    </div>
+    <div class="points-card featured" data-aos="fade-up" data-aos-delay="200">
+      <div class="points-icon">🥈</div><div class="points-tier silver">Silver</div>
+      <div class="points-range">5,000 – 14,999 Points</div>
+      <ul class="points-benefits"><li>Earn 15 pts per $1 spent</li><li>Birthday bonus (1,000 pts)</li><li>Free side dish monthly</li><li>Priority support</li></ul>
+    </div>
+    <div class="points-card" data-aos="fade-up" data-aos-delay="300">
+      <div class="points-icon">🥇</div><div class="points-tier gold">Gold</div>
+      <div class="points-range">15,000+ Points</div>
+      <ul class="points-benefits"><li>Earn 20 pts per $1 spent</li><li>Birthday bonus (2,000 pts)</li><li>Free poutine monthly</li><li>Exclusive Gold menu items</li><li>VIP event invites</li></ul>
+    </div>
+  </div>
+  <div class="points-cta" data-aos="fade-up" data-aos-delay="100">
+    <div><h3>🎯 1,000 Points = $5 Off Your Order</h3><p>Sign up today and get 500 bonus points just for joining.</p></div>
+    <button class="btn-primary" onclick="openLogin()">Join Rewards →</button>
+  </div>
+</section>
+
+<!-- LOCATIONS -->
+<section id="locations">
+  <div class="section-label" data-aos="fade-up">Find Us</div>
+  <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Two Toronto Locations</h2>
+  <div class="locations-grid">
+    <div class="location-card">
+      <div class="location-header"><div class="location-num">1</div><div><div class="location-name">Parliament Street</div><div class="location-area">Regent Park, Toronto</div></div></div>
+      <div class="location-body">
+        <div class="location-info">
+          <div class="location-row"><div class="icon">📍</div><div><div class="label">Address</div><div class="value">179 Parliament Street, Toronto, ON M5A 2Z4</div></div></div>
+          <div class="location-row"><div class="icon">📞</div><div><div class="label">Phone</div><div class="value">(647) 937-7734</div></div></div>
+          <div class="location-row"><div class="icon">🕐</div><div><div class="label">Hours</div>
+            <div class="hours-row"><span class="day">Mon–Wed</span><span class="time">11am–12am</span></div>
+            <div class="hours-row"><span class="day">Thu–Sat</span><span class="time">11am–2am</span></div>
+            <div class="hours-row"><span class="day">Sunday</span><span class="time">12pm–12am</span></div>
+          </div></div>
+        </div>
+        <div class="location-actions">
+          <button class="btn-directions" onclick="window.open('https://maps.google.com?q=179+Parliament+Street+Toronto')">📍 Directions</button>
+          <button class="btn-call" onclick="window.location='tel:6479377734'">📞 Call Us</button>
+        </div>
+      </div>
+    </div>
+    <div class="location-card">
+      <div class="location-header"><div class="location-num">2</div><div><div class="location-name">Dundas Street East</div><div class="location-area">Downtown East, Toronto</div></div></div>
+      <div class="location-body">
+        <div class="location-info">
+          <div class="location-row"><div class="icon">📍</div><div><div class="label">Address</div><div class="value">132 Dundas Street East, Toronto, ON M5B 1E2</div></div></div>
+          <div class="location-row"><div class="icon">📞</div><div><div class="label">Phone</div><div class="value">(289) 552-5944</div></div></div>
+          <div class="location-row"><div class="icon">🕐</div><div><div class="label">Hours</div>
+            <div class="hours-row"><span class="day">Mon–Thu</span><span class="time">12pm–12am</span></div>
+            <div class="hours-row"><span class="day">Friday</span><span class="time">5pm–2am</span></div>
+            <div class="hours-row"><span class="day">Sat–Sun</span><span class="time">12pm–2am</span></div>
+          </div></div>
+        </div>
+        <div class="location-actions">
+          <button class="btn-directions" onclick="window.open('https://maps.google.com?q=132+Dundas+Street+East+Toronto')">📍 Directions</button>
+          <button class="btn-call" onclick="window.location='tel:2895525944'">📞 Call Us</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard">
+  <div class="section-label">My Account</div>
+  <h2 class="section-title">Welcome Back, <span id="dashName" style="color:var(--gold)">Poutine Lover</span> 👋</h2>
+  <div class="user-card" style="margin-top:28px">
+    <div>
+      <div class="user-avatar" id="dashAvatar">P</div>
+      <div class="user-name" id="dashFullName">Poutine Lover</div>
+      <div class="user-tier">🥉 Bronze Member</div>
+      <div class="progress-bar" style="width:200px;margin-top:10px"><div class="progress-fill" id="progressFill" style="width:20%"></div></div>
+      <div style="font-size:0.72rem;color:var(--muted);margin-top:5px" id="progressLabel">1,000 / 5,000 pts to Silver</div>
+    </div>
+    <div class="user-points-display">
+      <div class="points-big" id="dashPoints">1,000</div>
+      <div class="points-label">Total Points</div>
+      <div style="margin-top:10px;font-size:0.82rem;color:var(--muted)">≈ <span style="color:var(--gold)" id="dashValue">$5</span> in rewards</div>
+    </div>
+  </div>
+  <div class="dashboard-grid">
+    <div class="dash-card"><h3>Total Orders</h3><div class="value" id="dashOrders">0</div><div class="sub">lifetime orders</div></div>
+    <div class="dash-card"><h3>Total Spent</h3><div class="value" id="dashSpent">$0</div><div class="sub">lifetime value</div></div>
+    <div class="dash-card"><h3>Rewards Earned</h3><div class="value" id="dashRewards">$0</div><div class="sub">redeemed value</div></div>
+  </div>
+  <div class="order-history"><h3>Recent Orders</h3><div id="orderHistory"><p style="color:var(--muted);font-size:0.88rem">No orders yet. Place your first order above!</p></div></div>
+  <div id="favsSection" style="margin-top:24px"><h3>My Favourites</h3><div class="favs-grid" id="favsGrid"><p style="color:var(--muted);font-size:0.88rem">Tap ❤️ on any menu item to save it here.</p></div></div>
+  <div class="referral-card" id="refCard" style="margin-top:24px">
+    <div style="font-weight:800;font-size:1rem">🎁 Give $5, Get $5</div>
+    <div style="font-size:0.8rem;color:var(--muted);margin:4px 0">Share your code. Friend gets $5 off, you earn 500 bonus points.</div>
+    <div class="ref-code" id="refCodeDisplay">LOADING</div>
+    <button class="btn-copy" onclick="copyReferral()">📋 Copy Referral Link</button>
+  </div>
+</section>
+
+<!-- GOOGLE REVIEW CTA -->
+<section id="google-review" style="background:var(--bg2);padding:80px 5%;text-align:center;border-top:1px solid var(--border)" data-aos="fade-up">
+  <div style="max-width:600px;margin:0 auto">
+    <div class="section-label" style="justify-content:center;margin-bottom:16px">Share Your Experience</div>
+    <h2 class="section-title" style="margin-bottom:12px">Loved Your Poutine?</h2>
+    <p style="color:var(--muted);margin-bottom:12px;font-size:0.95rem;line-height:1.7">Your review helps Toronto discover us. Tap below — it takes less than a minute and means the world to our team.</p>
+    <div style="display:flex;align-items:center;justify-content:center;gap:4px;margin-bottom:32px">
+      <span style="color:var(--gold);font-size:1.5rem">★★★★★</span>
+      <span style="font-size:0.88rem;color:var(--muted);margin-left:8px">4.9 · 1,038 reviews</span>
+    </div>
+    <a id="googleReviewBtn" href="#" target="_blank" rel="noopener"
+      style="display:inline-flex;align-items:center;gap:12px;background:#fff;color:#111;font-weight:700;font-size:0.95rem;padding:16px 32px;border-radius:50px;text-decoration:none;box-shadow:0 4px 24px rgba(28,16,8,0.1);border:1.5px solid var(--border2);transition:all 0.25s"
+      onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 32px rgba(196,30,58,0.15)';this.style.borderColor='var(--red)'" onmouseout="this.style.transform='';this.style.boxShadow='0 4px 24px rgba(28,16,8,0.1)';this.style.borderColor='var(--border2)'">
+      <svg width="22" height="22" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.2l6.8-6.8C35.8 2.4 30.2 0 24 0 14.7 0 6.7 5.4 2.7 13.3l7.9 6.1C12.5 13 17.8 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4 6.9-10 6.9-17z"/><path fill="#FBBC05" d="M10.6 28.6A14.8 14.8 0 0 1 9.5 24c0-1.6.3-3.2.8-4.6l-7.9-6.1A23.9 23.9 0 0 0 0 24c0 3.9.9 7.5 2.5 10.8l8.1-6.2z"/><path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.5l-7.5-5.8c-2 1.4-4.6 2.2-7.7 2.2-6.2 0-11.5-4.2-13.4-9.9l-8.1 6.2C6.7 42.6 14.7 48 24 48z"/></svg>
+      Write a Google Review
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+        <div class="nav-logo-icon">🍟</div>
+        <div class="nav-logo-text">Poutine <span>Hub</span></div>
+      </div>
+      <p>Toronto's home of fusion poutine. Serving bold flavours and good vibes since day one. Poutine a day keeps your cravings away.</p>
+    </div>
+    <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="#about">Our Story</a></li><li><a href="#menu">Menu</a></li><li><a href="#points">Rewards</a></li><li><a href="#locations">Locations</a></li></ul></div>
+    <div class="footer-col"><h4>Order Online</h4><ul><li><a href="#">DoorDash</a></li><li><a href="#">UberEats</a></li><li><a href="#">SkipTheDishes</a></li></ul></div>
+    <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:6479377734">Parliament: (647) 937-7734</a></li><li><a href="tel:2895525944">Dundas: (289) 552-5944</a></li><li><a href="https://instagram.com/poutine.hub">@poutine.hub</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Poutine Hub Toronto. All rights reserved.</p>
+    <div class="footer-social">
+      <a href="https://instagram.com/poutine.hub" class="social-btn">📸</a>
+      <a href="#" class="social-btn">🎵</a>
+      <a href="#" class="social-btn">👍</a>
+    </div>
+  </div>
+</footer>
+
+<!-- CART MODAL -->
+<div class="modal-overlay" id="cartModal">
+  <div class="modal">
+    <div class="modal-header"><h2>🛒 Your Order</h2><button class="modal-close" onclick="closeCart()">✕</button></div>
+    <div class="modal-body" id="cartBody"></div>
+  </div>
+</div>
+
+
+<!-- CUSTOMIZE MODAL -->
+<div class="modal-overlay" id="customModal">
+  <div class="modal">
+    <div class="modal-header"><h2 id="customTitle">Customize</h2><button class="modal-close" onclick="closeCustomize()">✕</button></div>
+    <div class="modal-body" id="customBody"></div>
+  </div>
+</div>
+
+<!-- ORDER CONFIRMATION OVERLAY -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-box">
+    <div class="confirm-icon">🎉</div>
+    <div class="confirm-title">Order Placed!</div>
+    <div class="confirm-id" id="confirmId">Order #PH000000</div>
+    <div class="tracker">
+      <div class="tracker-fill" id="trackerFill"></div>
+      <div class="track-step"><div class="track-icon done" id="ts0">✅</div><div class="track-label">Confirmed</div></div>
+      <div class="track-step"><div class="track-icon" id="ts1">👨‍🍳</div><div class="track-label">Preparing</div></div>
+      <div class="track-step"><div class="track-icon" id="ts2">🔔</div><div class="track-label">Ready</div></div>
+      <div class="track-step"><div class="track-icon" id="ts3">✅</div><div class="track-label">Done</div></div>
+    </div>
+    <div class="eta-badge" id="etaBadge">⏱ Estimated ready in ~20-25 min</div>
+    <div id="confirmOrderType" style="font-size:0.85rem;color:var(--muted);margin-bottom:16px"></div>
+    <div id="confirmItems" style="text-align:left;border-top:1px solid var(--border);padding-top:14px;margin-bottom:16px"></div>
+    <button class="btn-checkout" onclick="closeConfirmation()">Done</button>
+    <button onclick="closeConfirmation();openDashboard()" style="width:100%;background:none;border:none;color:var(--gold);cursor:pointer;font-size:0.85rem;margin-top:10px;text-decoration:underline">View Order History</button>
+  </div>
+</div>
+
+<!-- REVIEW MODAL -->
+<div class="modal-overlay" id="reviewModal">
+  <div class="modal">
+    <div class="modal-header"><h2>Rate Your Order</h2><button class="modal-close" onclick="document.getElementById('reviewModal').classList.remove('open')">✕</button></div>
+    <div class="modal-body" id="reviewBody"></div>
+  </div>
+</div>
+
+<!-- LOGIN MODAL -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal">
+    <div class="modal-header"><h2>🍟 Join Poutine Hub</h2><button class="modal-close" onclick="closeLogin()">✕</button></div>
+    <div class="modal-body">
+      <!-- Social Login -->
+      <div id="socialBtns">
+        <button class="btn-social" onclick="signInGoogle()">
+          <svg width="18" height="18" viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.2l6.8-6.8C35.8 2.4 30.2 0 24 0 14.7 0 6.7 5.4 2.7 13.3l7.9 6.1C12.5 13 17.8 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4 6.9-10 6.9-17z"/><path fill="#FBBC05" d="M10.6 28.6A14.8 14.8 0 0 1 9.5 24c0-1.6.3-3.2.8-4.6l-7.9-6.1A23.9 23.9 0 0 0 0 24c0 3.9.9 7.5 2.5 10.8l8.1-6.2z"/><path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.5l-7.5-5.8c-2 1.4-4.6 2.2-7.7 2.2-6.2 0-11.5-4.2-13.4-9.9l-8.1 6.2C6.7 42.6 14.7 48 24 48z"/></svg>
+          Continue with Google
+        </button>
+        <button class="btn-social btn-social-apple" onclick="signInApple()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          Continue with Apple
+        </button>
+        <button class="btn-social btn-social-ms" onclick="signInMicrosoft()">
+          <svg width="18" height="18" viewBox="0 0 23 23"><path fill="#f35325" d="M0 0h11v11H0z"/><path fill="#81bc06" d="M12 0h11v11H12z"/><path fill="#05a6f0" d="M0 12h11v11H12z"/><path fill="#ffba08" d="M12 12h11v11H12z"/></svg>
+          Continue with Microsoft / Outlook
+        </button>
+        <button class="btn-social btn-social-phone" onclick="showPhoneStep()">
+          📱 Continue with Phone Number
+        </button>
+        <div style="display:flex;align-items:center;gap:10px;margin:16px 0">
+          <div style="flex:1;height:1px;background:var(--border)"></div>
+          <span style="color:var(--muted);font-size:0.78rem">or use email</span>
+          <div style="flex:1;height:1px;background:var(--border)"></div>
+        </div>
+      </div>
+
+      <!-- Phone auth steps (hidden by default) -->
+      <div id="phoneStep" style="display:none">
+        <button onclick="hidePhoneStep()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:0.82rem;margin-bottom:12px;padding:0">← Back</button>
+        <div id="phoneInputStep">
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="phoneInput" placeholder="+1 416 555 0123" style="font-size:1rem">
+            <small style="color:var(--muted);font-size:0.75rem">Include country code (e.g. +1 for Canada/US)</small>
+          </div>
+          <div id="recaptcha-container"></div>
+          <button class="btn-auth" onclick="sendSMS()">Send Verification Code →</button>
+        </div>
+        <div id="phoneOtpStep" style="display:none">
+          <p style="color:var(--muted);font-size:0.85rem;margin-bottom:14px">Enter the 6-digit code sent to <strong id="phoneSent"></strong></p>
+          <div class="form-group">
+            <label>Verification Code</label>
+            <input type="number" id="otpInput" placeholder="123456" maxlength="6" style="font-size:1.3rem;letter-spacing:6px;text-align:center">
+          </div>
+          <button class="btn-auth" onclick="verifyOTP()">Verify & Sign In →</button>
+          <button onclick="sendSMS()" style="background:none;border:none;color:var(--gold);cursor:pointer;font-size:0.82rem;margin-top:10px;width:100%">Resend code</button>
+        </div>
+      </div>
+      <div id="authMsg" style="display:none;background:rgba(196,30,58,0.08);border:1px solid rgba(196,30,58,0.3);border-radius:9px;padding:12px;text-align:center;color:var(--red);font-size:0.85rem;margin-bottom:12px"></div>
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="switchTab('login',this)">Sign In</button>
+        <button class="auth-tab" onclick="switchTab('signup',this)">Create Account</button>
+      </div>
+      <div id="loginForm">
+        <div class="form-group"><label>Email</label><input type="email" id="loginEmail" placeholder="you@example.com"></div>
+        <div class="form-group"><label>Password</label><input type="password" id="loginPassword" placeholder="••••••••"></div>
+        <button class="btn-auth" onclick="handleLogin()">Sign In →</button>
+      </div>
+      <div id="signupForm" style="display:none">
+        <div class="form-group"><label>Full Name</label><input type="text" id="signupName" placeholder="Your full name"></div>
+        <div class="form-group"><label>Email</label><input type="email" id="signupEmail" placeholder="you@example.com"></div>
+        <div class="form-group"><label>Password (min 6 chars)</label><input type="password" id="signupPassword" placeholder="Create a password"></div>
+        <button class="btn-auth" onclick="handleSignup()">Create Account & Earn 500 Points →</button>
+      </div>
+      <div style="text-align:center;margin-top:18px;padding-top:16px;border-top:1px solid var(--border)">
+        <p style="color:var(--muted);font-size:0.82rem;margin-bottom:10px">Just browsing?</p>
+        <button onclick="continueAsGuest()" style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:10px 20px;border-radius:9px;cursor:pointer;font-size:0.85rem;width:100%;transition:border-color 0.2s,color 0.2s" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Continue as Guest →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span id="toastIcon">✅</span> <span id="toastMsg">Done!</span></div>
+
+<script>
+// DEFAULT MENU
+const defaultMenu = [
+  {id:1,name:"Butter Chicken Poutine",desc:"Creamy butter chicken gravy, cheese curds, crispy fries.",price:14.99,cat:"fusion",emoji:"🍛",badge:"Bestseller",soldOut:false,cal:820,tags:['spicy'],rating:4.9,reviews:218,sizes:true,spiceLevel:true},
+  {id:2,name:"Tikka Masala Poutine",desc:"Bold tikka masala sauce, cheese curds, golden fries.",price:14.99,cat:"fusion",emoji:"🌶️",badge:"Spicy",soldOut:false,cal:790,tags:['spicy'],rating:4.7,reviews:156,sizes:true,spiceLevel:true},
+  {id:3,name:"Crispy Chicken Poutine",desc:"Crispy fried chicken, brown gravy, cheese curds.",price:13.99,cat:"fusion",emoji:"🍗",badge:"New",soldOut:false,cal:870,tags:[],rating:4.8,reviews:89,sizes:true},
+  {id:4,name:"Bacon Daddy",desc:"Double bacon, caramelized onions, cheddar sauce.",price:15.99,cat:"fusion",emoji:"🥓",badge:"",soldOut:false,cal:950,tags:[],rating:4.6,reviews:112,sizes:true},
+  {id:5,name:"Meat Lover Poutine",desc:"Pulled pork, beef, bacon, three-cheese blend.",price:16.99,cat:"fusion",emoji:"🥩",badge:"Fan Fave",soldOut:false,cal:1020,tags:[],rating:4.8,reviews:203,sizes:true},
+  {id:6,name:"Classic Poutine",desc:"Golden fries, squeaky cheese curds, rich brown gravy.",price:10.99,cat:"classic",emoji:"🍟",badge:"",soldOut:false,cal:680,tags:['gf'],rating:4.7,reviews:341,sizes:true},
+  {id:7,name:"Bacon Poutine",desc:"Classic poutine with crispy smoked bacon.",price:13.99,cat:"classic",emoji:"🍟",badge:"",soldOut:false,cal:780,tags:['gf'],rating:4.6,reviews:98,sizes:true},
+  {id:8,name:"Veggie Poutine",desc:"Roasted vegetables, mushroom gravy, cheese curds.",price:11.99,cat:"classic",emoji:"🥦",badge:"Veggie",soldOut:false,cal:590,tags:['vegetarian','gf'],rating:4.5,reviews:67,sizes:true},
+  {id:9,name:"Classic Fries",desc:"Golden, crispy, perfectly salted.",price:5.99,cat:"sides",emoji:"🍟",badge:"",soldOut:false,cal:380,tags:['vegan','gf'],rating:4.4,reviews:88},
+  {id:10,name:"Cajun Fries",desc:"Seasoned with our signature Cajun spice blend.",price:7.99,cat:"sides",emoji:"🌶️",badge:"",soldOut:false,cal:420,tags:['vegan','gf','spicy'],rating:4.6,reviews:134},
+  {id:11,name:"Onion Rings",desc:"Beer-battered with house-made dipping sauce.",price:6.99,cat:"sides",emoji:"🧅",badge:"",soldOut:false,cal:460,tags:['vegetarian'],rating:4.3,reviews:72},
+  {id:12,name:"Meat Lover Mac & Cheese",desc:"Five-cheese mac with pulled pork and bacon.",price:15.99,cat:"mac",emoji:"🧀",badge:"Bestseller",soldOut:false,cal:1100,tags:[],rating:4.9,reviews:187,sizes:true},
+  {id:13,name:"Classic Mac & Cheese",desc:"Five-cheese blend, golden breadcrumb crust.",price:11.99,cat:"mac",emoji:"🧆",badge:"",soldOut:false,cal:780,tags:['vegetarian'],rating:4.6,reviews:103,sizes:true},
+  {id:14,name:"Mango Lassi",desc:"Sweet, creamy mango lassi.",price:4.99,cat:"drinks",emoji:"🥭",badge:"",soldOut:false,cal:210,tags:['vegetarian','gf'],rating:4.8,reviews:156},
+  {id:15,name:"Pop / Soft Drink",desc:"Coke, Sprite, Orange, or Root Beer.",price:2.99,cat:"drinks",emoji:"🥤",badge:"",soldOut:false,cal:140,tags:['vegan','gf'],rating:4.2,reviews:45},
+  {id:16,name:"Date Night Combo",desc:"2 Fusion Poutines + 2 Soft Drinks. Perfect for sharing!",price:27.99,originalPrice:33.98,cat:"combos",emoji:"❤️",badge:"Save $6",soldOut:false,cal:1900,tags:[],rating:4.8,reviews:92},
+  {id:17,name:"Family Pack",desc:"4 Classic Poutines + 4 Soft Drinks. Feed the whole family!",price:43.99,originalPrice:55.96,cat:"combos",emoji:"👨‍👩‍👧‍👦",badge:"Save $12",soldOut:false,cal:3200,tags:[],rating:4.9,reviews:78},
+  {id:18,name:"Lunch Special",desc:"1 Classic Poutine + Cajun Fries + 1 Soft Drink.",price:16.99,originalPrice:19.97,cat:"combos",emoji:"🌞",badge:"Save $3",soldOut:false,cal:1200,tags:[],rating:4.7,reviews:134},
+  {id:19,name:"Party Bundle",desc:"6 Fusion Poutines + 6 Soft Drinks. Let's get this party started!",price:79.99,originalPrice:107.94,cat:"combos",emoji:"🎉",badge:"Save $28",soldOut:false,cal:5800,tags:[],rating:4.9,reviews:45},
+  {id:20,name:"Student Deal",desc:"1 Classic Poutine + Cajun Fries. Show valid student ID.",price:13.99,originalPrice:16.98,cat:"combos",emoji:"🎓",badge:"Save $3",soldOut:false,cal:1100,tags:[],rating:4.6,reviews:89},
+  {id:21,name:"Late Night Special",desc:"2 Fusion Poutines for the price of 1.5. Available after 10PM only!",price:24.99,originalPrice:29.98,cat:"combos",emoji:"🌙",badge:"Save $5",soldOut:false,cal:1600,tags:[],rating:4.7,reviews:67},
+];
+
+function getMenu() {
+  const saved = localStorage.getItem('ph_menu');
+  if (saved) { try { return JSON.parse(saved); } catch(e){} }
+  return defaultMenu;
+}
+
+function getSoldOut() {
+  try { return JSON.parse(localStorage.getItem('ph_soldout') || '{}'); } catch(e) { return {}; }
+}
+
+let cart = JSON.parse(localStorage.getItem('ph_cart') || '[]');
+let user = JSON.parse(localStorage.getItem('ph_user') || 'null');
+let orders = JSON.parse(localStorage.getItem('ph_orders') || '[]');
+
+// DAILY SPECIAL BANNER
+function loadBanner() {
+  const special = JSON.parse(localStorage.getItem('ph_daily_special') || 'null');
+  const dismissed = sessionStorage.getItem('ph_banner_dismissed');
+  if (special && special.active && !dismissed) {
+    document.getElementById('bannerMsg').textContent = special.title || 'Special deal today!';
+    document.getElementById('bannerDiscount').textContent = special.discount || 'DEAL';
+    document.getElementById('specialBanner').classList.add('show');
+    document.getElementById('mainNav').style.top = '41px';
+    document.getElementById('hero').style.paddingTop = '111px';
+  }
+}
+
+function dismissBanner() {
+  sessionStorage.setItem('ph_banner_dismissed', '1');
+  document.getElementById('specialBanner').classList.remove('show');
+  document.getElementById('mainNav').style.top = '0';
+  document.getElementById('hero').style.paddingTop = '70px';
+}
+
+// MENU RENDER
+function renderMenu(filter = 'all') {
+  const menuItems = getMenu();
+  const soldOut = getSoldOut();
+  const grid = document.getElementById('menuGrid');
+  const items = filter === 'all' ? menuItems : menuItems.filter(i => i.cat === filter);
+  const activeItems = items.filter(i => i.active !== false);
+
+  if (activeItems.length === 0) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">No items in this category</div>';
+    return;
+  }
+
+  const favs = JSON.parse(localStorage.getItem('ph_favs')||'[]');
+  const userReviews = JSON.parse(localStorage.getItem('ph_reviews')||'{}');
+  const tagMap = {spicy:'🌶️ Spicy',vegan:'🌿 Vegan',vegetarian:'🌱 Veggie',gf:'🌾 GF'};
+  grid.innerHTML = activeItems.map(item => {
+    const isSoldOut = soldOut[item.id] || item.soldOut || false;
+    const isCombo = item.cat === 'combos';
+    const isFav = favs.includes(item.id);
+    const badgeClass = item.badge && item.badge.startsWith('Save') ? 'save' : (item.badge||'').toLowerCase().replace(' ','-') || '';
+    const tagHtml = (item.tags||[]).map(t=>`<span class="diet-tag tag-${t}">${tagMap[t]||t}</span>`).join('');
+    const ratingHtml = item.rating ? `<div class="item-rating"><span class="stars">${'★'.repeat(Math.round(item.rating))}${'☆'.repeat(5-Math.round(item.rating))}</span><span class="rating-num">${item.rating}</span><span class="review-count">(${item.reviews||0})</span></div>` : '';
+    return `
+      <div class="menu-card ${isSoldOut?'sold-out-card':''} ${isCombo?'combo-card':''}" id="card-${item.id}">
+        <div class="menu-card-img">
+          ${item.imageUrl ? `<img src="${item.imageUrl}" alt="${item.name}" loading="lazy">` : item.emoji}
+          ${isSoldOut ? '<div class="sold-out-overlay"><span class="sold-out-text">Sold Out</span></div>' : ''}
+          ${item.badge && !isSoldOut ? `<div class="menu-badge ${badgeClass}">${item.badge}</div>` : ''}
+          <button class="fav-btn ${isFav?'active':''}" onclick="toggleFav(${item.id},event)">${isFav?'❤️':'🤍'}</button>
+        </div>
+        <div class="menu-card-body">
+          <div class="menu-card-name">${item.name}</div>
+          ${ratingHtml}
+          ${tagHtml ? `<div class="diet-tags">${tagHtml}</div>` : ''}
+          ${isCombo && item.originalPrice ? `<div class="combo-savings">🔥 You save CA$${(item.originalPrice-item.price).toFixed(2)} on this combo!</div>` : ''}
+          <div class="menu-card-desc">${item.desc}</div>
+          ${item.cal ? `<div class="cal-info">~${item.cal} cal</div>` : ''}
+          <div class="menu-card-footer">
+            <div class="price-wrap">
+              <div class="menu-price">CA$${item.price.toFixed(2)}</div>
+              ${item.originalPrice ? `<div class="original-price">CA$${item.originalPrice.toFixed(2)}</div>` : ''}
+            </div>
+            ${isSoldOut
+              ? '<button class="btn-add soldout" disabled>Sold Out</button>'
+              : `<button class="btn-add" onclick="openCustomize(${item.id})">+ Add</button>`
+            }
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function filterMenu(cat, btn) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderMenu(cat);
+}
+
+function addToCart(id) {
+
+  const item = getMenu().find(i => i.id === id);
+  if (!item) return;
+  const existing = cart.find(i => i.id === id);
+  if (existing) existing.qty++;
+  else cart.push({...item, qty:1});
+  localStorage.setItem('ph_cart', JSON.stringify(cart));
+  updateCartCount();
+  showToast('🍟', `${item.name} added!`);
+  const btn = document.getElementById(`add-${id}`);
+  if (btn) { btn.classList.add('added'); btn.textContent = '✓ Added'; setTimeout(() => { btn.classList.remove('added'); btn.textContent = '+ Add'; }, 1500); }
+}
+
+function updateCartCount() {
+  document.getElementById('cartCount').textContent = cart.reduce((a,i) => a + i.qty, 0);
+}
+
+function openCart() { document.getElementById('cartModal').classList.add('open'); renderCart(); }
+function closeCart() { document.getElementById('cartModal').classList.remove('open'); }
+
+function renderCart() {
+  const body = document.getElementById('cartBody');
+  if (cart.length === 0) {
+    body.innerHTML = '<div class="cart-empty"><div class="icon">🛒</div><p>Your cart is empty</p><p style="font-size:0.78rem;margin-top:5px">Add some delicious poutine!</p></div>';
+    return;
+  }
+  const subtotal = cart.reduce((a,i) => a + i.price * i.qty, 0);
+  const tax = subtotal * 0.13;
+  const total = subtotal + tax;
+  const pts = user ? Math.floor(total * 10) : 0;
+  const discount = parseFloat(localStorage.getItem('ph_promo_discount')||'0');
+  const tipPct = parseFloat(localStorage.getItem('ph_tip')||'0');
+  const tipAmt = subtotal * tipPct;
+  const discountAmt = subtotal * discount;
+  const finalTotal = subtotal - discountAmt + tax + tipAmt;
+  const finalPts = user ? Math.floor(finalTotal * 10) : 0;
+  const orderType = localStorage.getItem('ph_order_type')||'pickup';
+  const schedMode = localStorage.getItem('ph_sched_mode')||'asap';
+  const schedTime = localStorage.getItem('ph_sched_time')||'';
+  const promoCode = localStorage.getItem('ph_promo_code')||'';
+  body.innerHTML = `
+    <div class="cart-items">
+      ${cart.map(item => `
+        <div class="cart-item">
+          <div class="cart-item-icon">${item.emoji}</div>
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.name}${item.note ? `<div style="font-size:0.72rem;color:var(--muted)">${item.note}</div>` : ''}</div>
+            <div class="cart-item-price">CA$${item.price.toFixed(2)} each</div>
+          </div>
+          <div class="cart-item-qty">
+            <button class="qty-btn" onclick="updateQty(${item.id},-1)">−</button>
+            <span class="qty-num">${item.qty}</span>
+            <button class="qty-btn" onclick="updateQty(${item.id},1)">+</button>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+    <div class="checkout-section">
+      <h4>Order Type</h4>
+      <div class="order-type-tabs">
+        <button class="order-type-tab ${orderType==='pickup'?'active':''}" onclick="setOrderType('pickup',this)">🏠 Pickup</button>
+        <button class="order-type-tab ${orderType==='delivery'?'active':''}" onclick="setOrderType('delivery',this)">🚗 Delivery</button>
+      </div>
+      <div id="deliveryAddr" style="display:${orderType==='delivery'?'block':'none'}">
+        <input class="addr-input" id="addrInput" placeholder="Enter delivery address..." value="${localStorage.getItem('ph_address')||''}" oninput="localStorage.setItem('ph_address',this.value)">
+      </div>
+      <div id="pickupInfo" style="display:${orderType==='pickup'?'block':'none'}">
+        <div style="font-size:0.82rem;color:var(--muted)">📍 ${localStorage.getItem('ph_location')==='dundas'?'132 Dundas St E':'179 Parliament St'}</div>
+        <div class="wait-badge">⏱ ~20-25 min wait</div>
+      </div>
+    </div>
+    <div class="checkout-section">
+      <h4>When?</h4>
+      <div class="schedule-toggle">
+        <button class="schedule-btn ${schedMode==='asap'?'active':''}" onclick="setSchedMode('asap',this)">⚡ ASAP</button>
+        <button class="schedule-btn ${schedMode==='schedule'?'active':''}" onclick="setSchedMode('schedule',this)">📅 Schedule</button>
+      </div>
+      <div id="schedPicker" style="display:${schedMode==='schedule'?'block':'none'}">
+        <input type="date" class="addr-input" id="schedDate" style="margin-bottom:8px" min="${new Date().toISOString().split('T')[0]}" value="${localStorage.getItem('ph_sched_date')||''}" onchange="localStorage.setItem('ph_sched_date',this.value);renderTimeSlots()">
+        <div class="time-slots" id="timeSlots"></div>
+      </div>
+    </div>
+    <div class="checkout-section">
+      <h4>Tip</h4>
+      <div class="tip-options">
+        ${[0,0.1,0.15,0.2].map(t=>`<button class="tip-btn ${tipPct===t?'active':''}" onclick="setTip(${t},this)">${t===0?'No tip':Math.round(t*100)+'%'}</button>`).join('')}
+      </div>
+    </div>
+    <div class="checkout-section">
+      <h4>Promo Code</h4>
+      <div class="promo-wrap">
+        <input class="promo-input" id="promoInput" placeholder="Enter code..." value="${promoCode}">
+        <button class="btn-promo" onclick="applyPromo()">Apply</button>
+      </div>
+      <div id="promoMsg" class="promo-ok" style="display:${discount>0?'block':'none'}">${discount>0?'✅ '+Math.round(discount*100)+'% discount applied!':''}</div>
+    </div>
+    ${user && !user.isGuest ? `<div class="cart-points-note">🌟 You'll earn ${finalPts} points on this order!</div>` : ''}
+    <div class="cart-summary">
+      <div class="cart-row"><span class="label">Subtotal</span><span>CA$${subtotal.toFixed(2)}</span></div>
+      ${discountAmt>0?`<div class="cart-row" style="color:#2ecc71"><span class="label">Discount</span><span>-CA$${discountAmt.toFixed(2)}</span></div>`:''}
+      ${tipAmt>0?`<div class="cart-row"><span class="label">Tip</span><span>CA$${tipAmt.toFixed(2)}</span></div>`:''}
+      <div class="cart-row"><span class="label">Tax (13% HST)</span><span>CA$${tax.toFixed(2)}</span></div>
+      <div class="cart-row"><span class="label total">Total</span><span class="total">CA$${finalTotal.toFixed(2)}</span></div>
+    </div>
+    <button class="btn-checkout" onclick="placeOrder(${finalTotal.toFixed(2)},${finalPts})">Place Order →</button>
+  `;
+  if(schedMode==='schedule') renderTimeSlots();
+}
+
+function updateQty(id, delta) {
+  const item = cart.find(i => i.id === id);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) cart = cart.filter(i => i.id !== id);
+  localStorage.setItem('ph_cart', JSON.stringify(cart));
+  updateCartCount();
+  renderCart();
+}
+
+function placeOrder(total, pts) {
+  if (!user) { closeCart(); openLogin(); return; }
+  const orderType = localStorage.getItem('ph_order_type')||'pickup';
+  const schedMode = localStorage.getItem('ph_sched_mode')||'asap';
+  const schedDate = localStorage.getItem('ph_sched_date')||'';
+  const schedTime = localStorage.getItem('ph_sched_time')||'';
+  const address = localStorage.getItem('ph_address')||'';
+  const order = {
+    id:`PH${Date.now()}`,
+    date:new Date().toLocaleDateString('en-CA'),
+    total, points:user.isGuest?0:pts,
+    items:[...cart],
+    type:orderType,
+    scheduled: schedMode==='schedule' ? `${schedDate} ${schedTime}` : 'ASAP',
+    address: orderType==='delivery' ? address : '',
+    status:'confirmed'
+  };
+  orders.unshift(order);
+  localStorage.setItem('ph_orders', JSON.stringify(orders));
+  if (!user.isGuest) {
+    user.points += pts; user.spent = (user.spent||0) + total; user.orders = (user.orders||0) + 1;
+    localStorage.setItem('ph_user', JSON.stringify(user));
+    localStorage.setItem(`ph_account_${user.email}`, JSON.stringify(user));
+  }
+  // clear promo after use
+  localStorage.removeItem('ph_promo_discount'); localStorage.removeItem('ph_promo_code'); localStorage.removeItem('ph_tip');
+  cart = []; localStorage.setItem('ph_cart', JSON.stringify(cart));
+  updateCartCount(); closeCart();
+  updateDashboard();
+  showOrderConfirmation(order);
+}
+function checkout(total,pts){ placeOrder(total,pts); }
+
+function openLogin() { document.getElementById('loginModal').classList.add('open'); }
+function closeLogin() { document.getElementById('loginModal').classList.remove('open'); }
+function switchTab(tab, btn) {
+  document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+  document.getElementById('signupForm').style.display = tab === 'signup' ? 'block' : 'none';
+}
+
+// ── Auth helpers ─────────────────────────────────────────────────
+const firebaseReady = typeof firebase !== 'undefined' && firebase.apps?.length;
+
+function showAuthMsg(msg, type='error') {
+  const el = document.getElementById('authMsg');
+  el.textContent = msg;
+  el.style.display = 'block';
+  if (type === 'success') {
+    el.style.background = 'rgba(39,174,96,0.08)';
+    el.style.borderColor = 'rgba(39,174,96,0.3)';
+    el.style.color = '#27AE60';
+  } else {
+    el.style.background = 'rgba(196,30,58,0.08)';
+    el.style.borderColor = 'rgba(196,30,58,0.3)';
+    el.style.color = 'var(--red)';
+  }
+}
+
+function setUserFromFirebase(fbUser) {
+  const name = fbUser.displayName || fbUser.email.split('@')[0];
+  const saved = JSON.parse(localStorage.getItem(`ph_account_${fbUser.uid}`) || 'null');
+  user = saved || {name, email:fbUser.email, uid:fbUser.uid, points:500, spent:0, orders:0, joined:new Date().toLocaleDateString('en-CA')};
+  user.name = name; user.email = fbUser.email; user.uid = fbUser.uid;
+  localStorage.setItem(`ph_account_${fbUser.uid}`, JSON.stringify(user));
+  localStorage.setItem('ph_user', JSON.stringify(user));
+}
+
+function handleLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pw = document.getElementById('loginPassword').value;
+  if (!email || !pw) { showToast('⚠️','Fill in all fields'); return; }
+  if (firebaseReady) {
+    firebase.auth().signInWithEmailAndPassword(email, pw)
+      .then(cred => {
+        if (!cred.user.emailVerified) {
+          firebase.auth().signOut();
+          showAuthMsg('Please verify your email first. Check your inbox for the verification link.', 'error');
+          return;
+        }
+        setUserFromFirebase(cred.user);
+        closeLogin(); setLoggedIn(); showToast('👋',`Welcome back, ${user.name.split(' ')[0]}!`);
+      })
+      .catch(e => showToast('❌', e.code === 'auth/wrong-password' || e.code === 'auth/user-not-found' ? 'Invalid email or password' : e.message));
+  } else {
+    const saved = JSON.parse(localStorage.getItem(`ph_account_${email}`) || 'null');
+    if (!saved || saved.password !== pw) { showToast('❌','Invalid email or password'); return; }
+    user = saved; localStorage.setItem('ph_user', JSON.stringify(user));
+    closeLogin(); setLoggedIn(); showToast('👋',`Welcome back, ${user.name.split(' ')[0]}!`);
+  }
+}
+
+function handleSignup() {
+  const name = document.getElementById('signupName').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const pw = document.getElementById('signupPassword').value;
+  if (!name || !email || !pw) { showToast('⚠️','Fill in all fields'); return; }
+  if (pw.length < 6) { showToast('⚠️','Password must be 6+ chars'); return; }
+  if (firebaseReady) {
+    firebase.auth().createUserWithEmailAndPassword(email, pw)
+      .then(cred => {
+        cred.user.updateProfile({displayName: name});
+        cred.user.sendEmailVerification();
+        firebase.auth().signOut();
+        showAuthMsg('Account created! Check your email and click the verification link before signing in.', 'success');
+      })
+      .catch(e => showToast('❌', e.code === 'auth/email-already-in-use' ? 'Email already registered — try signing in.' : e.message));
+  } else {
+    user = {name,email,password:pw,points:500,spent:0,orders:0,joined:new Date().toLocaleDateString('en-CA')};
+    localStorage.setItem(`ph_account_${email}`, JSON.stringify(user));
+    localStorage.setItem('ph_user', JSON.stringify(user));
+    closeLogin(); setLoggedIn(); showToast('🎉','Welcome! +500 bonus points!');
+  }
+}
+
+function signInGoogle() {
+  if (!firebaseReady) { showToast('⚠️','Firebase not set up yet'); return; }
+  const provider = new firebase.auth.GoogleAuthProvider();
+  firebase.auth().signInWithPopup(provider)
+    .then(cred => { setUserFromFirebase(cred.user); closeLogin(); setLoggedIn(); showToast('👋',`Welcome, ${user.name.split(' ')[0]}!`); })
+    .catch(e => showToast('❌', e.message));
+}
+
+function signInApple() {
+  if (!firebaseReady) { showToast('⚠️','Firebase not set up yet'); return; }
+  const provider = new firebase.auth.OAuthProvider('apple.com');
+  firebase.auth().signInWithPopup(provider)
+    .then(cred => { setUserFromFirebase(cred.user); closeLogin(); setLoggedIn(); showToast('👋',`Welcome!`); })
+    .catch(e => showToast('❌', e.message));
+}
+
+function signInMicrosoft() {
+  if (!firebaseReady) { showToast('⚠️','Firebase not set up yet'); return; }
+  const provider = new firebase.auth.OAuthProvider('microsoft.com');
+  firebase.auth().signInWithPopup(provider)
+    .then(cred => { setUserFromFirebase(cred.user); closeLogin(); setLoggedIn(); showToast('👋',`Welcome!`); })
+    .catch(e => showToast('❌', e.message));
+}
+
+// ── Phone / SMS Auth ─────────────────────────────────────────────
+let phoneConfirmationResult = null;
+let recaptchaWidgetId = null;
+
+function showPhoneStep() {
+  document.getElementById('socialBtns').style.display = 'none';
+  document.getElementById('authMsg').style.display = 'none';
+  document.querySelectorAll('.auth-tab, #loginForm, #signupForm').forEach(el => el.style.display = 'none');
+  document.getElementById('phoneStep').style.display = 'block';
+  document.getElementById('phoneInputStep').style.display = 'block';
+  document.getElementById('phoneOtpStep').style.display = 'none';
+}
+
+function hidePhoneStep() {
+  document.getElementById('socialBtns').style.display = 'block';
+  document.querySelectorAll('.auth-tab').forEach(el => el.style.display = '');
+  document.getElementById('loginForm').style.display = 'block';
+  document.getElementById('signupForm').style.display = 'none';
+  document.getElementById('phoneStep').style.display = 'none';
+}
+
+function sendSMS() {
+  if (!firebaseReady) { showToast('⚠️', 'Firebase not set up yet'); return; }
+  const phone = document.getElementById('phoneInput').value.trim();
+  if (!phone) { showToast('⚠️', 'Enter your phone number'); return; }
+
+  // Set up invisible reCAPTCHA once
+  if (!window.recaptchaVerifier) {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+      size: 'invisible',
+      callback: () => {}
+    });
+  }
+
+  firebase.auth().signInWithPhoneNumber(phone, window.recaptchaVerifier)
+    .then(confirmResult => {
+      phoneConfirmationResult = confirmResult;
+      document.getElementById('phoneSent').textContent = phone;
+      document.getElementById('phoneInputStep').style.display = 'none';
+      document.getElementById('phoneOtpStep').style.display = 'block';
+      showToast('📱', 'Code sent! Check your messages.');
+    })
+    .catch(err => {
+      window.recaptchaVerifier.reset?.();
+      showToast('❌', err.message);
+    });
+}
+
+function verifyOTP() {
+  if (!phoneConfirmationResult) { showToast('⚠️', 'Request a code first'); return; }
+  const code = document.getElementById('otpInput').value.trim();
+  if (!code) { showToast('⚠️', 'Enter the verification code'); return; }
+
+  phoneConfirmationResult.confirm(code)
+    .then(cred => {
+      setUserFromFirebase(cred.user);
+      closeLogin();
+      hidePhoneStep();
+      setLoggedIn();
+      showToast('👋', `Welcome, ${user.name.split(' ')[0]}!`);
+    })
+    .catch(() => showToast('❌', 'Incorrect code — try again'));
+}
+
+function handleLogout() {
+  if (firebaseReady) firebase.auth().signOut();
+  user = null;
+  localStorage.removeItem('ph_user');
+  document.getElementById('loginBtn').style.display = '';
+  document.getElementById('loginBtn').textContent = 'Sign In';
+  document.getElementById('loginBtn').style.background = '';
+  document.getElementById('loginBtn').style.color = '';
+  document.getElementById('userBtn').style.display = 'none';
+  document.getElementById('logoutBtn').style.display = 'none';
+  showToast('👋','Signed out. See you soon!');
+}
+
+function setLoggedIn() {
+  document.getElementById('loginBtn').style.display = 'none';
+  document.getElementById('userBtn').style.display = 'flex';
+  document.getElementById('logoutBtn').style.display = '';
+  document.getElementById('userNameNav').textContent = user.name.split(' ')[0];
+  updateDashboard();
+}
+
+function continueAsGuest() {
+  user = {name:'Guest', isGuest:true, points:0};
+  closeLogin();
+  const btn = document.getElementById('loginBtn');
+  btn.textContent = 'Guest';
+  btn.style.background = 'var(--card2)';
+  btn.style.color = 'var(--muted)';
+  showToast('👤','Ordering as guest — sign up to earn points!');
+}
+
+
+// ── LOCATION ──────────────────────────────────────────────────────
+function setLocation(val) {
+  localStorage.setItem('ph_location', val);
+  renderCart();
+}
+
+// ── FAVOURITES ────────────────────────────────────────────────────
+function toggleFav(id, e) {
+  e.stopPropagation();
+  let favs = JSON.parse(localStorage.getItem('ph_favs')||'[]');
+  if (favs.includes(id)) { favs = favs.filter(f=>f!==id); showToast('💔','Removed from favourites'); }
+  else { favs.push(id); showToast('❤️','Saved to favourites!'); }
+  localStorage.setItem('ph_favs', JSON.stringify(favs));
+  renderMenu(); updateDashboard();
+}
+
+// ── CUSTOMIZE MODAL ───────────────────────────────────────────────
+let customItem = null, chosenSize = 'regular', chosenSpice = 'mild';
+function openCustomize(id) {
+  const menu = getMenu();
+  customItem = menu.find(i=>i.id===id);
+  if (!customItem) return;
+  chosenSize = 'regular'; chosenSpice = 'mild';
+  document.getElementById('customTitle').textContent = customItem.emoji + ' ' + customItem.name;
+  const hasOpts = customItem.sizes || customItem.spiceLevel;
+  document.getElementById('customBody').innerHTML = `
+    ${customItem.sizes ? `
+    <div class="custom-opt-group">
+      <h4>Size</h4>
+      <div class="opt-btns">
+        <button class="opt-btn active" onclick="pickOpt(this,'size','regular')">Regular — CA$${customItem.price.toFixed(2)}</button>
+        <button class="opt-btn" onclick="pickOpt(this,'size','large')">Large (+CA$3.00)</button>
+      </div>
+    </div>` : ''}
+    ${customItem.spiceLevel ? `
+    <div class="custom-opt-group">
+      <h4>Spice Level</h4>
+      <div class="opt-btns">
+        <button class="opt-btn active" onclick="pickOpt(this,'spice','mild')">🟡 Mild</button>
+        <button class="opt-btn" onclick="pickOpt(this,'spice','medium')">🟠 Medium</button>
+        <button class="opt-btn" onclick="pickOpt(this,'spice','hot')">🔴 Hot</button>
+        <button class="opt-btn" onclick="pickOpt(this,'spice','extra')">💀 Extra Hot</button>
+      </div>
+    </div>` : ''}
+    <div class="custom-opt-group">
+      <h4>Special Instructions</h4>
+      <textarea class="special-input" id="specialNote" rows="2" placeholder="E.g. no onions, extra sauce, allergy info..."></textarea>
+    </div>
+    <button class="btn-checkout" style="margin-top:10px" onclick="addCustomized()">Add to Cart →</button>
+  `;
+  document.getElementById('customModal').classList.add('open');
+}
+function pickOpt(btn, type, val) {
+  btn.closest('.opt-btns').querySelectorAll('.opt-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if (type==='size') chosenSize=val;
+  if (type==='spice') chosenSpice=val;
+}
+function addCustomized() {
+  if (!customItem) return;
+  const note = document.getElementById('specialNote').value;
+  const sizeExtra = chosenSize==='large' ? 3 : 0;
+  const finalPrice = customItem.price + sizeExtra;
+  const noteStr = [
+    customItem.sizes ? chosenSize.charAt(0).toUpperCase()+chosenSize.slice(1) : '',
+    customItem.spiceLevel ? chosenSpice.charAt(0).toUpperCase()+chosenSpice.slice(1) : '',
+    note
+  ].filter(Boolean).join(' · ');
+  const existing = cart.find(i=>i.id===customItem.id && i.note===noteStr);
+  if (existing) { existing.qty++; }
+  else { cart.push({id:customItem.id,name:customItem.name,emoji:customItem.emoji,price:finalPrice,qty:1,note:noteStr}); }
+  localStorage.setItem('ph_cart', JSON.stringify(cart));
+  updateCartCount(); closeCustomize();
+  showToast('🛒', customItem.name + ' added!');
+}
+function closeCustomize() { document.getElementById('customModal').classList.remove('open'); }
+
+// ── ORDER TYPE / SCHEDULE / TIP ───────────────────────────────────
+function setOrderType(type, btn) {
+  localStorage.setItem('ph_order_type', type);
+  document.querySelectorAll('.order-type-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('deliveryAddr').style.display = type==='delivery'?'block':'none';
+  document.getElementById('pickupInfo').style.display = type==='pickup'?'block':'none';
+}
+function setSchedMode(mode, btn) {
+  localStorage.setItem('ph_sched_mode', mode);
+  document.querySelectorAll('.schedule-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('schedPicker').style.display = mode==='schedule'?'block':'none';
+  if (mode==='schedule') renderTimeSlots();
+}
+function renderTimeSlots() {
+  const slots = [];
+  for (let h=11;h<23;h++) { slots.push(`${h%12||12}:00 ${h<12?'AM':'PM'}`); slots.push(`${h%12||12}:30 ${h<12?'AM':'PM'}`); }
+  const saved = localStorage.getItem('ph_sched_time')||'';
+  document.getElementById('timeSlots').innerHTML = slots.map(s=>`<button class="slot-btn ${saved===s?'active':''}" onclick="pickSlot(this,'${s}')">${s}</button>`).join('');
+}
+function pickSlot(btn, slot) {
+  document.querySelectorAll('.slot-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  localStorage.setItem('ph_sched_time', slot);
+}
+function setTip(pct, btn) {
+  localStorage.setItem('ph_tip', pct);
+  document.querySelectorAll('.tip-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCart();
+}
+
+// ── PROMO CODES ───────────────────────────────────────────────────
+const PROMO_CODES = {POUTINE10:{discount:0.10,label:'10% off'},WELCOME20:{discount:0.20,label:'20% off'},STUDENT15:{discount:0.15,label:'15% student discount'},FIRSTORDER:{discount:0.15,label:'15% first order'}};
+function applyPromo() {
+  const code = document.getElementById('promoInput').value.trim().toUpperCase();
+  const promo = PROMO_CODES[code];
+  if (!promo) { showToast('❌','Invalid promo code'); return; }
+  localStorage.setItem('ph_promo_discount', promo.discount);
+  localStorage.setItem('ph_promo_code', code);
+  document.getElementById('promoMsg').style.display='block';
+  document.getElementById('promoMsg').textContent = '✅ ' + promo.label + ' applied!';
+  renderCart();
+}
+
+// ── ORDER CONFIRMATION ────────────────────────────────────────────
+function showOrderConfirmation(order) {
+  document.getElementById('confirmOverlay').classList.add('open');
+  document.getElementById('confirmId').textContent = 'Order #' + order.id;
+  const isScheduled = order.scheduled && order.scheduled !== 'ASAP';
+  document.getElementById('etaBadge').textContent = isScheduled
+    ? '📅 Scheduled for ' + order.scheduled
+    : (order.type==='delivery' ? '🚗 Delivery in ~45-60 min' : '⏱ Ready in ~20-25 min');
+  document.getElementById('confirmOrderType').textContent = order.type==='delivery'
+    ? '🚗 Delivery to: ' + (order.address||'your address')
+    : '🏠 Pickup from: ' + (localStorage.getItem('ph_location')==='dundas'?'132 Dundas St E':'179 Parliament St');
+  document.getElementById('confirmItems').innerHTML = order.items.map(i=>`<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:0.85rem"><span>${i.emoji} ${i.name} ×${i.qty}</span><span>CA$${(i.price*i.qty).toFixed(2)}</span></div>`).join('') + `<div style="display:flex;justify-content:space-between;padding:8px 0;font-weight:800;border-top:1px solid var(--border);margin-top:6px"><span>Total</span><span>CA$${order.total.toFixed(2)}</span></div>`;
+  if (!isScheduled) simulateTracker();
+  setTimeout(()=>{ if(user && !user.isGuest) openReviewModal(order); }, 12000);
+}
+function closeConfirmation() { document.getElementById('confirmOverlay').classList.remove('open'); }
+let trackerTimer = null;
+function simulateTracker() {
+  const steps = [document.getElementById('ts1'),document.getElementById('ts2'),document.getElementById('ts3')];
+  const fill = document.getElementById('trackerFill');
+  const widths = ['33%','66%','100%'];
+  let i=0;
+  if(trackerTimer) clearInterval(trackerTimer);
+  trackerTimer = setInterval(()=>{
+    if(i>=steps.length){clearInterval(trackerTimer);return;}
+    steps[i].classList.remove('active'); steps[i].classList.add('done');
+    fill.style.width = widths[i];
+    i++;
+    if(i<steps.length) steps[i].classList.add('active');
+  }, 4000);
+  steps[0].classList.add('active');
+}
+
+// ── REORDER ───────────────────────────────────────────────────────
+function reorder(orderId) {
+  const o = orders.find(o=>o.id===orderId);
+  if(!o) return;
+  o.items.forEach(item=>{
+    const ex = cart.find(c=>c.id===item.id);
+    if(ex) ex.qty += item.qty;
+    else cart.push({...item});
+  });
+  localStorage.setItem('ph_cart', JSON.stringify(cart));
+  updateCartCount();
+  showToast('🛒','Items added to cart!');
+  openCart();
+}
+
+// ── REVIEWS ───────────────────────────────────────────────────────
+let reviewRating = 0;
+function openReviewModal(order) {
+  if (!order || !order.items || order.items.length===0) return;
+  const item = order.items[0];
+  document.getElementById('reviewBody').innerHTML = `
+    <p style="text-align:center;color:var(--muted);font-size:0.88rem">How was your <strong>${item.name}</strong>?</p>
+    <div class="star-picker" id="starPicker">
+      ${[1,2,3,4,5].map(n=>`<span onclick="setReviewRating(${n})" data-r="${n}">☆</span>`).join('')}
+    </div>
+    <textarea class="special-input" id="reviewNote" rows="2" placeholder="Leave a comment (optional)..."></textarea>
+    <button class="btn-checkout" style="margin-top:12px" onclick="submitReview(${item.id})">Submit Review</button>
+  `;
+  document.getElementById('reviewModal').classList.add('open');
+}
+function setReviewRating(n) {
+  reviewRating = n;
+  document.querySelectorAll('#starPicker span').forEach((s,i)=>{ s.textContent = i<n?'★':'☆'; s.classList.toggle('lit',i<n); });
+}
+function submitReview(itemId) {
+  if(!reviewRating) { showToast('⚠️','Pick a rating!'); return; }
+  const reviews = JSON.parse(localStorage.getItem('ph_reviews')||'{}');
+  if(!reviews[itemId]) reviews[itemId]=[];
+  reviews[itemId].push({rating:reviewRating,comment:document.getElementById('reviewNote').value,date:new Date().toLocaleDateString('en-CA'),user:user?user.name:'Guest'});
+  localStorage.setItem('ph_reviews', JSON.stringify(reviews));
+  document.getElementById('reviewModal').classList.remove('open');
+  showToast('⭐','Thanks for your review!');
+  renderMenu();
+}
+
+// ── PUSH NOTIFICATIONS ────────────────────────────────────────────
+function requestPush() {
+  if(!('Notification' in window)){ showToast('⚠️','Not supported in this browser'); return; }
+  Notification.requestPermission().then(p=>{
+    document.getElementById('pushBanner').classList.add('hidden');
+    if(p==='granted'){ showToast('🔔','Notifications enabled!'); localStorage.setItem('ph_push','granted'); }
+    else { showToast('ℹ️','Notifications declined'); }
+  });
+}
+
+// ── REFERRAL CODE ─────────────────────────────────────────────────
+function generateReferral(name) {
+  const base = name.split(' ')[0].toUpperCase().replace(/[^A-Z]/g,'').slice(0,5);
+  return base + Math.floor(1000+Math.random()*9000);
+}
+function copyReferral() {
+  const code = document.getElementById('refCodeDisplay').textContent;
+  navigator.clipboard.writeText('https://poutinehub.netlify.app/?ref='+code).then(()=>showToast('📋','Referral link copied!'));
+}
+
+function openDashboard() {
+  document.getElementById('dashboard').classList.add('visible');
+  document.getElementById('dashboard').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function updateDashboard() {
+  if (!user) return;
+  document.getElementById('dashName').textContent = user.name.split(' ')[0];
+  document.getElementById('dashFullName').textContent = user.name;
+  document.getElementById('dashAvatar').textContent = user.name[0].toUpperCase();
+  document.getElementById('dashPoints').textContent = user.points.toLocaleString();
+  document.getElementById('dashOrders').textContent = user.orders || 0;
+  document.getElementById('dashSpent').textContent = `$${(user.spent||0).toFixed(2)}`;
+  document.getElementById('dashRewards').textContent = `$${Math.floor(user.points/1000)*5}`;
+  document.getElementById('dashValue').textContent = `$${Math.floor(user.points/1000)*5}`;
+  document.getElementById('progressFill').style.width = `${Math.min((user.points/5000)*100,100)}%`;
+  document.getElementById('progressLabel').textContent = `${user.points.toLocaleString()} / 5,000 pts to Silver`;
+  const storedOrders = JSON.parse(localStorage.getItem('ph_orders') || '[]');
+  document.getElementById('orderHistory').innerHTML = storedOrders.length === 0
+    ? '<p style="color:var(--muted);font-size:0.88rem">No orders yet!</p>'
+    : storedOrders.slice(0,5).map(o => `
+        <div class="order-item">
+          <div><div class="order-id">${o.id}</div><div class="order-date">${o.date}</div></div>
+          <div class="order-total">CA$${parseFloat(o.total).toFixed(2)}</div>
+          <div class="order-status">Delivered ✓</div>
+        </div>`).join('');
+}
+
+// GOOGLE SHEETS SYNC
+async function syncFromSheets(url) {
+  try {
+    const res = await fetch(url);
+    const csv = await res.text();
+    const lines = csv.split('\n').filter(l => l.trim());
+    const headers = lines[0].split(',').map(h => h.trim().replace(/"/g,'').toLowerCase());
+    const items = lines.slice(1).map((line, idx) => {
+      const vals = line.match(/(".*?"|[^,]+)/g) || [];
+      const obj = {};
+      headers.forEach((h, i) => { obj[h] = (vals[i] || '').replace(/"/g,'').trim(); });
+      return {
+        id: idx + 100,
+        name: obj.name || '',
+        desc: obj.description || obj.desc || '',
+        price: parseFloat(obj.price) || 0,
+        originalPrice: obj.originalprice ? parseFloat(obj.originalprice) : null,
+        cat: obj.category || obj.cat || 'fusion',
+        emoji: obj.emoji || '🍟',
+        badge: obj.badge || '',
+        soldOut: obj.soldout === 'TRUE' || obj.soldout === 'true',
+        active: obj.active !== 'FALSE' && obj.active !== 'false',
+      };
+    }).filter(i => i.name);
+    if (items.length > 0) {
+      localStorage.setItem('ph_menu', JSON.stringify(items));
+      document.getElementById('sheetsNotice').style.display = 'block';
+      renderMenu('all');
+      showToast('✅', `${items.length} items loaded from Google Sheets!`);
+    }
+  } catch(e) {
+    showToast('❌', 'Could not load from Google Sheets. Check URL.');
+  }
+}
+
+// Check if sheets URL is saved
+const sheetsUrl = localStorage.getItem('ph_sheets_url');
+if (sheetsUrl) syncFromSheets(sheetsUrl);
+
+function showToast(icon, msg) {
+  const t = document.getElementById('toast');
+  document.getElementById('toastIcon').textContent = icon;
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// INIT
+renderMenu();
+updateCartCount();
+loadBanner();
+if (firebaseReady) {
+  firebase.auth().onAuthStateChanged(fbUser => {
+    if (fbUser && fbUser.emailVerified) {
+      setUserFromFirebase(fbUser); setLoggedIn();
+    } else if (fbUser && !fbUser.emailVerified) {
+      firebase.auth().signOut();
+    }
+  });
+} else if (user) {
+  setLoggedIn();
+}
+// Load logo if set
+(function(){
+  const logoUrl = localStorage.getItem('ph_logo_url');
+  const el = document.getElementById('navLogoIcon');
+  if(logoUrl && el) el.innerHTML = `<img src="${logoUrl}" class="logo-img" alt="Logo">`;
+})();
+// Load Google Review link if set
+(function(){
+  const reviewUrl = localStorage.getItem('ph_google_review_url');
+  const btn = document.getElementById('googleReviewBtn');
+  if(btn && reviewUrl) btn.href = reviewUrl;
+})();
+window.addEventListener('storage', e => { if(e.key==='ph_logo_url'){ const el=document.getElementById('navLogoIcon'); if(el) el.innerHTML = e.newValue ? `<img src="${e.newValue}" class="logo-img" alt="Logo">` : '🍟'; }});
+// set location selector
+const savedLoc = localStorage.getItem('ph_location')||'parliament';
+const locSel = document.getElementById('locationSel');
+if(locSel) locSel.value = savedLoc;
+// hide push banner if already granted
+if(localStorage.getItem('ph_push')==='granted' || !('Notification' in window)) {
+  const pb = document.getElementById('pushBanner');
+  if(pb) pb.classList.add('hidden');
+}
+
+// Scroll progress bar + nav shadow
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  const bar = document.getElementById('scrollProgress');
+  if (bar) bar.style.width = Math.min(pct, 100) + '%';
+  document.getElementById('mainNav')?.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
+// Listen for admin updates
+window.addEventListener('storage', (e) => {
+  if (e.key === 'ph_menu' || e.key === 'ph_soldout') renderMenu();
+  if (e.key === 'ph_daily_special') loadBanner();
+});
+
+// ── Loyalty progress bar animation ───────────────────────────────
+function updateLoyaltyBar() {
+  const pts = user && !user.isGuest ? (user.points || 0) : 0;
+  const el = document.getElementById('lpPoints');
+  const bar = document.getElementById('lpBarFill');
+  const tierName = document.getElementById('lpTierName');
+  const barLabel = document.getElementById('lpBarLabel');
+  const barNext = document.getElementById('lpBarNext');
+  if (!el) return;
+
+  // Animate counter
+  let start = 0;
+  const step = pts / 40;
+  const counter = setInterval(() => {
+    start = Math.min(start + step, pts);
+    el.textContent = Math.floor(start).toLocaleString();
+    if (start >= pts) clearInterval(counter);
+  }, 30);
+
+  // Tier + bar
+  let pct, tier, next;
+  if (pts < 5000)      { pct = (pts/5000)*100;       tier='🥉 Bronze Member'; next=`${(5000-pts).toLocaleString()} pts to Silver 🥈`; }
+  else if (pts < 15000){ pct = ((pts-5000)/10000)*100; tier='🥈 Silver Member'; next=`${(15000-pts).toLocaleString()} pts to Gold 🥇`; }
+  else                 { pct = 100;                   tier='🥇 Gold Member';   next='Maximum tier reached!'; }
+
+  setTimeout(() => { if(bar) bar.style.width = Math.min(pct,100)+'%'; }, 300);
+  if(tierName) tierName.textContent = tier;
+  if(barLabel) barLabel.textContent = pts.toLocaleString() + ' pts';
+  if(barNext)  barNext.textContent  = next;
+
+  // Milestones
+  [1000,2500,5000,10000].forEach((threshold, i) => {
+    const ms = document.getElementById('ms'+(i+1));
+    if (ms) ms.classList.toggle('unlocked', pts >= threshold);
+  });
+}
+
+// Confetti burst for milestone moments
+function launchConfetti() {
+  const colors = ['#F5A623','#C41E3A','#fff','#2ecc71','#3498db'];
+  for (let i = 0; i < 28; i++) {
+    const c = document.createElement('div');
+    c.className = 'confetti-piece';
+    c.style.cssText = `left:${Math.random()*100}vw;top:${Math.random()*30+10}vh;background:${colors[Math.floor(Math.random()*colors.length)]};animation-delay:${Math.random()*0.4}s;animation-duration:${0.6+Math.random()*0.6}s`;
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 1200);
+  }
+}
+
+// Run loyalty bar when section scrolls into view
+const loyaltyObserver = new IntersectionObserver(entries => {
+  if (entries[0].isIntersecting) { updateLoyaltyBar(); loyaltyObserver.disconnect(); }
+}, { threshold: 0.3 });
+const lc = document.getElementById('loyaltyCard');
+if (lc) loyaltyObserver.observe(lc);
+</script>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 60 });
+</script>
+</body>
+</html>
