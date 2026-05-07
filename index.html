@@ -1013,7 +1013,7 @@ function renderMenu(filter = 'all') {
             </div>
             ${isSoldOut
               ? '<button class="btn-add soldout" disabled>Sold Out</button>'
-              : `<button class="btn-add" onclick="openCustomize(${item.id})">+ Add</button>`
+              : `<button class="btn-add" onclick="openCustomize(${item.id})">+</button>`
             }
           </div>
         </div>
@@ -1353,9 +1353,11 @@ function verifyOTP() {
 }
 
 function handleLogout() {
-  if (firebaseReady) firebase.auth().signOut();
+  if (firebaseReady) firebase.auth().signOut().catch(()=>{});
   user = null;
   localStorage.removeItem('ph_user');
+  const authMsg = document.getElementById('authMsg');
+  if (authMsg) authMsg.style.display = 'none';
   document.getElementById('loginBtn').style.display = '';
   document.getElementById('loginBtn').textContent = 'Sign In';
   document.getElementById('loginBtn').style.background = '';
