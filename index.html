@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Poutine Hub ‚Äî Toronto's Finest Poutine</title>
+<title>Poutine Hub — Toronto's Finest Poutine</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -28,10 +28,10 @@
   h1,h2,h3,.hero-title,.section-title{font-family:'Playfair Display',Georgia,serif}
   ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--red);border-radius:3px}
 
-  /* ‚îÄ‚îÄ Scroll progress bar ‚îÄ‚îÄ */
+  /* ── Scroll progress bar ── */
   #scrollProgress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--red),var(--gold));z-index:99999;width:0%;transition:width 0.08s linear;pointer-events:none}
 
-  /* ‚îÄ‚îÄ Grain texture overlay ‚îÄ‚îÄ */
+  /* ── Grain texture overlay ── */
   body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9998;opacity:0.035;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");background-size:180px}
 
   /* DAILY SPECIAL BANNER */
@@ -44,14 +44,14 @@
   .banner-close{position:absolute;right:20px;top:50%;transform:translateY(-50%);background:none;border:none;color:white;cursor:pointer;font-size:1.1rem;opacity:0.7}
   .banner-close:hover{opacity:1}
 
-  /* ‚îÄ‚îÄ MARQUEE STRIP ‚îÄ‚îÄ */
+  /* ── MARQUEE STRIP ── */
   .marquee-strip{background:var(--red);padding:11px 0;overflow:hidden;position:relative}
   .marquee-inner{display:flex;gap:0;animation:marqueeRun 28s linear infinite;width:max-content}
   .marquee-inner span{color:#fff;font-size:0.78rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:0 22px;white-space:nowrap}
   .marquee-inner .dot{color:var(--gold);padding:0 4px}
   @keyframes marqueeRun{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-  /* ‚îÄ‚îÄ NAV ‚îÄ‚îÄ */
+  /* ── NAV ── */
   nav{position:fixed;width:100%;z-index:1000;background:rgba(250,250,247,0.96);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:72px;transition:box-shadow 0.3s}
   nav.scrolled{box-shadow:0 2px 24px rgba(28,16,8,0.08)}
   .nav-logo{display:flex;align-items:center;gap:11px;text-decoration:none}
@@ -71,7 +71,7 @@
   .btn-user{background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:9px 16px;border-radius:50px;cursor:pointer;font-size:0.82rem;font-weight:600;display:none;align-items:center;gap:6px;transition:all 0.2s}
   .btn-user:hover{border-color:var(--red);color:var(--red)}
 
-  /* ‚îÄ‚îÄ HERO ‚îÄ‚îÄ */
+  /* ── HERO ── */
   #hero{min-height:100vh;display:flex;align-items:center;background:var(--bg);position:relative;overflow:hidden;padding:72px 5% 0}
   .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 75% 40%,rgba(245,166,35,0.12) 0%,transparent 55%),radial-gradient(ellipse at 15% 70%,rgba(196,30,58,0.07) 0%,transparent 50%)}
   /* Large decorative letter behind hero */
@@ -104,14 +104,14 @@
   .float{animation:float 4s ease-in-out infinite;display:block;position:relative;z-index:1}
   @keyframes float{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-18px) rotate(2deg)}}
 
-  /* ‚îÄ‚îÄ SECTIONS ‚îÄ‚îÄ */
+  /* ── SECTIONS ── */
   section{padding:100px 5%}
   .section-label{color:var(--red);font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:3px;margin-bottom:12px;display:flex;align-items:center;gap:10px}
   .section-label::before{content:'';width:24px;height:2px;background:var(--red)}
   .section-title{font-size:clamp(2rem,4vw,3.2rem);font-weight:900;margin-bottom:16px;line-height:1.1;color:var(--text);letter-spacing:-0.5px}
   .section-sub{color:var(--muted);font-size:1rem;max-width:520px;line-height:1.7}
 
-  /* ‚îÄ‚îÄ ABOUT ‚îÄ‚îÄ */
+  /* ── ABOUT ── */
   #about{background:var(--bg2)}
   .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;margin-top:60px}
   .about-text p{color:var(--muted);line-height:1.85;margin-bottom:16px;font-size:0.95rem}
@@ -125,7 +125,7 @@
   .about-image::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 60% 40%,rgba(245,166,35,0.15) 0%,transparent 65%)}
   .about-image::after{content:'EST. 2024';position:absolute;bottom:20px;right:22px;font-family:'Playfair Display',serif;font-size:0.7rem;font-weight:700;color:var(--red);letter-spacing:3px;opacity:0.5}
 
-  /* ‚îÄ‚îÄ MENU ‚îÄ‚îÄ */
+  /* ── MENU ── */
   #menu{background:var(--bg)}
   .menu-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px}
   .tab{padding:9px 20px;border-radius:50px;border:1.5px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;font-size:0.82rem;font-weight:600;transition:all 0.22s;font-family:'DM Sans',sans-serif}
@@ -135,7 +135,7 @@
   .tab.combo-tab.active{background:var(--red);border-color:var(--red);color:#fff}
   .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
 
-  /* ‚îÄ‚îÄ MENU CARD (Five Guys bold style) ‚îÄ‚îÄ */
+  /* ── MENU CARD (Five Guys bold style) ── */
   .menu-card{background:var(--card);border:1.5px solid var(--border);border-radius:20px;overflow:hidden;transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);position:relative;box-shadow:0 2px 8px rgba(28,16,8,0.04)}
   .menu-card:hover{transform:translateY(-8px);border-color:var(--red);box-shadow:0 20px 40px rgba(196,30,58,0.12)}
   .menu-card.sold-out-card{opacity:0.65}
@@ -163,7 +163,7 @@
   .btn-add.soldout{background:var(--bg2);color:var(--muted);border:1px solid var(--border);cursor:not-allowed;font-size:0.7rem}
   .combo-savings{background:rgba(245,166,35,0.1);border:1px solid rgba(245,166,35,0.3);border-radius:6px;padding:5px 10px;font-size:0.75rem;color:var(--gold-dark);font-weight:700;margin-bottom:10px}
 
-  /* ‚îÄ‚îÄ POINTS ‚îÄ‚îÄ */
+  /* ── POINTS ── */
   #points{background:var(--bg2)}
   .points-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:22px;margin-top:48px}
   .points-card{background:var(--card);border:1.5px solid var(--border);border-radius:20px;padding:28px;text-align:center;transition:all 0.3s}
@@ -176,14 +176,14 @@
   .points-benefits{list-style:none;text-align:left}
   .points-benefits li{font-size:0.83rem;color:var(--text2);padding:5px 0;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border)}
   .points-benefits li:last-child{border:none}
-  .points-benefits li::before{content:'‚úì';color:var(--red);font-weight:800;font-size:0.9rem}
+  .points-benefits li::before{content:'✓';color:var(--red);font-weight:800;font-size:0.9rem}
   .points-cta{margin-top:48px;background:var(--red);border-radius:24px;padding:40px;display:flex;justify-content:space-between;align-items:center}
   .points-cta h3{font-size:1.5rem;font-weight:900;margin-bottom:6px;color:#fff;font-family:'Playfair Display',serif}
   .points-cta p{color:rgba(255,255,255,0.75);font-size:0.9rem}
   .points-cta .btn-primary{background:#fff;color:var(--red)}
   .points-cta .btn-primary:hover{background:var(--bg2);box-shadow:0 8px 24px rgba(0,0,0,0.15)}
 
-  /* ‚îÄ‚îÄ LOCATIONS ‚îÄ‚îÄ */
+  /* ── LOCATIONS ── */
   #locations{background:var(--bg)}
   .locations-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:52px}
   .location-card{background:var(--card);border:1.5px solid var(--border);border-radius:24px;overflow:hidden;transition:all 0.3s;box-shadow:0 2px 12px rgba(28,16,8,0.05)}
@@ -207,7 +207,7 @@
   .btn-call{flex:1;background:transparent;color:var(--text);border:1.5px solid var(--border2);padding:11px;border-radius:50px;font-weight:600;cursor:pointer;font-size:0.82rem;transition:all 0.22s}
   .btn-call:hover{border-color:var(--red);color:var(--red)}
 
-  /* ‚îÄ‚îÄ MODALS ‚îÄ‚îÄ */
+  /* ── MODALS ── */
   .modal-overlay{position:fixed;inset:0;background:rgba(28,16,8,0.6);backdrop-filter:blur(4px);z-index:2000;display:none;align-items:center;justify-content:center}
   .modal-overlay.open{display:flex}
   .modal{background:var(--card);border:1px solid var(--border);border-radius:24px;width:92%;max-width:480px;max-height:88vh;overflow-y:auto;box-shadow:0 32px 80px rgba(28,16,8,0.2)}
@@ -236,7 +236,7 @@
   .cart-empty{text-align:center;padding:40px 0;color:var(--muted)}
   .cart-empty .icon{font-size:3rem;margin-bottom:12px}
 
-  /* ‚îÄ‚îÄ AUTH MODAL ‚îÄ‚îÄ */
+  /* ── AUTH MODAL ── */
   .auth-tabs{display:flex;gap:4px;background:var(--bg2);border-radius:12px;padding:4px;margin-bottom:22px}
   .auth-tab{flex:1;padding:8px;border-radius:9px;border:none;background:transparent;color:var(--muted);cursor:pointer;font-weight:600;font-size:0.88rem;transition:all 0.2s}
   .auth-tab.active{background:var(--red);color:#fff}
@@ -252,7 +252,7 @@
   .btn-social-ms{background:#fff;color:var(--text);border-color:var(--border2)}
   .btn-social-phone{background:var(--bg2);color:var(--text);border-color:var(--border2)}
 
-  /* ‚îÄ‚îÄ DASHBOARD ‚îÄ‚îÄ */
+  /* ── DASHBOARD ── */
   #dashboard{display:none;padding:100px 5% 60px;background:var(--bg)}
   #dashboard.visible{display:block}
   .user-card{background:var(--red);border-radius:24px;padding:32px;display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
@@ -277,7 +277,7 @@
   .order-item .order-total{color:var(--red);font-weight:900;font-family:'Playfair Display',serif}
   .order-item .order-status{background:rgba(39,174,96,0.1);color:var(--green);border:1px solid rgba(39,174,96,0.3);padding:3px 10px;border-radius:50px;font-size:0.72rem;font-weight:700}
 
-  /* ‚îÄ‚îÄ FOOTER ‚îÄ‚îÄ */
+  /* ── FOOTER ── */
   footer{background:var(--text);color:rgba(255,255,255,0.85);padding:64px 5% 32px}
   .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
   .footer-brand p{color:rgba(255,255,255,0.55);font-size:0.83rem;line-height:1.7;margin-top:12px;max-width:280px}
@@ -289,16 +289,16 @@
   .footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:24px;display:flex;justify-content:space-between;align-items:center}
   .footer-bottom p{color:rgba(255,255,255,0.4);font-size:0.78rem}
 
-  /* ‚îÄ‚îÄ TOAST ‚îÄ‚îÄ */
+  /* ── TOAST ── */
   .toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:#fff;border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:13px 20px;z-index:9999;display:flex;align-items:center;gap:10px;transform:translateY(100px);opacity:0;transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);font-size:0.88rem;box-shadow:0 16px 40px rgba(28,16,8,0.25)}
   .toast.show{transform:translateY(0);opacity:1}
   .footer-social{display:flex;gap:9px}
   .social-btn{width:34px;height:34px;background:var(--card2);border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.95rem;transition:all 0.2s;text-decoration:none}
   .social-btn:hover{border-color:var(--gold)}
 
-  /* TOAST ‚Äî single authoritative rule above; no duplicate here */
+  /* TOAST — single authoritative rule above; no duplicate here */
 
-  /* ‚îÄ‚îÄ MOBILE HAMBURGER ‚îÄ‚îÄ */
+  /* ── MOBILE HAMBURGER ── */
   .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;border:none;background:transparent;z-index:1100}
   .hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all 0.3s}
   .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -379,7 +379,7 @@
   .track-label{font-size:0.62rem;color:var(--muted);font-weight:600;text-align:center;max-width:55px}
   @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(245,166,35,0.4)}50%{box-shadow:0 0 0 8px rgba(245,166,35,0)}}
 
-  /* ‚îÄ‚îÄ 416-style Hero Stagger Animations ‚îÄ‚îÄ */
+  /* ── 416-style Hero Stagger Animations ── */
   @keyframes heroFadeUp{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
   @keyframes heroFadeIn{from{opacity:0}to{opacity:1}}
   @keyframes counterUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
@@ -398,14 +398,14 @@
   .hero-stats{animation:heroFadeUp 0.8s 0.6s ease both}
   .hero-visual{animation:scaleIn 1s 0.3s ease both}
 
-  /* ‚îÄ‚îÄ Parallax divider between sections ‚îÄ‚îÄ */
+  /* ── Parallax divider between sections ── */
   .parallax-divider{position:relative;height:220px;overflow:hidden;display:flex;align-items:center;justify-content:center}
   .parallax-divider .pd-bg{position:absolute;inset:-40px 0;background-attachment:fixed;background-size:cover;background-position:center;filter:brightness(0.35)}
   .parallax-divider .pd-content{position:relative;z-index:1;text-align:center;color:#fff}
   .parallax-divider .pd-content h2{font-size:clamp(1.6rem,4vw,2.6rem);font-weight:900;letter-spacing:-0.5px}
   .parallax-divider .pd-content p{color:rgba(255,255,255,0.7);margin-top:8px;font-size:0.95rem}
 
-  /* ‚îÄ‚îÄ Five Guys bold menu style ‚îÄ‚îÄ */
+  /* ── Five Guys bold menu style ── */
   .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
   .menu-cat-header{display:flex;align-items:center;gap:14px;margin:36px 0 16px;padding-bottom:12px;border-bottom:3px solid var(--gold)}
   .menu-cat-header h3{font-size:1.5rem;font-weight:900;letter-spacing:-0.5px}
@@ -424,13 +424,13 @@
   .menu-card-v2 .mc-add:hover{transform:scale(1.15);background:#e09520}
   .menu-card-v2 .mc-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}
 
-  /* ‚îÄ‚îÄ Chipotle-style customization steps ‚îÄ‚îÄ */
+  /* ── Chipotle-style customization steps ── */
   .step-bar{display:flex;gap:0;margin-bottom:20px;border-radius:10px;overflow:hidden;border:1px solid var(--border)}
   .step-item{flex:1;padding:8px 4px;text-align:center;font-size:0.68rem;font-weight:700;background:var(--card2);color:var(--muted);transition:all 0.3s;position:relative}
   .step-item.active{background:var(--gold);color:#000}
   .step-item.done{background:rgba(46,204,113,0.15);color:var(--green)}
 
-  /* ‚îÄ‚îÄ Tim Hortons loyalty progress ‚îÄ‚îÄ */
+  /* ── Tim Hortons loyalty progress ── */
   .loyalty-header{text-align:center;margin-bottom:36px}
   .loyalty-progress-wrap{background:var(--card2);border:1px solid var(--border);border-radius:20px;padding:28px;margin-bottom:28px;position:relative;overflow:hidden}
   .loyalty-progress-wrap::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,166,35,0.04),transparent);pointer-events:none}
@@ -510,39 +510,39 @@
 <!-- DAILY SPECIAL BANNER -->
 <div id="specialBanner">
   <div class="banner-inner">
-    <span class="tag">üî• Today's Special</span>
+    <span class="tag">🔥 Today's Special</span>
     <span class="msg" id="bannerMsg">Loading special...</span>
     <span class="discount" id="bannerDiscount">SAVE $0</span>
   </div>
-  <button class="banner-close" onclick="dismissBanner()">‚úï</button>
+  <button class="banner-close" onclick="dismissBanner()">✕</button>
 </div>
 
 <!-- MARQUEE STRIP -->
 <div class="marquee-strip">
   <div class="marquee-inner">
-    <span>üçü Poutine Hub</span><span class="dot">‚ú¶</span>
-    <span>Classic Poutine</span><span class="dot">‚ú¶</span>
-    <span>Butter Chicken Poutine</span><span class="dot">‚ú¶</span>
-    <span>Tikka Masala Poutine</span><span class="dot">‚ú¶</span>
-    <span>Toronto's #1 Poutine</span><span class="dot">‚ú¶</span>
-    <span>Open Late Thu‚ÄìSat</span><span class="dot">‚ú¶</span>
-    <span>4.9‚òÖ on Google</span><span class="dot">‚ú¶</span>
-    <span>Two Locations</span><span class="dot">‚ú¶</span>
-    <span>üçü Poutine Hub</span><span class="dot">‚ú¶</span>
-    <span>Classic Poutine</span><span class="dot">‚ú¶</span>
-    <span>Butter Chicken Poutine</span><span class="dot">‚ú¶</span>
-    <span>Tikka Masala Poutine</span><span class="dot">‚ú¶</span>
-    <span>Toronto's #1 Poutine</span><span class="dot">‚ú¶</span>
-    <span>Open Late Thu‚ÄìSat</span><span class="dot">‚ú¶</span>
-    <span>4.9‚òÖ on Google</span><span class="dot">‚ú¶</span>
-    <span>Two Locations</span><span class="dot">‚ú¶</span>
+    <span>🍟 Poutine Hub</span><span class="dot">✦</span>
+    <span>Classic Poutine</span><span class="dot">✦</span>
+    <span>Butter Chicken Poutine</span><span class="dot">✦</span>
+    <span>Tikka Masala Poutine</span><span class="dot">✦</span>
+    <span>Toronto's #1 Poutine</span><span class="dot">✦</span>
+    <span>Open Late Thu–Sat</span><span class="dot">✦</span>
+    <span>4.9★ on Google</span><span class="dot">✦</span>
+    <span>Two Locations</span><span class="dot">✦</span>
+    <span>🍟 Poutine Hub</span><span class="dot">✦</span>
+    <span>Classic Poutine</span><span class="dot">✦</span>
+    <span>Butter Chicken Poutine</span><span class="dot">✦</span>
+    <span>Tikka Masala Poutine</span><span class="dot">✦</span>
+    <span>Toronto's #1 Poutine</span><span class="dot">✦</span>
+    <span>Open Late Thu–Sat</span><span class="dot">✦</span>
+    <span>4.9★ on Google</span><span class="dot">✦</span>
+    <span>Two Locations</span><span class="dot">✦</span>
   </div>
 </div>
 
 <!-- NAV -->
 <nav id="mainNav">
   <a href="#hero" class="nav-logo">
-    <div class="nav-logo-icon" id="navLogoIcon">üçü</div>
+    <div class="nav-logo-icon" id="navLogoIcon">🍟</div>
     <div class="nav-logo-text">Poutine <span>Hub</span></div>
   </a>
   <ul class="nav-links">
@@ -552,9 +552,9 @@
     <li><a href="#locations">Locations</a></li>
   </ul>
   <div class="nav-actions">
-    <select class="location-sel" id="locationSel" onchange="setLocation(this.value)" title="Select location"><option value="parliament">üìç Parliament St</option><option value="dundas">üìç Dundas St</option></select> <button class="btn-cart" onclick="openCart()">üõí Cart <span class="cart-count" id="cartCount">0</span></button>
+    <select class="location-sel" id="locationSel" onchange="setLocation(this.value)" title="Select location"><option value="parliament">📍 Parliament St</option><option value="dundas">📍 Dundas St</option></select> <button class="btn-cart" onclick="openCart()">🛒 Cart <span class="cart-count" id="cartCount">0</span></button>
     <button class="btn-login" id="loginBtn" onclick="openLogin()">Sign In</button>
-    <button class="btn-user" id="userBtn" onclick="openDashboard()">üë§ <span id="userNameNav">Account</span></button>
+    <button class="btn-user" id="userBtn" onclick="openDashboard()">👤 <span id="userNameNav">Account</span></button>
     <button class="btn-login" id="logoutBtn" onclick="handleLogout()" style="display:none;background:transparent;border:1px solid var(--border);color:var(--muted)">Sign Out</button>
     <button class="hamburger" id="hamburgerBtn" onclick="toggleDrawer()" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -572,10 +572,10 @@
     <li><a href="#locations" onclick="closeDrawer()">Locations</a></li>
   </ul>
   <div class="mobile-drawer-actions">
-    <select class="location-sel" style="width:100%" onchange="setLocation(this.value)" title="Select location"><option value="parliament">üìç Parliament St</option><option value="dundas">üìç Dundas St</option></select>
-    <button class="btn-cart" style="width:100%;justify-content:center" onclick="closeDrawer();openCart()">üõí Cart <span class="cart-count" id="cartCountDrawer">0</span></button>
+    <select class="location-sel" style="width:100%" onchange="setLocation(this.value)" title="Select location"><option value="parliament">📍 Parliament St</option><option value="dundas">📍 Dundas St</option></select>
+    <button class="btn-cart" style="width:100%;justify-content:center" onclick="closeDrawer();openCart()">🛒 Cart <span class="cart-count" id="cartCountDrawer">0</span></button>
     <button class="btn-login" id="loginBtnDrawer" style="width:100%;text-align:center" onclick="closeDrawer();openLogin()">Sign In</button>
-    <button class="btn-user" id="userBtnDrawer" style="width:100%;text-align:center;display:none" onclick="closeDrawer();openDashboard()">üë§ <span id="userNameDrawer">Account</span></button>
+    <button class="btn-user" id="userBtnDrawer" style="width:100%;text-align:center;display:none" onclick="closeDrawer();openDashboard()">👤 <span id="userNameDrawer">Account</span></button>
     <button class="btn-login" id="logoutBtnDrawer" onclick="closeDrawer();handleLogout()" style="display:none;width:100%;text-align:center;background:transparent;border:1px solid var(--border);color:var(--muted)">Sign Out</button>
   </div>
 </div>
@@ -585,27 +585,27 @@
   <div class="hero-bg"></div>
   <div class="hero-content">
     <div class="hero-eyebrow"><div class="line"></div><span>Toronto's Finest Poutine</span></div>
-    <div class="hero-badge"><span></span> Now Open ‚Äî Two Toronto Locations</div>
-    <h1 class="hero-title">A Poutine A Day<br>Keeps Your <span class="hlr">Cravings</span><br><span class="hl">Away üçü</span></h1>
-    <p class="hero-sub">Toronto's most loved fusion poutine spot. From classic Canadian comfort to bold Indian-fusion flavours ‚Äî reinventing poutine one bowl at a time.</p>
+    <div class="hero-badge"><span></span> Now Open — Two Toronto Locations</div>
+    <h1 class="hero-title">A Poutine A Day<br>Keeps Your <span class="hlr">Cravings</span><br><span class="hl">Away 🍟</span></h1>
+    <p class="hero-sub">Toronto's most loved fusion poutine spot. From classic Canadian comfort to bold Indian-fusion flavours — reinventing poutine one bowl at a time.</p>
     <div class="hero-actions">
-      <a href="#menu" class="btn-primary">üõí Order Now</a>
-      <a href="#about" class="btn-secondary">üìñ Our Story</a>
+      <a href="#menu" class="btn-primary">🛒 Order Now</a>
+      <a href="#about" class="btn-secondary">📖 Our Story</a>
     </div>
     <div class="hero-stats">
-      <div class="stat"><span class="stat-num">4.9‚òÖ</span><span class="stat-label">Google Rating</span></div>
+      <div class="stat"><span class="stat-num">4.9★</span><span class="stat-label">Google Rating</span></div>
       <div class="stat"><span class="stat-num">1,038+</span><span class="stat-label">Reviews</span></div>
       <div class="stat"><span class="stat-num">2</span><span class="stat-label">Locations</span></div>
     </div>
   </div>
-  <div class="hero-visual"><div class="float">üçü</div></div>
+  <div class="hero-visual"><div class="float">🍟</div></div>
 </section>
 
 <!-- PARALLAX DIVIDER -->
 <div class="parallax-divider">
   <div class="pd-bg" style="background-image:linear-gradient(135deg,#1a0800,#0f0f0f,#1a0500)"></div>
   <div class="pd-content" data-aos="fade-up">
-    <h2>üçü Toronto's Most Loved Fusion Poutine</h2>
+    <h2>🍟 Toronto's Most Loved Fusion Poutine</h2>
     <p>Bold flavours. Real ingredients. Reinventing comfort food since day one.</p>
   </div>
 </div>
@@ -617,16 +617,16 @@
   <div class="about-grid">
     <div class="about-text" data-aos="fade-right" data-aos-delay="150">
       <p>Poutine Hub started with a simple idea: take Canada's most beloved comfort food and give it a bold, multicultural twist that reflects the true spirit of Toronto.</p>
-      <p>We opened our first location on Parliament Street in the heart of Regent Park. The response was overwhelming ‚Äî Toronto was hungry for something new.</p>
-      <p>Our fusion poutines ‚Äî from the legendary Butter Chicken Poutine to the fiery Tikka Masala Poutine ‚Äî quickly became the talk of the city. We expanded to Dundas Street East to serve even more of the city we love.</p>
+      <p>We opened our first location on Parliament Street in the heart of Regent Park. The response was overwhelming — Toronto was hungry for something new.</p>
+      <p>Our fusion poutines — from the legendary Butter Chicken Poutine to the fiery Tikka Masala Poutine — quickly became the talk of the city. We expanded to Dundas Street East to serve even more of the city we love.</p>
       <div class="about-highlights">
-        <div class="hl-card" data-aos="zoom-in" data-aos-delay="200"><div class="icon">üèÜ</div><h4>4.9 Star Rating</h4><p>1,038 five-star Google reviews</p></div>
-        <div class="hl-card" data-aos="zoom-in" data-aos-delay="280"><div class="icon">üå∂Ô∏è</div><h4>Fusion Flavours</h4><p>Indian-Canadian fusion done right</p></div>
-        <div class="hl-card" data-aos="zoom-in" data-aos-delay="360"><div class="icon">üïê</div><h4>Late Night</h4><p>Open until 2AM Thu‚ÄìSat</p></div>
-        <div class="hl-card" data-aos="zoom-in" data-aos-delay="440"><div class="icon">üõµ</div><h4>Delivery</h4><p>DoorDash, UberEats & SkipTheDishes</p></div>
+        <div class="hl-card" data-aos="zoom-in" data-aos-delay="200"><div class="icon">🏆</div><h4>4.9 Star Rating</h4><p>1,038 five-star Google reviews</p></div>
+        <div class="hl-card" data-aos="zoom-in" data-aos-delay="280"><div class="icon">🌶️</div><h4>Fusion Flavours</h4><p>Indian-Canadian fusion done right</p></div>
+        <div class="hl-card" data-aos="zoom-in" data-aos-delay="360"><div class="icon">🕐</div><h4>Late Night</h4><p>Open until 2AM Thu–Sat</p></div>
+        <div class="hl-card" data-aos="zoom-in" data-aos-delay="440"><div class="icon">🛵</div><h4>Delivery</h4><p>DoorDash, UberEats & SkipTheDishes</p></div>
       </div>
     </div>
-    <div class="about-image" data-aos="fade-left" data-aos-delay="200">üçü</div>
+    <div class="about-image" data-aos="fade-left" data-aos-delay="200">🍟</div>
   </div>
 </section>
 
@@ -634,15 +634,15 @@
 <section id="menu">
   <div class="section-label" data-aos="fade-up">What We Serve</div>
   <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Our Menu</h2>
-  <div id="sheetsNotice" style="display:none;background:rgba(52,152,219,0.08);border:1px solid rgba(52,152,219,0.2);border-radius:10px;padding:10px 16px;margin-bottom:20px;font-size:0.82rem;color:var(--blue)">‚úÖ Menu loaded from Google Sheets</div>
+  <div id="sheetsNotice" style="display:none;background:rgba(52,152,219,0.08);border:1px solid rgba(52,152,219,0.2);border-radius:10px;padding:10px 16px;margin-bottom:20px;font-size:0.82rem;color:var(--blue)">✅ Menu loaded from Google Sheets</div>
   <div class="menu-tabs">
     <button class="tab active" onclick="filterMenu('all',this)">All Items</button>
-    <button class="tab combo-tab" onclick="filterMenu('combos',this)">üî• Combo Deals</button>
-    <button class="tab" onclick="filterMenu('fusion',this)">üå∂Ô∏è Fusion Poutines</button>
-    <button class="tab" onclick="filterMenu('classic',this)">üçü Classic Poutines</button>
-    <button class="tab" onclick="filterMenu('sides',this)">üßÄ Sides</button>
-    <button class="tab" onclick="filterMenu('mac',this)">üßÜ Mac & Cheese</button>
-    <button class="tab" onclick="filterMenu('drinks',this)">ü•§ Drinks</button>
+    <button class="tab combo-tab" onclick="filterMenu('combos',this)">🔥 Combo Deals</button>
+    <button class="tab" onclick="filterMenu('fusion',this)">🌶️ Fusion Poutines</button>
+    <button class="tab" onclick="filterMenu('classic',this)">🍟 Classic Poutines</button>
+    <button class="tab" onclick="filterMenu('sides',this)">🧀 Sides</button>
+    <button class="tab" onclick="filterMenu('mac',this)">🧆 Mac & Cheese</button>
+    <button class="tab" onclick="filterMenu('drinks',this)">🥤 Drinks</button>
   </div>
   <div class="menu-grid" id="menuGrid"></div>
 </section>
@@ -651,7 +651,7 @@
 <div class="parallax-divider">
   <div class="pd-bg" style="background-image:linear-gradient(135deg,#0a0a1a,#0f0f0f,#1a0800)"></div>
   <div class="pd-content" data-aos="zoom-in">
-    <h2>üèÜ Join the Rewards Program</h2>
+    <h2>🏆 Join the Rewards Program</h2>
     <p>Earn points every order. Redeem for free poutine.</p>
   </div>
 </div>
@@ -666,7 +666,7 @@
     <div class="lp-tier-row">
       <div>
         <div style="font-size:0.75rem;color:var(--muted);font-weight:700;margin-bottom:4px">YOUR TIER</div>
-        <div class="lp-tier-name" id="lpTierName">ü•â Bronze Member</div>
+        <div class="lp-tier-name" id="lpTierName">🥉 Bronze Member</div>
       </div>
       <div style="text-align:right">
         <div class="lp-pts-display" id="lpPoints">0</div>
@@ -678,36 +678,36 @@
     </div>
     <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--muted);margin-bottom:16px">
       <span id="lpBarLabel">0 pts</span>
-      <span id="lpBarNext">5,000 pts to Silver ü•à</span>
+      <span id="lpBarNext">5,000 pts to Silver 🥈</span>
     </div>
     <div class="lp-milestones">
-      <div class="lp-milestone" id="ms1"><div class="lpm-pts">1,000 pts</div><div class="lpm-reward">‚òï</div><div class="lpm-label">Free Drink</div></div>
-      <div class="lp-milestone" id="ms2"><div class="lpm-pts">2,500 pts</div><div class="lpm-reward">üçü</div><div class="lpm-label">Free Side</div></div>
-      <div class="lp-milestone" id="ms3"><div class="lpm-pts">5,000 pts</div><div class="lpm-reward">ü•à</div><div class="lpm-label">Silver Tier</div></div>
-      <div class="lp-milestone" id="ms4"><div class="lpm-pts">10,000 pts</div><div class="lpm-reward">üéÅ</div><div class="lpm-label">Free Poutine</div></div>
+      <div class="lp-milestone" id="ms1"><div class="lpm-pts">1,000 pts</div><div class="lpm-reward">☕</div><div class="lpm-label">Free Drink</div></div>
+      <div class="lp-milestone" id="ms2"><div class="lpm-pts">2,500 pts</div><div class="lpm-reward">🍟</div><div class="lpm-label">Free Side</div></div>
+      <div class="lp-milestone" id="ms3"><div class="lpm-pts">5,000 pts</div><div class="lpm-reward">🥈</div><div class="lpm-label">Silver Tier</div></div>
+      <div class="lp-milestone" id="ms4"><div class="lpm-pts">10,000 pts</div><div class="lpm-reward">🎁</div><div class="lpm-label">Free Poutine</div></div>
     </div>
   </div>
 
   <div class="points-grid">
     <div class="points-card" data-aos="fade-up" data-aos-delay="100">
-      <div class="points-icon">ü•â</div><div class="points-tier bronze">Bronze</div>
-      <div class="points-range">0 ‚Äì 4,999 Points</div>
+      <div class="points-icon">🥉</div><div class="points-tier bronze">Bronze</div>
+      <div class="points-range">0 – 4,999 Points</div>
       <ul class="points-benefits"><li>Earn 10 pts per $1 spent</li><li>Birthday bonus (500 pts)</li><li>Early access to new items</li></ul>
     </div>
     <div class="points-card featured" data-aos="fade-up" data-aos-delay="200">
-      <div class="points-icon">ü•à</div><div class="points-tier silver">Silver</div>
-      <div class="points-range">5,000 ‚Äì 14,999 Points</div>
+      <div class="points-icon">🥈</div><div class="points-tier silver">Silver</div>
+      <div class="points-range">5,000 – 14,999 Points</div>
       <ul class="points-benefits"><li>Earn 15 pts per $1 spent</li><li>Birthday bonus (1,000 pts)</li><li>Free side dish monthly</li><li>Priority support</li></ul>
     </div>
     <div class="points-card" data-aos="fade-up" data-aos-delay="300">
-      <div class="points-icon">ü•á</div><div class="points-tier gold">Gold</div>
+      <div class="points-icon">🥇</div><div class="points-tier gold">Gold</div>
       <div class="points-range">15,000+ Points</div>
       <ul class="points-benefits"><li>Earn 20 pts per $1 spent</li><li>Birthday bonus (2,000 pts)</li><li>Free poutine monthly</li><li>Exclusive Gold menu items</li><li>VIP event invites</li></ul>
     </div>
   </div>
   <div class="points-cta" data-aos="fade-up" data-aos-delay="100">
-    <div><h3>üéØ 1,000 Points = $5 Off Your Order</h3><p>Sign up today and get 500 bonus points just for joining.</p></div>
-    <button class="btn-primary" onclick="openLogin()">Join Rewards ‚Üí</button>
+    <div><h3>🎯 1,000 Points = $5 Off Your Order</h3><p>Sign up today and get 500 bonus points just for joining.</p></div>
+    <button class="btn-primary" onclick="openLogin()">Join Rewards →</button>
   </div>
 </section>
 
@@ -720,17 +720,17 @@
       <div class="location-header"><div class="location-num">1</div><div><div class="location-name">Parliament Street</div><div class="location-area">Regent Park, Toronto</div></div></div>
       <div class="location-body">
         <div class="location-info">
-          <div class="location-row"><div class="icon">üìç</div><div><div class="label">Address</div><div class="value">179 Parliament Street, Toronto, ON M5A 2Z4</div></div></div>
-          <div class="location-row"><div class="icon">üìû</div><div><div class="label">Phone</div><div class="value">(647) 937-7734</div></div></div>
-          <div class="location-row"><div class="icon">üïê</div><div><div class="label">Hours</div>
-            <div class="hours-row"><span class="day">Mon‚ÄìWed</span><span class="time">11am‚Äì12am</span></div>
-            <div class="hours-row"><span class="day">Thu‚ÄìSat</span><span class="time">11am‚Äì2am</span></div>
-            <div class="hours-row"><span class="day">Sunday</span><span class="time">12pm‚Äì12am</span></div>
+          <div class="location-row"><div class="icon">📍</div><div><div class="label">Address</div><div class="value">179 Parliament Street, Toronto, ON M5A 2Z4</div></div></div>
+          <div class="location-row"><div class="icon">📞</div><div><div class="label">Phone</div><div class="value">(647) 937-7734</div></div></div>
+          <div class="location-row"><div class="icon">🕐</div><div><div class="label">Hours</div>
+            <div class="hours-row"><span class="day">Mon–Wed</span><span class="time">11am–12am</span></div>
+            <div class="hours-row"><span class="day">Thu–Sat</span><span class="time">11am–2am</span></div>
+            <div class="hours-row"><span class="day">Sunday</span><span class="time">12pm–12am</span></div>
           </div></div>
         </div>
         <div class="location-actions">
-          <button class="btn-directions" onclick="window.open('https://maps.google.com?q=179+Parliament+Street+Toronto')">üìç Directions</button>
-          <button class="btn-call" onclick="window.location='tel:6479377734'">üìû Call Us</button>
+          <button class="btn-directions" onclick="window.open('https://maps.google.com?q=179+Parliament+Street+Toronto')">📍 Directions</button>
+          <button class="btn-call" onclick="window.location='tel:6479377734'">📞 Call Us</button>
         </div>
       </div>
     </div>
@@ -738,17 +738,17 @@
       <div class="location-header"><div class="location-num">2</div><div><div class="location-name">Dundas Street East</div><div class="location-area">Downtown East, Toronto</div></div></div>
       <div class="location-body">
         <div class="location-info">
-          <div class="location-row"><div class="icon">üìç</div><div><div class="label">Address</div><div class="value">132 Dundas Street East, Toronto, ON M5B 1E2</div></div></div>
-          <div class="location-row"><div class="icon">üìû</div><div><div class="label">Phone</div><div class="value">(289) 552-5944</div></div></div>
-          <div class="location-row"><div class="icon">üïê</div><div><div class="label">Hours</div>
-            <div class="hours-row"><span class="day">Mon‚ÄìThu</span><span class="time">12pm‚Äì12am</span></div>
-            <div class="hours-row"><span class="day">Friday</span><span class="time">5pm‚Äì2am</span></div>
-            <div class="hours-row"><span class="day">Sat‚ÄìSun</span><span class="time">12pm‚Äì2am</span></div>
+          <div class="location-row"><div class="icon">📍</div><div><div class="label">Address</div><div class="value">132 Dundas Street East, Toronto, ON M5B 1E2</div></div></div>
+          <div class="location-row"><div class="icon">📞</div><div><div class="label">Phone</div><div class="value">(289) 552-5944</div></div></div>
+          <div class="location-row"><div class="icon">🕐</div><div><div class="label">Hours</div>
+            <div class="hours-row"><span class="day">Mon–Thu</span><span class="time">12pm–12am</span></div>
+            <div class="hours-row"><span class="day">Friday</span><span class="time">5pm–2am</span></div>
+            <div class="hours-row"><span class="day">Sat–Sun</span><span class="time">12pm–2am</span></div>
           </div></div>
         </div>
         <div class="location-actions">
-          <button class="btn-directions" onclick="window.open('https://maps.google.com?q=132+Dundas+Street+East+Toronto')">üìç Directions</button>
-          <button class="btn-call" onclick="window.location='tel:2895525944'">üìû Call Us</button>
+          <button class="btn-directions" onclick="window.open('https://maps.google.com?q=132+Dundas+Street+East+Toronto')">📍 Directions</button>
+          <button class="btn-call" onclick="window.location='tel:2895525944'">📞 Call Us</button>
         </div>
       </div>
     </div>
@@ -758,19 +758,19 @@
 <!-- DASHBOARD -->
 <section id="dashboard">
   <div class="section-label">My Account</div>
-  <h2 class="section-title">Welcome Back, <span id="dashName" style="color:var(--gold)">Poutine Lover</span> üëã</h2>
+  <h2 class="section-title">Welcome Back, <span id="dashName" style="color:var(--gold)">Poutine Lover</span> 👋</h2>
   <div class="user-card" style="margin-top:28px">
     <div>
       <div class="user-avatar" id="dashAvatar">P</div>
       <div class="user-name" id="dashFullName">Poutine Lover</div>
-      <div class="user-tier">ü•â Bronze Member</div>
+      <div class="user-tier">🥉 Bronze Member</div>
       <div class="progress-bar" style="width:200px;margin-top:10px"><div class="progress-fill" id="progressFill" style="width:20%"></div></div>
       <div style="font-size:0.72rem;color:var(--muted);margin-top:5px" id="progressLabel">1,000 / 5,000 pts to Silver</div>
     </div>
     <div class="user-points-display">
       <div class="points-big" id="dashPoints">1,000</div>
       <div class="points-label">Total Points</div>
-      <div style="margin-top:10px;font-size:0.82rem;color:var(--muted)">‚âà <span style="color:var(--gold)" id="dashValue">$5</span> in rewards</div>
+      <div style="margin-top:10px;font-size:0.82rem;color:var(--muted)">≈ <span style="color:var(--gold)" id="dashValue">$5</span> in rewards</div>
     </div>
   </div>
   <div class="dashboard-grid">
@@ -779,12 +779,12 @@
     <div class="dash-card"><h3>Rewards Earned</h3><div class="value" id="dashRewards">$0</div><div class="sub">redeemed value</div></div>
   </div>
   <div class="order-history"><h3>Recent Orders</h3><div id="orderHistory"><p style="color:var(--muted);font-size:0.88rem">No orders yet. Place your first order above!</p></div></div>
-  <div id="favsSection" style="margin-top:24px"><h3>My Favourites</h3><div class="favs-grid" id="favsGrid"><p style="color:var(--muted);font-size:0.88rem">Tap ‚ù§Ô∏è on any menu item to save it here.</p></div></div>
+  <div id="favsSection" style="margin-top:24px"><h3>My Favourites</h3><div class="favs-grid" id="favsGrid"><p style="color:var(--muted);font-size:0.88rem">Tap ❤️ on any menu item to save it here.</p></div></div>
   <div class="referral-card" id="refCard" style="margin-top:24px">
-    <div style="font-weight:800;font-size:1rem">üéÅ Give $5, Get $5</div>
+    <div style="font-weight:800;font-size:1rem">🎁 Give $5, Get $5</div>
     <div style="font-size:0.8rem;color:var(--muted);margin:4px 0">Share your code. Friend gets $5 off, you earn 500 bonus points.</div>
     <div class="ref-code" id="refCodeDisplay">LOADING</div>
-    <button class="btn-copy" onclick="copyReferral()">üìã Copy Referral Link</button>
+    <button class="btn-copy" onclick="copyReferral()">📋 Copy Referral Link</button>
   </div>
 </section>
 
@@ -793,10 +793,10 @@
   <div style="max-width:600px;margin:0 auto">
     <div class="section-label" style="justify-content:center;margin-bottom:16px">Share Your Experience</div>
     <h2 class="section-title" style="margin-bottom:12px">Loved Your Poutine?</h2>
-    <p style="color:var(--muted);margin-bottom:12px;font-size:0.95rem;line-height:1.7">Your review helps Toronto discover us. Tap below ‚Äî it takes less than a minute and means the world to our team.</p>
+    <p style="color:var(--muted);margin-bottom:12px;font-size:0.95rem;line-height:1.7">Your review helps Toronto discover us. Tap below — it takes less than a minute and means the world to our team.</p>
     <div style="display:flex;align-items:center;justify-content:center;gap:4px;margin-bottom:32px">
-      <span style="color:var(--gold);font-size:1.5rem">‚òÖ‚òÖ‚òÖ‚òÖ‚òÖ</span>
-      <span style="font-size:0.88rem;color:var(--muted);margin-left:8px">4.9 ¬∑ 1,038 reviews</span>
+      <span style="color:var(--gold);font-size:1.5rem">★★★★★</span>
+      <span style="font-size:0.88rem;color:var(--muted);margin-left:8px">4.9 · 1,038 reviews</span>
     </div>
     <a id="googleReviewBtn" href="#" target="_blank" rel="noopener"
       style="display:inline-flex;align-items:center;gap:12px;background:#fff;color:#111;font-weight:700;font-size:0.95rem;padding:16px 32px;border-radius:50px;text-decoration:none;box-shadow:0 4px 24px rgba(28,16,8,0.1);border:1.5px solid var(--border2);transition:all 0.25s"
@@ -812,7 +812,7 @@
   <div class="footer-grid">
     <div class="footer-brand">
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-        <div class="nav-logo-icon">üçü</div>
+        <div class="nav-logo-icon">🍟</div>
         <div class="nav-logo-text">Poutine <span>Hub</span></div>
       </div>
       <p>Toronto's home of fusion poutine. Serving bold flavours and good vibes since day one. Poutine a day keeps your cravings away.</p>
@@ -822,11 +822,11 @@
     <div class="footer-col"><h4>Contact</h4><ul><li><a href="tel:6479377734">Parliament: (647) 937-7734</a></li><li><a href="tel:2895525944">Dundas: (289) 552-5944</a></li><li><a href="https://instagram.com/poutine.hub">@poutine.hub</a></li></ul></div>
   </div>
   <div class="footer-bottom">
-    <p>¬© 2026 Poutine Hub Toronto. All rights reserved.</p>
+    <p>© 2026 Poutine Hub Toronto. All rights reserved.</p>
     <div class="footer-social">
-      <a href="https://instagram.com/poutine.hub" class="social-btn">üì∏</a>
-      <a href="#" class="social-btn">üéµ</a>
-      <a href="#" class="social-btn">üëç</a>
+      <a href="https://instagram.com/poutine.hub" class="social-btn">📸</a>
+      <a href="#" class="social-btn">🎵</a>
+      <a href="#" class="social-btn">👍</a>
     </div>
   </div>
 </footer>
@@ -834,7 +834,7 @@
 <!-- CART MODAL -->
 <div class="modal-overlay" id="cartModal">
   <div class="modal">
-    <div class="modal-header"><h2>üõí Your Order</h2><button class="modal-close" onclick="closeCart()">‚úï</button></div>
+    <div class="modal-header"><h2>🛒 Your Order</h2><button class="modal-close" onclick="closeCart()">✕</button></div>
     <div class="modal-body" id="cartBody"></div>
   </div>
 </div>
@@ -843,7 +843,7 @@
 <!-- CUSTOMIZE MODAL -->
 <div class="modal-overlay" id="customModal">
   <div class="modal">
-    <div class="modal-header"><h2 id="customTitle">Customize</h2><button class="modal-close" onclick="closeCustomize()">‚úï</button></div>
+    <div class="modal-header"><h2 id="customTitle">Customize</h2><button class="modal-close" onclick="closeCustomize()">✕</button></div>
     <div class="modal-body" id="customBody"></div>
   </div>
 </div>
@@ -851,17 +851,17 @@
 <!-- ORDER CONFIRMATION OVERLAY -->
 <div class="confirm-overlay" id="confirmOverlay">
   <div class="confirm-box">
-    <div class="confirm-icon">üéâ</div>
+    <div class="confirm-icon">🎉</div>
     <div class="confirm-title">Order Placed!</div>
     <div class="confirm-id" id="confirmId">Order #PH000000</div>
     <div class="tracker">
       <div class="tracker-fill" id="trackerFill"></div>
-      <div class="track-step"><div class="track-icon done" id="ts0">‚úÖ</div><div class="track-label">Confirmed</div></div>
-      <div class="track-step"><div class="track-icon" id="ts1">üë®‚Äçüç≥</div><div class="track-label">Preparing</div></div>
-      <div class="track-step"><div class="track-icon" id="ts2">üîî</div><div class="track-label">Ready</div></div>
-      <div class="track-step"><div class="track-icon" id="ts3">‚úÖ</div><div class="track-label">Done</div></div>
+      <div class="track-step"><div class="track-icon done" id="ts0">✅</div><div class="track-label">Confirmed</div></div>
+      <div class="track-step"><div class="track-icon" id="ts1">👨‍🍳</div><div class="track-label">Preparing</div></div>
+      <div class="track-step"><div class="track-icon" id="ts2">🔔</div><div class="track-label">Ready</div></div>
+      <div class="track-step"><div class="track-icon" id="ts3">✅</div><div class="track-label">Done</div></div>
     </div>
-    <div class="eta-badge" id="etaBadge">‚è± Estimated ready in ~20-25 min</div>
+    <div class="eta-badge" id="etaBadge">⏱ Estimated ready in ~20-25 min</div>
     <div id="confirmOrderType" style="font-size:0.85rem;color:var(--muted);margin-bottom:16px"></div>
     <div id="confirmItems" style="text-align:left;border-top:1px solid var(--border);padding-top:14px;margin-bottom:16px"></div>
     <button class="btn-checkout" onclick="closeConfirmation()">Done</button>
@@ -872,7 +872,7 @@
 <!-- REVIEW MODAL -->
 <div class="modal-overlay" id="reviewModal">
   <div class="modal">
-    <div class="modal-header"><h2>Rate Your Order</h2><button class="modal-close" onclick="document.getElementById('reviewModal').classList.remove('open')">‚úï</button></div>
+    <div class="modal-header"><h2>Rate Your Order</h2><button class="modal-close" onclick="document.getElementById('reviewModal').classList.remove('open')">✕</button></div>
     <div class="modal-body" id="reviewBody"></div>
   </div>
 </div>
@@ -880,7 +880,7 @@
 <!-- LOGIN MODAL -->
 <div class="modal-overlay" id="loginModal">
   <div class="modal">
-    <div class="modal-header"><h2>üçü Join Poutine Hub</h2><button class="modal-close" onclick="closeLogin()">‚úï</button></div>
+    <div class="modal-header"><h2>🍟 Join Poutine Hub</h2><button class="modal-close" onclick="closeLogin()">✕</button></div>
     <div class="modal-body">
       <!-- Social Login -->
       <div id="socialBtns">
@@ -897,7 +897,7 @@
           Continue with Microsoft / Outlook
         </button>
         <button class="btn-social btn-social-phone" onclick="showPhoneStep()">
-          üì± Continue with Phone Number
+          📱 Continue with Phone Number
         </button>
         <div style="display:flex;align-items:center;gap:10px;margin:16px 0">
           <div style="flex:1;height:1px;background:var(--border)"></div>
@@ -908,7 +908,7 @@
 
       <!-- Phone auth steps (hidden by default) -->
       <div id="phoneStep" style="display:none">
-        <button onclick="hidePhoneStep()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:0.82rem;margin-bottom:12px;padding:0">‚Üê Back</button>
+        <button onclick="hidePhoneStep()" style="background:none;border:none;color:var(--muted);cursor:pointer;font-size:0.82rem;margin-bottom:12px;padding:0">← Back</button>
         <div id="phoneInputStep">
           <div class="form-group">
             <label>Phone Number</label>
@@ -916,7 +916,7 @@
             <small style="color:var(--muted);font-size:0.75rem">Include country code (e.g. +1 for Canada/US)</small>
           </div>
           <div id="recaptcha-container"></div>
-          <button class="btn-auth" onclick="sendSMS()">Send Verification Code ‚Üí</button>
+          <button class="btn-auth" onclick="sendSMS()">Send Verification Code →</button>
         </div>
         <div id="phoneOtpStep" style="display:none">
           <p style="color:var(--muted);font-size:0.85rem;margin-bottom:14px">Enter the 6-digit code sent to <strong id="phoneSent"></strong></p>
@@ -924,7 +924,7 @@
             <label>Verification Code</label>
             <input type="number" id="otpInput" placeholder="123456" maxlength="6" style="font-size:1.3rem;letter-spacing:6px;text-align:center">
           </div>
-          <button class="btn-auth" onclick="verifyOTP()">Verify & Sign In ‚Üí</button>
+          <button class="btn-auth" onclick="verifyOTP()">Verify & Sign In →</button>
           <button onclick="sendSMS()" style="background:none;border:none;color:var(--gold);cursor:pointer;font-size:0.82rem;margin-top:10px;width:100%">Resend code</button>
         </div>
       </div>
@@ -935,49 +935,49 @@
       </div>
       <div id="loginForm">
         <div class="form-group"><label>Email</label><input type="email" id="loginEmail" placeholder="you@example.com"></div>
-        <div class="form-group"><label>Password</label><input type="password" id="loginPassword" placeholder="‚Ä¢‚Ä¢‚Ä¢‚Ä¢‚Ä¢‚Ä¢‚Ä¢‚Ä¢"></div>
-        <button class="btn-auth" onclick="handleLogin()">Sign In ‚Üí</button>
+        <div class="form-group"><label>Password</label><input type="password" id="loginPassword" placeholder="••••••••"></div>
+        <button class="btn-auth" onclick="handleLogin()">Sign In →</button>
       </div>
       <div id="signupForm" style="display:none">
         <div class="form-group"><label>Full Name</label><input type="text" id="signupName" placeholder="Your full name"></div>
         <div class="form-group"><label>Email</label><input type="email" id="signupEmail" placeholder="you@example.com"></div>
         <div class="form-group"><label>Password (min 6 chars)</label><input type="password" id="signupPassword" placeholder="Create a password"></div>
-        <button class="btn-auth" onclick="handleSignup()">Create Account & Earn 500 Points ‚Üí</button>
+        <button class="btn-auth" onclick="handleSignup()">Create Account & Earn 500 Points →</button>
       </div>
       <div style="text-align:center;margin-top:18px;padding-top:16px;border-top:1px solid var(--border)">
         <p style="color:var(--muted);font-size:0.82rem;margin-bottom:10px">Just browsing?</p>
-        <button onclick="continueAsGuest()" style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:10px 20px;border-radius:9px;cursor:pointer;font-size:0.85rem;width:100%;transition:border-color 0.2s,color 0.2s" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Continue as Guest ‚Üí</button>
+        <button onclick="continueAsGuest()" style="background:transparent;border:1px solid var(--border);color:var(--muted);padding:10px 20px;border-radius:9px;cursor:pointer;font-size:0.85rem;width:100%;transition:border-color 0.2s,color 0.2s" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">Continue as Guest →</button>
       </div>
     </div>
   </div>
 </div>
 
-<div class="toast" id="toast"><span id="toastIcon">‚úÖ</span> <span id="toastMsg">Done!</span></div>
+<div class="toast" id="toast"><span id="toastIcon">✅</span> <span id="toastMsg">Done!</span></div>
 
 <script>
 // DEFAULT MENU
 const defaultMenu = [
-  {id:1,name:"Butter Chicken Poutine",desc:"Creamy butter chicken gravy, cheese curds, crispy fries.",price:14.99,cat:"fusion",emoji:"üçõ",badge:"Bestseller",soldOut:false,cal:820,tags:['spicy'],rating:4.9,reviews:218,sizes:true,spiceLevel:true},
-  {id:2,name:"Tikka Masala Poutine",desc:"Bold tikka masala sauce, cheese curds, golden fries.",price:14.99,cat:"fusion",emoji:"üå∂Ô∏è",badge:"Spicy",soldOut:false,cal:790,tags:['spicy'],rating:4.7,reviews:156,sizes:true,spiceLevel:true},
-  {id:3,name:"Crispy Chicken Poutine",desc:"Crispy fried chicken, brown gravy, cheese curds.",price:13.99,cat:"fusion",emoji:"üçó",badge:"New",soldOut:false,cal:870,tags:[],rating:4.8,reviews:89,sizes:true},
-  {id:4,name:"Bacon Daddy",desc:"Double bacon, caramelized onions, cheddar sauce.",price:15.99,cat:"fusion",emoji:"ü•ì",badge:"",soldOut:false,cal:950,tags:[],rating:4.6,reviews:112,sizes:true},
-  {id:5,name:"Meat Lover Poutine",desc:"Pulled pork, beef, bacon, three-cheese blend.",price:16.99,cat:"fusion",emoji:"ü•©",badge:"Fan Fave",soldOut:false,cal:1020,tags:[],rating:4.8,reviews:203,sizes:true},
-  {id:6,name:"Classic Poutine",desc:"Golden fries, squeaky cheese curds, rich brown gravy.",price:10.99,cat:"classic",emoji:"üçü",badge:"",soldOut:false,cal:680,tags:['gf'],rating:4.7,reviews:341,sizes:true},
-  {id:7,name:"Bacon Poutine",desc:"Classic poutine with crispy smoked bacon.",price:13.99,cat:"classic",emoji:"üçü",badge:"",soldOut:false,cal:780,tags:['gf'],rating:4.6,reviews:98,sizes:true},
-  {id:8,name:"Veggie Poutine",desc:"Roasted vegetables, mushroom gravy, cheese curds.",price:11.99,cat:"classic",emoji:"ü•¶",badge:"Veggie",soldOut:false,cal:590,tags:['vegetarian','gf'],rating:4.5,reviews:67,sizes:true},
-  {id:9,name:"Classic Fries",desc:"Golden, crispy, perfectly salted.",price:5.99,cat:"sides",emoji:"üçü",badge:"",soldOut:false,cal:380,tags:['vegan','gf'],rating:4.4,reviews:88},
-  {id:10,name:"Cajun Fries",desc:"Seasoned with our signature Cajun spice blend.",price:7.99,cat:"sides",emoji:"üå∂Ô∏è",badge:"",soldOut:false,cal:420,tags:['vegan','gf','spicy'],rating:4.6,reviews:134},
-  {id:11,name:"Onion Rings",desc:"Beer-battered with house-made dipping sauce.",price:6.99,cat:"sides",emoji:"üßÖ",badge:"",soldOut:false,cal:460,tags:['vegetarian'],rating:4.3,reviews:72},
-  {id:12,name:"Meat Lover Mac & Cheese",desc:"Five-cheese mac with pulled pork and bacon.",price:15.99,cat:"mac",emoji:"üßÄ",badge:"Bestseller",soldOut:false,cal:1100,tags:[],rating:4.9,reviews:187,sizes:true},
-  {id:13,name:"Classic Mac & Cheese",desc:"Five-cheese blend, golden breadcrumb crust.",price:11.99,cat:"mac",emoji:"üßÜ",badge:"",soldOut:false,cal:780,tags:['vegetarian'],rating:4.6,reviews:103,sizes:true},
-  {id:14,name:"Mango Lassi",desc:"Sweet, creamy mango lassi.",price:4.99,cat:"drinks",emoji:"ü•≠",badge:"",soldOut:false,cal:210,tags:['vegetarian','gf'],rating:4.8,reviews:156},
-  {id:15,name:"Pop / Soft Drink",desc:"Coke, Sprite, Orange, or Root Beer.",price:2.99,cat:"drinks",emoji:"ü•§",badge:"",soldOut:false,cal:140,tags:['vegan','gf'],rating:4.2,reviews:45},
-  {id:16,name:"Date Night Combo",desc:"2 Fusion Poutines + 2 Soft Drinks. Perfect for sharing!",price:27.99,originalPrice:33.98,cat:"combos",emoji:"‚ù§Ô∏è",badge:"Save $6",soldOut:false,cal:1900,tags:[],rating:4.8,reviews:92},
-  {id:17,name:"Family Pack",desc:"4 Classic Poutines + 4 Soft Drinks. Feed the whole family!",price:43.99,originalPrice:55.96,cat:"combos",emoji:"üë®‚Äçüë©‚Äçüëß‚Äçüë¶",badge:"Save $12",soldOut:false,cal:3200,tags:[],rating:4.9,reviews:78},
-  {id:18,name:"Lunch Special",desc:"1 Classic Poutine + Cajun Fries + 1 Soft Drink.",price:16.99,originalPrice:19.97,cat:"combos",emoji:"üåû",badge:"Save $3",soldOut:false,cal:1200,tags:[],rating:4.7,reviews:134},
-  {id:19,name:"Party Bundle",desc:"6 Fusion Poutines + 6 Soft Drinks. Let's get this party started!",price:79.99,originalPrice:107.94,cat:"combos",emoji:"üéâ",badge:"Save $28",soldOut:false,cal:5800,tags:[],rating:4.9,reviews:45},
-  {id:20,name:"Student Deal",desc:"1 Classic Poutine + Cajun Fries. Show valid student ID.",price:13.99,originalPrice:16.98,cat:"combos",emoji:"üéì",badge:"Save $3",soldOut:false,cal:1100,tags:[],rating:4.6,reviews:89},
-  {id:21,name:"Late Night Special",desc:"2 Fusion Poutines for the price of 1.5. Available after 10PM only!",price:24.99,originalPrice:29.98,cat:"combos",emoji:"üåô",badge:"Save $5",soldOut:false,cal:1600,tags:[],rating:4.7,reviews:67},
+  {id:1,name:"Butter Chicken Poutine",desc:"Creamy butter chicken gravy, cheese curds, crispy fries.",price:14.99,cat:"fusion",emoji:"🍛",badge:"Bestseller",soldOut:false,cal:820,tags:['spicy'],rating:4.9,reviews:218,sizes:true,spiceLevel:true},
+  {id:2,name:"Tikka Masala Poutine",desc:"Bold tikka masala sauce, cheese curds, golden fries.",price:14.99,cat:"fusion",emoji:"🌶️",badge:"Spicy",soldOut:false,cal:790,tags:['spicy'],rating:4.7,reviews:156,sizes:true,spiceLevel:true},
+  {id:3,name:"Crispy Chicken Poutine",desc:"Crispy fried chicken, brown gravy, cheese curds.",price:13.99,cat:"fusion",emoji:"🍗",badge:"New",soldOut:false,cal:870,tags:[],rating:4.8,reviews:89,sizes:true},
+  {id:4,name:"Bacon Daddy",desc:"Double bacon, caramelized onions, cheddar sauce.",price:15.99,cat:"fusion",emoji:"🥓",badge:"",soldOut:false,cal:950,tags:[],rating:4.6,reviews:112,sizes:true},
+  {id:5,name:"Meat Lover Poutine",desc:"Pulled pork, beef, bacon, three-cheese blend.",price:16.99,cat:"fusion",emoji:"🥩",badge:"Fan Fave",soldOut:false,cal:1020,tags:[],rating:4.8,reviews:203,sizes:true},
+  {id:6,name:"Classic Poutine",desc:"Golden fries, squeaky cheese curds, rich brown gravy.",price:10.99,cat:"classic",emoji:"🍟",badge:"",soldOut:false,cal:680,tags:['gf'],rating:4.7,reviews:341,sizes:true},
+  {id:7,name:"Bacon Poutine",desc:"Classic poutine with crispy smoked bacon.",price:13.99,cat:"classic",emoji:"🍟",badge:"",soldOut:false,cal:780,tags:['gf'],rating:4.6,reviews:98,sizes:true},
+  {id:8,name:"Veggie Poutine",desc:"Roasted vegetables, mushroom gravy, cheese curds.",price:11.99,cat:"classic",emoji:"🥦",badge:"Veggie",soldOut:false,cal:590,tags:['vegetarian','gf'],rating:4.5,reviews:67,sizes:true},
+  {id:9,name:"Classic Fries",desc:"Golden, crispy, perfectly salted.",price:5.99,cat:"sides",emoji:"🍟",badge:"",soldOut:false,cal:380,tags:['vegan','gf'],rating:4.4,reviews:88},
+  {id:10,name:"Cajun Fries",desc:"Seasoned with our signature Cajun spice blend.",price:7.99,cat:"sides",emoji:"🌶️",badge:"",soldOut:false,cal:420,tags:['vegan','gf','spicy'],rating:4.6,reviews:134},
+  {id:11,name:"Onion Rings",desc:"Beer-battered with house-made dipping sauce.",price:6.99,cat:"sides",emoji:"🧅",badge:"",soldOut:false,cal:460,tags:['vegetarian'],rating:4.3,reviews:72},
+  {id:12,name:"Meat Lover Mac & Cheese",desc:"Five-cheese mac with pulled pork and bacon.",price:15.99,cat:"mac",emoji:"🧀",badge:"Bestseller",soldOut:false,cal:1100,tags:[],rating:4.9,reviews:187,sizes:true},
+  {id:13,name:"Classic Mac & Cheese",desc:"Five-cheese blend, golden breadcrumb crust.",price:11.99,cat:"mac",emoji:"🧆",badge:"",soldOut:false,cal:780,tags:['vegetarian'],rating:4.6,reviews:103,sizes:true},
+  {id:14,name:"Mango Lassi",desc:"Sweet, creamy mango lassi.",price:4.99,cat:"drinks",emoji:"🥭",badge:"",soldOut:false,cal:210,tags:['vegetarian','gf'],rating:4.8,reviews:156},
+  {id:15,name:"Pop / Soft Drink",desc:"Coke, Sprite, Orange, or Root Beer.",price:2.99,cat:"drinks",emoji:"🥤",badge:"",soldOut:false,cal:140,tags:['vegan','gf'],rating:4.2,reviews:45},
+  {id:16,name:"Date Night Combo",desc:"2 Fusion Poutines + 2 Soft Drinks. Perfect for sharing!",price:27.99,originalPrice:33.98,cat:"combos",emoji:"❤️",badge:"Save $6",soldOut:false,cal:1900,tags:[],rating:4.8,reviews:92},
+  {id:17,name:"Family Pack",desc:"4 Classic Poutines + 4 Soft Drinks. Feed the whole family!",price:43.99,originalPrice:55.96,cat:"combos",emoji:"👨‍👩‍👧‍👦",badge:"Save $12",soldOut:false,cal:3200,tags:[],rating:4.9,reviews:78},
+  {id:18,name:"Lunch Special",desc:"1 Classic Poutine + Cajun Fries + 1 Soft Drink.",price:16.99,originalPrice:19.97,cat:"combos",emoji:"🌞",badge:"Save $3",soldOut:false,cal:1200,tags:[],rating:4.7,reviews:134},
+  {id:19,name:"Party Bundle",desc:"6 Fusion Poutines + 6 Soft Drinks. Let's get this party started!",price:79.99,originalPrice:107.94,cat:"combos",emoji:"🎉",badge:"Save $28",soldOut:false,cal:5800,tags:[],rating:4.9,reviews:45},
+  {id:20,name:"Student Deal",desc:"1 Classic Poutine + Cajun Fries. Show valid student ID.",price:13.99,originalPrice:16.98,cat:"combos",emoji:"🎓",badge:"Save $3",soldOut:false,cal:1100,tags:[],rating:4.6,reviews:89},
+  {id:21,name:"Late Night Special",desc:"2 Fusion Poutines for the price of 1.5. Available after 10PM only!",price:24.99,originalPrice:29.98,cat:"combos",emoji:"🌙",badge:"Save $5",soldOut:false,cal:1600,tags:[],rating:4.7,reviews:67},
 ];
 
 function getMenu() {
@@ -1029,27 +1029,27 @@ function renderMenu(filter = 'all') {
 
   const favs = JSON.parse(localStorage.getItem('ph_favs')||'[]');
   const userReviews = JSON.parse(localStorage.getItem('ph_reviews')||'{}');
-  const tagMap = {spicy:'üå∂Ô∏è Spicy',vegan:'üåø Vegan',vegetarian:'üå± Veggie',gf:'üåæ GF'};
+  const tagMap = {spicy:'🌶️ Spicy',vegan:'🌿 Vegan',vegetarian:'🌱 Veggie',gf:'🌾 GF'};
   grid.innerHTML = activeItems.map(item => {
     const isSoldOut = soldOut[item.id] || item.soldOut || false;
     const isCombo = item.cat === 'combos';
     const isFav = favs.includes(item.id);
     const badgeClass = item.badge && item.badge.startsWith('Save') ? 'save' : (item.badge||'').toLowerCase().replace(' ','-') || '';
     const tagHtml = (item.tags||[]).map(t=>`<span class="diet-tag tag-${t}">${tagMap[t]||t}</span>`).join('');
-    const ratingHtml = item.rating ? `<div class="item-rating"><span class="stars">${'‚òÖ'.repeat(Math.round(item.rating))}${'‚òÜ'.repeat(5-Math.round(item.rating))}</span><span class="rating-num">${item.rating}</span><span class="review-count">(${item.reviews||0})</span></div>` : '';
+    const ratingHtml = item.rating ? `<div class="item-rating"><span class="stars">${'★'.repeat(Math.round(item.rating))}${'☆'.repeat(5-Math.round(item.rating))}</span><span class="rating-num">${item.rating}</span><span class="review-count">(${item.reviews||0})</span></div>` : '';
     return `
       <div class="menu-card ${isSoldOut?'sold-out-card':''} ${isCombo?'combo-card':''}" id="card-${item.id}">
         <div class="menu-card-img">
           ${item.imageUrl ? `<img src="${item.imageUrl}" alt="${item.name}" loading="lazy">` : item.emoji}
           ${isSoldOut ? '<div class="sold-out-overlay"><span class="sold-out-text">Sold Out</span></div>' : ''}
           ${item.badge && !isSoldOut ? `<div class="menu-badge ${badgeClass}">${item.badge}</div>` : ''}
-          <button class="fav-btn ${isFav?'active':''}" onclick="toggleFav(${item.id},event)">${isFav?'‚ù§Ô∏è':'ü§ç'}</button>
+          <button class="fav-btn ${isFav?'active':''}" onclick="toggleFav(${item.id},event)">${isFav?'❤️':'🤍'}</button>
         </div>
         <div class="menu-card-body">
           <div class="menu-card-name">${item.name}</div>
           ${ratingHtml}
           ${tagHtml ? `<div class="diet-tags">${tagHtml}</div>` : ''}
-          ${isCombo && item.originalPrice ? `<div class="combo-savings">üî• You save CA$${(item.originalPrice-item.price).toFixed(2)} on this combo!</div>` : ''}
+          ${isCombo && item.originalPrice ? `<div class="combo-savings">🔥 You save CA$${(item.originalPrice-item.price).toFixed(2)} on this combo!</div>` : ''}
           <div class="menu-card-desc">${item.desc}</div>
           ${item.cal ? `<div class="cal-info">~${item.cal} cal</div>` : ''}
           <div class="menu-card-footer">
@@ -1083,9 +1083,9 @@ function addToCart(id) {
   else cart.push({...item, qty:1});
   localStorage.setItem('ph_cart', JSON.stringify(cart));
   updateCartCount();
-  showToast('üçü', `${item.name} added!`);
+  showToast('🍟', `${item.name} added!`);
   const btn = document.getElementById(`add-${id}`);
-  if (btn) { btn.classList.add('added'); btn.textContent = '‚úì Added'; setTimeout(() => { btn.classList.remove('added'); btn.textContent = '+ Add'; }, 1500); }
+  if (btn) { btn.classList.add('added'); btn.textContent = '✓ Added'; setTimeout(() => { btn.classList.remove('added'); btn.textContent = '+ Add'; }, 1500); }
 }
 
 function updateCartCount() {
@@ -1098,7 +1098,7 @@ function closeCart() { document.getElementById('cartModal').classList.remove('op
 function renderCart() {
   const body = document.getElementById('cartBody');
   if (cart.length === 0) {
-    body.innerHTML = '<div class="cart-empty"><div class="icon">üõí</div><p>Your cart is empty</p><p style="font-size:0.78rem;margin-top:5px">Add some delicious poutine!</p></div>';
+    body.innerHTML = '<div class="cart-empty"><div class="icon">🛒</div><p>Your cart is empty</p><p style="font-size:0.78rem;margin-top:5px">Add some delicious poutine!</p></div>';
     return;
   }
   const subtotal = cart.reduce((a,i) => a + i.price * i.qty, 0);
@@ -1125,7 +1125,7 @@ function renderCart() {
             <div class="cart-item-price">CA$${item.price.toFixed(2)} each</div>
           </div>
           <div class="cart-item-qty">
-            <button class="qty-btn" onclick="updateQty(${item.id},-1)">‚àí</button>
+            <button class="qty-btn" onclick="updateQty(${item.id},-1)">−</button>
             <span class="qty-num">${item.qty}</span>
             <button class="qty-btn" onclick="updateQty(${item.id},1)">+</button>
           </div>
@@ -1135,22 +1135,22 @@ function renderCart() {
     <div class="checkout-section">
       <h4>Order Type</h4>
       <div class="order-type-tabs">
-        <button class="order-type-tab ${orderType==='pickup'?'active':''}" onclick="setOrderType('pickup',this)">üè† Pickup</button>
-        <button class="order-type-tab ${orderType==='delivery'?'active':''}" onclick="setOrderType('delivery',this)">üöó Delivery</button>
+        <button class="order-type-tab ${orderType==='pickup'?'active':''}" onclick="setOrderType('pickup',this)">🏠 Pickup</button>
+        <button class="order-type-tab ${orderType==='delivery'?'active':''}" onclick="setOrderType('delivery',this)">🚗 Delivery</button>
       </div>
       <div id="deliveryAddr" style="display:${orderType==='delivery'?'block':'none'}">
         <input class="addr-input" id="addrInput" placeholder="Enter delivery address..." value="${localStorage.getItem('ph_address')||''}" oninput="localStorage.setItem('ph_address',this.value)">
       </div>
       <div id="pickupInfo" style="display:${orderType==='pickup'?'block':'none'}">
-        <div style="font-size:0.82rem;color:var(--muted)">üìç ${localStorage.getItem('ph_location')==='dundas'?'132 Dundas St E':'179 Parliament St'}</div>
-        <div class="wait-badge">‚è± ~20-25 min wait</div>
+        <div style="font-size:0.82rem;color:var(--muted)">📍 ${localStorage.getItem('ph_location')==='dundas'?'132 Dundas St E':'179 Parliament St'}</div>
+        <div class="wait-badge">⏱ ~20-25 min wait</div>
       </div>
     </div>
     <div class="checkout-section">
       <h4>When?</h4>
       <div class="schedule-toggle">
-        <button class="schedule-btn ${schedMode==='asap'?'active':''}" onclick="setSchedMode('asap',this)">‚ö° ASAP</button>
-        <button class="schedule-btn ${schedMode==='schedule'?'active':''}" onclick="setSchedMode('schedule',this)">üìÖ Schedule</button>
+        <button class="schedule-btn ${schedMode==='asap'?'active':''}" onclick="setSchedMode('asap',this)">⚡ ASAP</button>
+        <button class="schedule-btn ${schedMode==='schedule'?'active':''}" onclick="setSchedMode('schedule',this)">📅 Schedule</button>
       </div>
       <div id="schedPicker" style="display:${schedMode==='schedule'?'block':'none'}">
         <input type="date" class="addr-input" id="schedDate" style="margin-bottom:8px" min="${new Date().toISOString().split('T')[0]}" value="${localStorage.getItem('ph_sched_date')||''}" onchange="localStorage.setItem('ph_sched_date',this.value);renderTimeSlots()">
@@ -1169,9 +1169,9 @@ function renderCart() {
         <input class="promo-input" id="promoInput" placeholder="Enter code..." value="${promoCode}">
         <button class="btn-promo" onclick="applyPromo()">Apply</button>
       </div>
-      <div id="promoMsg" class="promo-ok" style="display:${discount>0?'block':'none'}">${discount>0?'‚úÖ '+Math.round(discount*100)+'% discount applied!':''}</div>
+      <div id="promoMsg" class="promo-ok" style="display:${discount>0?'block':'none'}">${discount>0?'✅ '+Math.round(discount*100)+'% discount applied!':''}</div>
     </div>
-    ${user && !user.isGuest ? `<div class="cart-points-note">üåü You'll earn ${finalPts} points on this order!</div>` : ''}
+    ${user && !user.isGuest ? `<div class="cart-points-note">🌟 You'll earn ${finalPts} points on this order!</div>` : ''}
     <div class="cart-summary">
       <div class="cart-row"><span class="label">Subtotal</span><span>CA$${subtotal.toFixed(2)}</span></div>
       ${discountAmt>0?`<div class="cart-row" style="color:#2ecc71"><span class="label">Discount</span><span>-CA$${discountAmt.toFixed(2)}</span></div>`:''}
@@ -1179,7 +1179,7 @@ function renderCart() {
       <div class="cart-row"><span class="label">Tax (13% HST)</span><span>CA$${tax.toFixed(2)}</span></div>
       <div class="cart-row"><span class="label total">Total</span><span class="total">CA$${finalTotal.toFixed(2)}</span></div>
     </div>
-    <button class="btn-checkout" onclick="placeOrder(${finalTotal.toFixed(2)},${finalPts})">Place Order ‚Üí</button>
+    <button class="btn-checkout" onclick="placeOrder(${finalTotal.toFixed(2)},${finalPts})">Place Order →</button>
   `;
   if(schedMode==='schedule') renderTimeSlots();
 }
@@ -1216,7 +1216,7 @@ function placeOrder(total, pts) {
   orders.unshift(order);
   localStorage.setItem('ph_orders', JSON.stringify(orders));
 
-  // ‚îÄ‚îÄ Push to admin live orders ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+  // ── Push to admin live orders ──────────────────────────────────
   const liveOrder = {
     id: order.id,
     customer: user.isGuest ? 'Guest' : (user.name || user.email || 'Customer'),
@@ -1233,7 +1233,7 @@ function placeOrder(total, pts) {
   const existingLive = JSON.parse(localStorage.getItem('ph_live_orders') || '[]');
   existingLive.unshift(liveOrder);
   localStorage.setItem('ph_live_orders', JSON.stringify(existingLive));
-  // ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+  // ──────────────────────────────────────────────────────────────
 
   if (!user.isGuest) {
     user.points += pts; user.spent = (user.spent||0) + total; user.orders = (user.orders||0) + 1;
@@ -1258,7 +1258,7 @@ function switchTab(tab, btn) {
   document.getElementById('signupForm').style.display = tab === 'signup' ? 'block' : 'none';
 }
 
-// ‚îÄ‚îÄ Auth helpers ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Auth helpers ─────────────────────────────────────────────────
 const firebaseReady = typeof firebase !== 'undefined' && firebase.apps?.length;
 
 function showAuthMsg(msg, type='error') {
@@ -1288,7 +1288,7 @@ function setUserFromFirebase(fbUser) {
 function handleLogin() {
   const email = document.getElementById('loginEmail').value.trim();
   const pw = document.getElementById('loginPassword').value;
-  if (!email || !pw) { showToast('‚ö†Ô∏è','Fill in all fields'); return; }
+  if (!email || !pw) { showToast('⚠️','Fill in all fields'); return; }
   if (firebaseReady) {
     firebase.auth().signInWithEmailAndPassword(email, pw)
       .then(cred => {
@@ -1298,14 +1298,14 @@ function handleLogin() {
           return;
         }
         setUserFromFirebase(cred.user);
-        closeLogin(); setLoggedIn(); showToast('üëã',`Welcome back, ${user.name.split(' ')[0]}!`);
+        closeLogin(); setLoggedIn(); showToast('👋',`Welcome back, ${user.name.split(' ')[0]}!`);
       })
-      .catch(e => showToast('‚ùå', e.code === 'auth/wrong-password' || e.code === 'auth/user-not-found' ? 'Invalid email or password' : e.message));
+      .catch(e => showToast('❌', e.code === 'auth/wrong-password' || e.code === 'auth/user-not-found' ? 'Invalid email or password' : e.message));
   } else {
     const saved = JSON.parse(localStorage.getItem(`ph_account_${email}`) || 'null');
-    if (!saved || saved.password !== pw) { showToast('‚ùå','Invalid email or password'); return; }
+    if (!saved || saved.password !== pw) { showToast('❌','Invalid email or password'); return; }
     user = saved; localStorage.setItem('ph_user', JSON.stringify(user));
-    closeLogin(); setLoggedIn(); showToast('üëã',`Welcome back, ${user.name.split(' ')[0]}!`);
+    closeLogin(); setLoggedIn(); showToast('👋',`Welcome back, ${user.name.split(' ')[0]}!`);
   }
 }
 
@@ -1313,8 +1313,8 @@ function handleSignup() {
   const name = document.getElementById('signupName').value.trim();
   const email = document.getElementById('signupEmail').value.trim();
   const pw = document.getElementById('signupPassword').value;
-  if (!name || !email || !pw) { showToast('‚ö†Ô∏è','Fill in all fields'); return; }
-  if (pw.length < 6) { showToast('‚ö†Ô∏è','Password must be 6+ chars'); return; }
+  if (!name || !email || !pw) { showToast('⚠️','Fill in all fields'); return; }
+  if (pw.length < 6) { showToast('⚠️','Password must be 6+ chars'); return; }
   if (firebaseReady) {
     firebase.auth().createUserWithEmailAndPassword(email, pw)
       .then(cred => {
@@ -1323,40 +1323,40 @@ function handleSignup() {
         firebase.auth().signOut();
         showAuthMsg('Account created! Check your email and click the verification link before signing in.', 'success');
       })
-      .catch(e => showToast('‚ùå', e.code === 'auth/email-already-in-use' ? 'Email already registered ‚Äî try signing in.' : e.message));
+      .catch(e => showToast('❌', e.code === 'auth/email-already-in-use' ? 'Email already registered — try signing in.' : e.message));
   } else {
     user = {name,email,password:pw,points:500,spent:0,orders:0,joined:new Date().toLocaleDateString('en-CA')};
     localStorage.setItem(`ph_account_${email}`, JSON.stringify(user));
     localStorage.setItem('ph_user', JSON.stringify(user));
-    closeLogin(); setLoggedIn(); showToast('üéâ','Welcome! +500 bonus points!');
+    closeLogin(); setLoggedIn(); showToast('🎉','Welcome! +500 bonus points!');
   }
 }
 
 function signInGoogle() {
-  if (!firebaseReady) { showToast('‚ö†Ô∏è','Firebase not set up yet'); return; }
+  if (!firebaseReady) { showToast('⚠️','Firebase not set up yet'); return; }
   const provider = new firebase.auth.GoogleAuthProvider();
   firebase.auth().signInWithPopup(provider)
-    .then(cred => { setUserFromFirebase(cred.user); closeLogin(); setLoggedIn(); showToast('üëã',`Welcome, ${user.name.split(' ')[0]}!`); })
-    .catch(e => showToast('‚ùå', e.message));
+    .then(cred => { setUserFromFirebase(cred.user); closeLogin(); setLoggedIn(); showToast('👋',`Welcome, ${user.name.split(' ')[0]}!`); })
+    .catch(e => showToast('❌', e.message));
 }
 
 function signInApple() {
-  if (!firebaseReady) { showToast('‚ö†Ô∏è','Firebase not set up yet'); return; }
+  if (!firebaseReady) { showToast('⚠️','Firebase not set up yet'); return; }
   const provider = new firebase.auth.OAuthProvider('apple.com');
   firebase.auth().signInWithPopup(provider)
-    .then(cred => { setUserFromFirebase(cred.user); closeLogin(); setLoggedIn(); showToast('üëã',`Welcome!`); })
-    .catch(e => showToast('‚ùå', e.message));
+    .then(cred => { setUserFromFirebase(cred.user); closeLogin(); setLoggedIn(); showToast('👋',`Welcome!`); })
+    .catch(e => showToast('❌', e.message));
 }
 
 function signInMicrosoft() {
-  if (!firebaseReady) { showToast('‚ö†Ô∏è','Firebase not set up yet'); return; }
+  if (!firebaseReady) { showToast('⚠️','Firebase not set up yet'); return; }
   const provider = new firebase.auth.OAuthProvider('microsoft.com');
   firebase.auth().signInWithPopup(provider)
-    .then(cred => { setUserFromFirebase(cred.user); closeLogin(); setLoggedIn(); showToast('üëã',`Welcome!`); })
-    .catch(e => showToast('‚ùå', e.message));
+    .then(cred => { setUserFromFirebase(cred.user); closeLogin(); setLoggedIn(); showToast('👋',`Welcome!`); })
+    .catch(e => showToast('❌', e.message));
 }
 
-// ‚îÄ‚îÄ Phone / SMS Auth ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Phone / SMS Auth ─────────────────────────────────────────────
 let phoneConfirmationResult = null;
 let recaptchaWidgetId = null;
 
@@ -1378,9 +1378,9 @@ function hidePhoneStep() {
 }
 
 function sendSMS() {
-  if (!firebaseReady) { showToast('‚ö†Ô∏è', 'Firebase not set up yet'); return; }
+  if (!firebaseReady) { showToast('⚠️', 'Firebase not set up yet'); return; }
   const phone = document.getElementById('phoneInput').value.trim();
-  if (!phone) { showToast('‚ö†Ô∏è', 'Enter your phone number'); return; }
+  if (!phone) { showToast('⚠️', 'Enter your phone number'); return; }
 
   // Set up invisible reCAPTCHA once
   if (!window.recaptchaVerifier) {
@@ -1396,18 +1396,18 @@ function sendSMS() {
       document.getElementById('phoneSent').textContent = phone;
       document.getElementById('phoneInputStep').style.display = 'none';
       document.getElementById('phoneOtpStep').style.display = 'block';
-      showToast('üì±', 'Code sent! Check your messages.');
+      showToast('📱', 'Code sent! Check your messages.');
     })
     .catch(err => {
       window.recaptchaVerifier.reset?.();
-      showToast('‚ùå', err.message);
+      showToast('❌', err.message);
     });
 }
 
 function verifyOTP() {
-  if (!phoneConfirmationResult) { showToast('‚ö†Ô∏è', 'Request a code first'); return; }
+  if (!phoneConfirmationResult) { showToast('⚠️', 'Request a code first'); return; }
   const code = document.getElementById('otpInput').value.trim();
-  if (!code) { showToast('‚ö†Ô∏è', 'Enter the verification code'); return; }
+  if (!code) { showToast('⚠️', 'Enter the verification code'); return; }
 
   phoneConfirmationResult.confirm(code)
     .then(cred => {
@@ -1415,9 +1415,9 @@ function verifyOTP() {
       closeLogin();
       hidePhoneStep();
       setLoggedIn();
-      showToast('üëã', `Welcome, ${user.name.split(' ')[0]}!`);
+      showToast('👋', `Welcome, ${user.name.split(' ')[0]}!`);
     })
-    .catch(() => showToast('‚ùå', 'Incorrect code ‚Äî try again'));
+    .catch(() => showToast('❌', 'Incorrect code — try again'));
 }
 
 function handleLogout() {
@@ -1432,7 +1432,7 @@ function handleLogout() {
   document.getElementById('loginBtn').style.color = '';
   document.getElementById('userBtn').style.display = 'none';
   document.getElementById('logoutBtn').style.display = 'none';
-  showToast('üëã','Signed out. See you soon!');
+  showToast('👋','Signed out. See you soon!');
   if (typeof syncDrawerAuth === 'function') syncDrawerAuth();
 }
 
@@ -1452,27 +1452,27 @@ function continueAsGuest() {
   btn.textContent = 'Guest';
   btn.style.background = 'var(--card2)';
   btn.style.color = 'var(--muted)';
-  showToast('üë§','Ordering as guest ‚Äî sign up to earn points!');
+  showToast('👤','Ordering as guest — sign up to earn points!');
 }
 
 
-// ‚îÄ‚îÄ LOCATION ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── LOCATION ──────────────────────────────────────────────────────
 function setLocation(val) {
   localStorage.setItem('ph_location', val);
   renderCart();
 }
 
-// ‚îÄ‚îÄ FAVOURITES ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── FAVOURITES ────────────────────────────────────────────────────
 function toggleFav(id, e) {
   e.stopPropagation();
   let favs = JSON.parse(localStorage.getItem('ph_favs')||'[]');
-  if (favs.includes(id)) { favs = favs.filter(f=>f!==id); showToast('üíî','Removed from favourites'); }
-  else { favs.push(id); showToast('‚ù§Ô∏è','Saved to favourites!'); }
+  if (favs.includes(id)) { favs = favs.filter(f=>f!==id); showToast('💔','Removed from favourites'); }
+  else { favs.push(id); showToast('❤️','Saved to favourites!'); }
   localStorage.setItem('ph_favs', JSON.stringify(favs));
   renderMenu(); updateDashboard();
 }
 
-// ‚îÄ‚îÄ CUSTOMIZE MODAL ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── CUSTOMIZE MODAL ───────────────────────────────────────────────
 let customItem = null, chosenSize = 'regular', chosenSpice = 'mild';
 function openCustomize(id) {
   const menu = getMenu();
@@ -1486,7 +1486,7 @@ function openCustomize(id) {
     <div class="custom-opt-group">
       <h4>Size</h4>
       <div class="opt-btns">
-        <button class="opt-btn active" onclick="pickOpt(this,'size','regular')">Regular ‚Äî CA$${customItem.price.toFixed(2)}</button>
+        <button class="opt-btn active" onclick="pickOpt(this,'size','regular')">Regular — CA$${customItem.price.toFixed(2)}</button>
         <button class="opt-btn" onclick="pickOpt(this,'size','large')">Large (+CA$3.00)</button>
       </div>
     </div>` : ''}
@@ -1494,17 +1494,17 @@ function openCustomize(id) {
     <div class="custom-opt-group">
       <h4>Spice Level</h4>
       <div class="opt-btns">
-        <button class="opt-btn active" onclick="pickOpt(this,'spice','mild')">üü° Mild</button>
-        <button class="opt-btn" onclick="pickOpt(this,'spice','medium')">üü† Medium</button>
-        <button class="opt-btn" onclick="pickOpt(this,'spice','hot')">üî¥ Hot</button>
-        <button class="opt-btn" onclick="pickOpt(this,'spice','extra')">üíÄ Extra Hot</button>
+        <button class="opt-btn active" onclick="pickOpt(this,'spice','mild')">🟡 Mild</button>
+        <button class="opt-btn" onclick="pickOpt(this,'spice','medium')">🟠 Medium</button>
+        <button class="opt-btn" onclick="pickOpt(this,'spice','hot')">🔴 Hot</button>
+        <button class="opt-btn" onclick="pickOpt(this,'spice','extra')">💀 Extra Hot</button>
       </div>
     </div>` : ''}
     <div class="custom-opt-group">
       <h4>Special Instructions</h4>
       <textarea class="special-input" id="specialNote" rows="2" placeholder="E.g. no onions, extra sauce, allergy info..."></textarea>
     </div>
-    <button class="btn-checkout" style="margin-top:10px" onclick="addCustomized()">Add to Cart ‚Üí</button>
+    <button class="btn-checkout" style="margin-top:10px" onclick="addCustomized()">Add to Cart →</button>
   `;
   document.getElementById('customModal').classList.add('open');
 }
@@ -1523,17 +1523,17 @@ function addCustomized() {
     customItem.sizes ? chosenSize.charAt(0).toUpperCase()+chosenSize.slice(1) : '',
     customItem.spiceLevel ? chosenSpice.charAt(0).toUpperCase()+chosenSpice.slice(1) : '',
     note
-  ].filter(Boolean).join(' ¬∑ ');
+  ].filter(Boolean).join(' · ');
   const existing = cart.find(i=>i.id===customItem.id && i.note===noteStr);
   if (existing) { existing.qty++; }
   else { cart.push({id:customItem.id,name:customItem.name,emoji:customItem.emoji,price:finalPrice,qty:1,note:noteStr}); }
   localStorage.setItem('ph_cart', JSON.stringify(cart));
   updateCartCount(); closeCustomize();
-  showToast('üõí', customItem.name + ' added!');
+  showToast('🛒', customItem.name + ' added!');
 }
 function closeCustomize() { document.getElementById('customModal').classList.remove('open'); }
 
-// ‚îÄ‚îÄ ORDER TYPE / SCHEDULE / TIP ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── ORDER TYPE / SCHEDULE / TIP ───────────────────────────────────
 function setOrderType(type, btn) {
   localStorage.setItem('ph_order_type', type);
   document.querySelectorAll('.order-type-tab').forEach(b=>b.classList.remove('active'));
@@ -1566,31 +1566,31 @@ function setTip(pct, btn) {
   renderCart();
 }
 
-// ‚îÄ‚îÄ PROMO CODES ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── PROMO CODES ───────────────────────────────────────────────────
 const PROMO_CODES = {POUTINE10:{discount:0.10,label:'10% off'},WELCOME20:{discount:0.20,label:'20% off'},STUDENT15:{discount:0.15,label:'15% student discount'},FIRSTORDER:{discount:0.15,label:'15% first order'}};
 function applyPromo() {
   const code = document.getElementById('promoInput').value.trim().toUpperCase();
   const promo = PROMO_CODES[code];
-  if (!promo) { showToast('‚ùå','Invalid promo code'); return; }
+  if (!promo) { showToast('❌','Invalid promo code'); return; }
   localStorage.setItem('ph_promo_discount', promo.discount);
   localStorage.setItem('ph_promo_code', code);
   document.getElementById('promoMsg').style.display='block';
-  document.getElementById('promoMsg').textContent = '‚úÖ ' + promo.label + ' applied!';
+  document.getElementById('promoMsg').textContent = '✅ ' + promo.label + ' applied!';
   renderCart();
 }
 
-// ‚îÄ‚îÄ ORDER CONFIRMATION ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── ORDER CONFIRMATION ────────────────────────────────────────────
 function showOrderConfirmation(order) {
   document.getElementById('confirmOverlay').classList.add('open');
   document.getElementById('confirmId').textContent = 'Order #' + order.id;
   const isScheduled = order.scheduled && order.scheduled !== 'ASAP';
   document.getElementById('etaBadge').textContent = isScheduled
-    ? 'üìÖ Scheduled for ' + order.scheduled
-    : (order.type==='delivery' ? 'üöó Delivery in ~45-60 min' : '‚è± Ready in ~20-25 min');
+    ? '📅 Scheduled for ' + order.scheduled
+    : (order.type==='delivery' ? '🚗 Delivery in ~45-60 min' : '⏱ Ready in ~20-25 min');
   document.getElementById('confirmOrderType').textContent = order.type==='delivery'
-    ? 'üöó Delivery to: ' + (order.address||'your address')
-    : 'üè† Pickup from: ' + (localStorage.getItem('ph_location')==='dundas'?'132 Dundas St E':'179 Parliament St');
-  document.getElementById('confirmItems').innerHTML = order.items.map(i=>`<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:0.85rem"><span>${i.emoji} ${i.name} √ó${i.qty}</span><span>CA$${(i.price*i.qty).toFixed(2)}</span></div>`).join('') + `<div style="display:flex;justify-content:space-between;padding:8px 0;font-weight:800;border-top:1px solid var(--border);margin-top:6px"><span>Total</span><span>CA$${order.total.toFixed(2)}</span></div>`;
+    ? '🚗 Delivery to: ' + (order.address||'your address')
+    : '🏠 Pickup from: ' + (localStorage.getItem('ph_location')==='dundas'?'132 Dundas St E':'179 Parliament St');
+  document.getElementById('confirmItems').innerHTML = order.items.map(i=>`<div style="display:flex;justify-content:space-between;padding:5px 0;font-size:0.85rem"><span>${i.emoji} ${i.name} ×${i.qty}</span><span>CA$${(i.price*i.qty).toFixed(2)}</span></div>`).join('') + `<div style="display:flex;justify-content:space-between;padding:8px 0;font-weight:800;border-top:1px solid var(--border);margin-top:6px"><span>Total</span><span>CA$${order.total.toFixed(2)}</span></div>`;
   if (!isScheduled) simulateTracker();
   setTimeout(()=>{ if(user && !user.isGuest) openReviewModal(order); }, 12000);
 }
@@ -1612,7 +1612,7 @@ function simulateTracker() {
   steps[0].classList.add('active');
 }
 
-// ‚îÄ‚îÄ REORDER ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── REORDER ───────────────────────────────────────────────────────
 function reorder(orderId) {
   const o = orders.find(o=>o.id===orderId);
   if(!o) return;
@@ -1623,11 +1623,11 @@ function reorder(orderId) {
   });
   localStorage.setItem('ph_cart', JSON.stringify(cart));
   updateCartCount();
-  showToast('üõí','Items added to cart!');
+  showToast('🛒','Items added to cart!');
   openCart();
 }
 
-// ‚îÄ‚îÄ REVIEWS ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── REVIEWS ───────────────────────────────────────────────────────
 let reviewRating = 0;
 function openReviewModal(order) {
   if (!order || !order.items || order.items.length===0) return;
@@ -1635,7 +1635,7 @@ function openReviewModal(order) {
   document.getElementById('reviewBody').innerHTML = `
     <p style="text-align:center;color:var(--muted);font-size:0.88rem">How was your <strong>${item.name}</strong>?</p>
     <div class="star-picker" id="starPicker">
-      ${[1,2,3,4,5].map(n=>`<span onclick="setReviewRating(${n})" data-r="${n}">‚òÜ</span>`).join('')}
+      ${[1,2,3,4,5].map(n=>`<span onclick="setReviewRating(${n})" data-r="${n}">☆</span>`).join('')}
     </div>
     <textarea class="special-input" id="reviewNote" rows="2" placeholder="Leave a comment (optional)..."></textarea>
     <button class="btn-checkout" style="margin-top:12px" onclick="submitReview(${item.id})">Submit Review</button>
@@ -1644,37 +1644,37 @@ function openReviewModal(order) {
 }
 function setReviewRating(n) {
   reviewRating = n;
-  document.querySelectorAll('#starPicker span').forEach((s,i)=>{ s.textContent = i<n?'‚òÖ':'‚òÜ'; s.classList.toggle('lit',i<n); });
+  document.querySelectorAll('#starPicker span').forEach((s,i)=>{ s.textContent = i<n?'★':'☆'; s.classList.toggle('lit',i<n); });
 }
 function submitReview(itemId) {
-  if(!reviewRating) { showToast('‚ö†Ô∏è','Pick a rating!'); return; }
+  if(!reviewRating) { showToast('⚠️','Pick a rating!'); return; }
   const reviews = JSON.parse(localStorage.getItem('ph_reviews')||'{}');
   if(!reviews[itemId]) reviews[itemId]=[];
   reviews[itemId].push({rating:reviewRating,comment:document.getElementById('reviewNote').value,date:new Date().toLocaleDateString('en-CA'),user:user?user.name:'Guest'});
   localStorage.setItem('ph_reviews', JSON.stringify(reviews));
   document.getElementById('reviewModal').classList.remove('open');
-  showToast('‚≠ê','Thanks for your review!');
+  showToast('⭐','Thanks for your review!');
   renderMenu();
 }
 
-// ‚îÄ‚îÄ PUSH NOTIFICATIONS ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── PUSH NOTIFICATIONS ────────────────────────────────────────────
 function requestPush() {
-  if(!('Notification' in window)){ showToast('‚ö†Ô∏è','Not supported in this browser'); return; }
+  if(!('Notification' in window)){ showToast('⚠️','Not supported in this browser'); return; }
   Notification.requestPermission().then(p=>{
     document.getElementById('pushBanner').classList.add('hidden');
-    if(p==='granted'){ showToast('üîî','Notifications enabled!'); localStorage.setItem('ph_push','granted'); }
-    else { showToast('‚ÑπÔ∏è','Notifications declined'); }
+    if(p==='granted'){ showToast('🔔','Notifications enabled!'); localStorage.setItem('ph_push','granted'); }
+    else { showToast('ℹ️','Notifications declined'); }
   });
 }
 
-// ‚îÄ‚îÄ REFERRAL CODE ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── REFERRAL CODE ─────────────────────────────────────────────────
 function generateReferral(name) {
   const base = name.split(' ')[0].toUpperCase().replace(/[^A-Z]/g,'').slice(0,5);
   return base + Math.floor(1000+Math.random()*9000);
 }
 function copyReferral() {
   const code = document.getElementById('refCodeDisplay').textContent;
-  navigator.clipboard.writeText('https://poutinehub.netlify.app/?ref='+code).then(()=>showToast('üìã','Referral link copied!'));
+  navigator.clipboard.writeText('https://poutinehub.netlify.app/?ref='+code).then(()=>showToast('📋','Referral link copied!'));
 }
 
 function openDashboard() {
@@ -1701,7 +1701,7 @@ function updateDashboard() {
         <div class="order-item">
           <div><div class="order-id">${o.id}</div><div class="order-date">${o.date}</div></div>
           <div class="order-total">CA$${parseFloat(o.total).toFixed(2)}</div>
-          <div class="order-status">Delivered ‚úì</div>
+          <div class="order-status">Delivered ✓</div>
         </div>`).join('');
 }
 
@@ -1723,7 +1723,7 @@ async function syncFromSheets(url) {
         price: parseFloat(obj.price) || 0,
         originalPrice: obj.originalprice ? parseFloat(obj.originalprice) : null,
         cat: obj.category || obj.cat || 'fusion',
-        emoji: obj.emoji || 'üçü',
+        emoji: obj.emoji || '🍟',
         badge: obj.badge || '',
         soldOut: obj.soldout === 'TRUE' || obj.soldout === 'true',
         active: obj.active !== 'FALSE' && obj.active !== 'false',
@@ -1733,10 +1733,10 @@ async function syncFromSheets(url) {
       localStorage.setItem('ph_menu', JSON.stringify(items));
       document.getElementById('sheetsNotice').style.display = 'block';
       renderMenu('all');
-      showToast('‚úÖ', `${items.length} items loaded from Google Sheets!`);
+      showToast('✅', `${items.length} items loaded from Google Sheets!`);
     }
   } catch(e) {
-    showToast('‚ùå', 'Could not load from Google Sheets. Check URL.');
+    showToast('❌', 'Could not load from Google Sheets. Check URL.');
   }
 }
 
@@ -1779,7 +1779,7 @@ if (firebaseReady) {
   const btn = document.getElementById('googleReviewBtn');
   if(btn && reviewUrl) btn.href = reviewUrl;
 })();
-window.addEventListener('storage', e => { if(e.key==='ph_logo_url'){ const el=document.getElementById('navLogoIcon'); if(el) el.innerHTML = e.newValue ? `<img src="${e.newValue}" class="logo-img" alt="Logo">` : 'üçü'; }});
+window.addEventListener('storage', e => { if(e.key==='ph_logo_url'){ const el=document.getElementById('navLogoIcon'); if(el) el.innerHTML = e.newValue ? `<img src="${e.newValue}" class="logo-img" alt="Logo">` : '🍟'; }});
 // set location selector
 const savedLoc = localStorage.getItem('ph_location')||'parliament';
 const locSel = document.getElementById('locationSel');
@@ -1804,7 +1804,7 @@ window.addEventListener('storage', (e) => {
   if (e.key === 'ph_daily_special') loadBanner();
 });
 
-// ‚îÄ‚îÄ Loyalty progress bar animation ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Loyalty progress bar animation ───────────────────────────────
 function updateLoyaltyBar() {
   const pts = user && !user.isGuest ? (user.points || 0) : 0;
   const el = document.getElementById('lpPoints');
@@ -1825,9 +1825,9 @@ function updateLoyaltyBar() {
 
   // Tier + bar
   let pct, tier, next;
-  if (pts < 5000)      { pct = (pts/5000)*100;       tier='ü•â Bronze Member'; next=`${(5000-pts).toLocaleString()} pts to Silver ü•à`; }
-  else if (pts < 15000){ pct = ((pts-5000)/10000)*100; tier='ü•à Silver Member'; next=`${(15000-pts).toLocaleString()} pts to Gold ü•á`; }
-  else                 { pct = 100;                   tier='ü•á Gold Member';   next='Maximum tier reached!'; }
+  if (pts < 5000)      { pct = (pts/5000)*100;       tier='🥉 Bronze Member'; next=`${(5000-pts).toLocaleString()} pts to Silver 🥈`; }
+  else if (pts < 15000){ pct = ((pts-5000)/10000)*100; tier='🥈 Silver Member'; next=`${(15000-pts).toLocaleString()} pts to Gold 🥇`; }
+  else                 { pct = 100;                   tier='🥇 Gold Member';   next='Maximum tier reached!'; }
 
   setTimeout(() => { if(bar) bar.style.width = Math.min(pct,100)+'%'; }, 300);
   if(tierName) tierName.textContent = tier;
@@ -1860,7 +1860,7 @@ const loyaltyObserver = new IntersectionObserver(entries => {
 const lc = document.getElementById('loyaltyCard');
 if (lc) loyaltyObserver.observe(lc);
 
-// ‚îÄ‚îÄ Mobile Drawer ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── Mobile Drawer ─────────────────────────────────────────────────
 function toggleDrawer() {
   const d = document.getElementById('mobileDrawer');
   const o = document.getElementById('drawerOverlay');
