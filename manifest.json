@@ -1,0 +1,18 @@
+{
+  "name": "Poutine Hub",
+  "short_name": "PoutineHub",
+  "description": "Order poutine online from Poutine Hub Toronto",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0F0F0F",
+  "theme_color": "#C41E3A",
+  "orientation": "portrait-primary",
+  "categories": ["food", "shopping"],
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Order Now", "short_name": "Order", "url": "/#menu", "icons": [{ "src": "icon-192.png", "sizes": "192x192" }] }
+  ]
+}
