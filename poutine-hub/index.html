@@ -296,11 +296,36 @@
   .social-btn{width:34px;height:34px;background:var(--card2);border:1px solid var(--border);border-radius:7px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.95rem;transition:all 0.2s;text-decoration:none}
   .social-btn:hover{border-color:var(--gold)}
 
-  /* TOAST */
-  .toast{position:fixed;bottom:22px;right:22px;background:var(--card);border:1px solid var(--gold);border-radius:11px;padding:12px 18px;z-index:3000;display:flex;align-items:center;gap:9px;transform:translateY(100px);opacity:0;transition:all 0.3s;font-size:0.88rem}
-  .toast.show{transform:translateY(0);opacity:1}
+  /* TOAST — single authoritative rule above; no duplicate here */
 
-  @media(max-width:768px){.nav-links{display:none}.hero-visual{display:none}.about-grid,.locations-grid,.points-grid,.dashboard-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr 1fr}.hero-stats{gap:18px}.points-cta{flex-direction:column;gap:18px;text-align:center}.user-card{flex-direction:column;gap:18px;text-align:center}.user-points-display{text-align:center}}
+  /* ── MOBILE HAMBURGER ── */
+  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;border:none;background:transparent;z-index:1100}
+  .hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:all 0.3s}
+  .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+  .hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+  .mobile-drawer{position:fixed;top:0;right:-100%;width:min(280px,80vw);height:100dvh;background:var(--bg);z-index:1050;padding:80px 28px 32px;box-shadow:-4px 0 32px rgba(28,16,8,0.12);transition:right 0.35s cubic-bezier(0.4,0,0.2,1);display:flex;flex-direction:column;gap:0;border-left:1px solid var(--border)}
+  .mobile-drawer.open{right:0}
+  .mobile-drawer ul{list-style:none;margin:0 0 24px;padding:0}
+  .mobile-drawer ul li{border-bottom:1px solid var(--border)}
+  .mobile-drawer ul li a{display:block;padding:14px 0;font-size:1rem;font-weight:600;color:var(--text);text-decoration:none;transition:color 0.2s}
+  .mobile-drawer ul li a:hover{color:var(--red)}
+  .mobile-drawer-actions{display:flex;flex-direction:column;gap:10px;margin-top:auto}
+  .drawer-overlay{position:fixed;inset:0;background:rgba(28,16,8,0.35);z-index:1040;opacity:0;pointer-events:none;transition:opacity 0.3s}
+  .drawer-overlay.open{opacity:1;pointer-events:all}
+
+  @media(max-width:768px){
+    .nav-links{display:none}
+    .hamburger{display:flex}
+    .hero-visual{display:none}
+    .about-grid,.locations-grid,.points-grid,.dashboard-grid{grid-template-columns:1fr}
+    .footer-grid{grid-template-columns:1fr 1fr}
+    .hero-stats{gap:18px}
+    .points-cta{flex-direction:column;gap:18px;text-align:center}
+    .user-card{flex-direction:column;gap:18px;text-align:center}
+    .user-points-display{text-align:center}
+    .nav-actions .btn-login,.nav-actions .btn-user,.nav-actions .btn-cart,.nav-actions select{display:none}
+  }
 
   .diet-tags{display:flex;flex-wrap:wrap;gap:4px;margin:5px 0}
   .diet-tag{font-size:0.68rem;padding:2px 7px;border-radius:20px;font-weight:600}
@@ -531,8 +556,29 @@
     <button class="btn-login" id="loginBtn" onclick="openLogin()">Sign In</button>
     <button class="btn-user" id="userBtn" onclick="openDashboard()">👤 <span id="userNameNav">Account</span></button>
     <button class="btn-login" id="logoutBtn" onclick="handleLogout()" style="display:none;background:transparent;border:1px solid var(--border);color:var(--muted)">Sign Out</button>
+    <button class="hamburger" id="hamburgerBtn" onclick="toggleDrawer()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- MOBILE DRAWER -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+<div class="mobile-drawer" id="mobileDrawer">
+  <ul>
+    <li><a href="#about" onclick="closeDrawer()">Our Story</a></li>
+    <li><a href="#menu" onclick="closeDrawer()">Menu</a></li>
+    <li><a href="#points" onclick="closeDrawer()">Rewards</a></li>
+    <li><a href="#locations" onclick="closeDrawer()">Locations</a></li>
+  </ul>
+  <div class="mobile-drawer-actions">
+    <select class="location-sel" style="width:100%" onchange="setLocation(this.value)" title="Select location"><option value="parliament">📍 Parliament St</option><option value="dundas">📍 Dundas St</option></select>
+    <button class="btn-cart" style="width:100%;justify-content:center" onclick="closeDrawer();openCart()">🛒 Cart <span class="cart-count" id="cartCountDrawer">0</span></button>
+    <button class="btn-login" id="loginBtnDrawer" style="width:100%;text-align:center" onclick="closeDrawer();openLogin()">Sign In</button>
+    <button class="btn-user" id="userBtnDrawer" style="width:100%;text-align:center;display:none" onclick="closeDrawer();openDashboard()">👤 <span id="userNameDrawer">Account</span></button>
+    <button class="btn-login" id="logoutBtnDrawer" onclick="closeDrawer();handleLogout()" style="display:none;width:100%;text-align:center;background:transparent;border:1px solid var(--border);color:var(--muted)">Sign Out</button>
+  </div>
+</div>
 
 <!-- HERO -->
 <section id="hero">
@@ -882,7 +928,7 @@
           <button onclick="sendSMS()" style="background:none;border:none;color:var(--gold);cursor:pointer;font-size:0.82rem;margin-top:10px;width:100%">Resend code</button>
         </div>
       </div>
-      <div id="authMsg" style="display:none;background:rgba(46,204,113,0.1);border:1px solid #2ecc71;border-radius:9px;padding:12px;text-align:center;color:#2ecc71;font-size:0.85rem;margin-bottom:12px"></div>
+      <div id="authMsg" style="display:none;background:rgba(196,30,58,0.08);border:1px solid rgba(196,30,58,0.3);border-radius:9px;padding:12px;text-align:center;color:var(--red);font-size:0.85rem;margin-bottom:12px"></div>
       <div class="auth-tabs">
         <button class="auth-tab active" onclick="switchTab('login',this)">Sign In</button>
         <button class="auth-tab" onclick="switchTab('signup',this)">Create Account</button>
@@ -1013,7 +1059,7 @@ function renderMenu(filter = 'all') {
             </div>
             ${isSoldOut
               ? '<button class="btn-add soldout" disabled>Sold Out</button>'
-              : `<button class="btn-add" onclick="openCustomize(${item.id})">+ Add</button>`
+              : `<button class="btn-add" onclick="openCustomize(${item.id})">+</button>`
             }
           </div>
         </div>
@@ -1155,9 +1201,11 @@ function placeOrder(total, pts) {
   const schedDate = localStorage.getItem('ph_sched_date')||'';
   const schedTime = localStorage.getItem('ph_sched_time')||'';
   const address = localStorage.getItem('ph_address')||'';
+  const now = new Date();
+  const timeStr = now.getHours()+':'+String(now.getMinutes()).padStart(2,'0');
   const order = {
     id:`PH${Date.now()}`,
-    date:new Date().toLocaleDateString('en-CA'),
+    date:now.toLocaleDateString('en-CA'),
     total, points:user.isGuest?0:pts,
     items:[...cart],
     type:orderType,
@@ -1167,6 +1215,26 @@ function placeOrder(total, pts) {
   };
   orders.unshift(order);
   localStorage.setItem('ph_orders', JSON.stringify(orders));
+
+  // ── Push to admin live orders ──────────────────────────────────
+  const liveOrder = {
+    id: order.id,
+    customer: user.isGuest ? 'Guest' : (user.name || user.email || 'Customer'),
+    itemNames: cart.map(i => `${i.name}${i.qty>1?' x'+i.qty:''}`).join(', '),
+    total: order.total,
+    status: 'new',
+    time: timeStr,
+    date: order.date,
+    type: orderType,
+    address: order.address,
+    scheduled: order.scheduled,
+    phone: user.phone || ''
+  };
+  const existingLive = JSON.parse(localStorage.getItem('ph_live_orders') || '[]');
+  existingLive.unshift(liveOrder);
+  localStorage.setItem('ph_live_orders', JSON.stringify(existingLive));
+  // ──────────────────────────────────────────────────────────────
+
   if (!user.isGuest) {
     user.points += pts; user.spent = (user.spent||0) + total; user.orders = (user.orders||0) + 1;
     localStorage.setItem('ph_user', JSON.stringify(user));
@@ -1193,9 +1261,19 @@ function switchTab(tab, btn) {
 // ── Auth helpers ─────────────────────────────────────────────────
 const firebaseReady = typeof firebase !== 'undefined' && firebase.apps?.length;
 
-function showAuthMsg(msg) {
+function showAuthMsg(msg, type='error') {
   const el = document.getElementById('authMsg');
-  el.textContent = msg; el.style.display = 'block';
+  el.textContent = msg;
+  el.style.display = 'block';
+  if (type === 'success') {
+    el.style.background = 'rgba(39,174,96,0.08)';
+    el.style.borderColor = 'rgba(39,174,96,0.3)';
+    el.style.color = '#27AE60';
+  } else {
+    el.style.background = 'rgba(196,30,58,0.08)';
+    el.style.borderColor = 'rgba(196,30,58,0.3)';
+    el.style.color = 'var(--red)';
+  }
 }
 
 function setUserFromFirebase(fbUser) {
@@ -1216,7 +1294,7 @@ function handleLogin() {
       .then(cred => {
         if (!cred.user.emailVerified) {
           firebase.auth().signOut();
-          showAuthMsg('Please verify your email first. Check your inbox for the verification link.');
+          showAuthMsg('Please verify your email first. Check your inbox for the verification link.', 'error');
           return;
         }
         setUserFromFirebase(cred.user);
@@ -1243,7 +1321,7 @@ function handleSignup() {
         cred.user.updateProfile({displayName: name});
         cred.user.sendEmailVerification();
         firebase.auth().signOut();
-        showAuthMsg('Account created! Check your email and click the verification link before signing in.');
+        showAuthMsg('Account created! Check your email and click the verification link before signing in.', 'success');
       })
       .catch(e => showToast('❌', e.code === 'auth/email-already-in-use' ? 'Email already registered — try signing in.' : e.message));
   } else {
@@ -1343,9 +1421,11 @@ function verifyOTP() {
 }
 
 function handleLogout() {
-  if (firebaseReady) firebase.auth().signOut();
+  if (firebaseReady) firebase.auth().signOut().catch(()=>{});
   user = null;
   localStorage.removeItem('ph_user');
+  const authMsg = document.getElementById('authMsg');
+  if (authMsg) authMsg.style.display = 'none';
   document.getElementById('loginBtn').style.display = '';
   document.getElementById('loginBtn').textContent = 'Sign In';
   document.getElementById('loginBtn').style.background = '';
@@ -1353,6 +1433,7 @@ function handleLogout() {
   document.getElementById('userBtn').style.display = 'none';
   document.getElementById('logoutBtn').style.display = 'none';
   showToast('👋','Signed out. See you soon!');
+  if (typeof syncDrawerAuth === 'function') syncDrawerAuth();
 }
 
 function setLoggedIn() {
@@ -1361,6 +1442,7 @@ function setLoggedIn() {
   document.getElementById('logoutBtn').style.display = '';
   document.getElementById('userNameNav').textContent = user.name.split(' ')[0];
   updateDashboard();
+  if (typeof syncDrawerAuth === 'function') syncDrawerAuth();
 }
 
 function continueAsGuest() {
@@ -1777,6 +1859,40 @@ const loyaltyObserver = new IntersectionObserver(entries => {
 }, { threshold: 0.3 });
 const lc = document.getElementById('loyaltyCard');
 if (lc) loyaltyObserver.observe(lc);
+
+// ── Mobile Drawer ─────────────────────────────────────────────────
+function toggleDrawer() {
+  const d = document.getElementById('mobileDrawer');
+  const o = document.getElementById('drawerOverlay');
+  const b = document.getElementById('hamburgerBtn');
+  const open = d.classList.toggle('open');
+  o.classList.toggle('open', open);
+  b.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeDrawer() {
+  document.getElementById('mobileDrawer').classList.remove('open');
+  document.getElementById('drawerOverlay').classList.remove('open');
+  document.getElementById('hamburgerBtn').classList.remove('open');
+  document.body.style.overflow = '';
+}
+// Sync drawer auth buttons with main nav state
+function syncDrawerAuth() {
+  const loggedIn = user && !user.isGuest;
+  const guestOrLoggedIn = !!user;
+  document.getElementById('loginBtnDrawer').style.display = (!user || user.isGuest) ? '' : 'none';
+  document.getElementById('userBtnDrawer').style.display = loggedIn ? '' : 'none';
+  document.getElementById('logoutBtnDrawer').style.display = guestOrLoggedIn ? '' : 'none';
+  const nd = document.getElementById('userNameDrawer');
+  if (nd && loggedIn) nd.textContent = user.name ? user.name.split(' ')[0] : 'Account';
+  const cd = document.getElementById('cartCountDrawer');
+  if (cd) cd.textContent = document.getElementById('cartCount')?.textContent || '0';
+}
+// Patch updateCartCount to also update drawer badge
+const _origUpdateCartCount = updateCartCount;
+updateCartCount = function() { _origUpdateCartCount(); const cd = document.getElementById('cartCountDrawer'); if(cd) cd.textContent = document.getElementById('cartCount')?.textContent || '0'; };
+// Sync on load
+document.addEventListener('DOMContentLoaded', syncDrawerAuth);
 </script>
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>

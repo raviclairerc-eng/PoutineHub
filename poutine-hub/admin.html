@@ -35,7 +35,7 @@
   .logo-icon{width:38px;height:38px;background:var(--red);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 12px rgba(196,30,58,0.25)}
   .logo-text{font-size:0.95rem;font-weight:800}
   .logo-text span{color:var(--red)}
-  .logo-badge{font-size:0.6rem;background:var(--red);color:white;padding:2px 5px;border-radius:3px;font-weight:700;margin-left:3px}
+  .logo-badge{font-size:0.6rem;background:var(--text);color:var(--gold);padding:2px 6px;border-radius:3px;font-weight:800;margin-left:4px;letter-spacing:0.5px;border:1px solid var(--gold)}
   .sidebar-nav{flex:1;padding:14px 10px;overflow-y:auto}
   .nav-section-label{font-size:0.62rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;padding:0 8px;margin:14px 0 5px}
   .nav-item{display:flex;align-items:center;gap:9px;padding:9px 11px;border-radius:9px;cursor:pointer;color:var(--muted);font-size:0.85rem;font-weight:500;transition:all 0.2s;margin-bottom:2px;text-decoration:none}
@@ -162,6 +162,11 @@
   .col-preparing .k-action:hover{background:rgba(155,89,182,0.3)}
   .col-ready .k-action{background:rgba(46,204,113,0.15);color:var(--green)}
   .col-ready .k-action:hover{background:rgba(46,204,113,0.3)}
+  .k-btn-row{display:flex;gap:5px;margin-top:6px}
+  .k-btn-modify{flex:1;padding:5px 0;border-radius:6px;border:1.5px solid var(--border2);background:var(--card);color:var(--text2);font-size:0.7rem;font-weight:700;cursor:pointer;transition:all 0.2s}
+  .k-btn-modify:hover{border-color:var(--gold);color:var(--gold)}
+  .k-btn-decline{flex:1;padding:5px 0;border-radius:6px;border:1.5px solid rgba(196,30,58,0.25);background:rgba(196,30,58,0.07);color:var(--red);font-size:0.7rem;font-weight:700;cursor:pointer;transition:all 0.2s}
+  .k-btn-decline:hover{background:rgba(196,30,58,0.15)}
 
   /* MENU MANAGER CARDS */
   .menu-grid-admin{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
@@ -981,7 +986,15 @@ function renderKanban() {
         <div class="k-name">${o.customer}</div>
         ${o.address?`<div class="k-addr">📍 ${o.address}</div>`:''}
         ${o.scheduled&&o.scheduled!=='ASAP'?`<div class="k-sched">📅 ${o.scheduled}</div>`:''}
-        <div class="k-items">${o.itemNames}</div><div class="k-footer"><span class="k-total">CA$${parseFloat(o.total).toFixed(2)}</span><span class="k-time">${o.time}</span></div><button class="k-action" onclick="advanceOrder('${o.id}')">${cfg[col].action}</button></div>`).join('')}
+        <div class="k-items">${o.itemNames}</div>
+        ${o.adminNote?`<div style="font-size:0.68rem;background:rgba(245,166,35,0.12);color:#9a6000;border-radius:5px;padding:3px 6px;margin-bottom:4px">📝 ${o.adminNote}</div>`:''}
+        <div class="k-footer"><span class="k-total">CA$${parseFloat(o.total).toFixed(2)}</span><span class="k-time">${o.time}</span></div>
+        <button class="k-action" onclick="advanceOrder('${o.id}')">${cfg[col].action}</button>
+        <div class="k-btn-row">
+          <button class="k-btn-modify" onclick="openModifyOrder('${o.id}')">✏️ Modify</button>
+          <button class="k-btn-decline" onclick="declineOrder('${o.id}')">✕ Decline</button>
+        </div>
+      </div>`).join('')}
     </div>`;
   }).join('') + `<div class="kanban-col col-done">
     <div class="kanban-header"><span class="kanban-title">✅ Done</span><span class="kanban-count">${liveOrders.filter(o=>o.status==='delivered').length}</span></div>
@@ -997,6 +1010,30 @@ function advanceOrder(id) {
   o.status = next[o.status] || o.status;
   localStorage.setItem('ph_live_orders', JSON.stringify(liveOrders));
   showToast(o.status==='delivered'?'✅':'🍳', msgs[o.status]||'Updated');
+  renderKanban();
+}
+
+function declineOrder(id) {
+  if (!confirm('Decline this order? This will remove it from the board.')) return;
+  const idx = liveOrders.findIndex(x => x.id === id);
+  if (idx === -1) return;
+  const o = liveOrders[idx];
+  o.status = 'declined';
+  liveOrders.splice(idx, 1); // remove from active board
+  localStorage.setItem('ph_live_orders', JSON.stringify(liveOrders));
+  showToast('✕', `Order ${id} declined`);
+  renderKanban();
+  renderOverview();
+}
+
+function openModifyOrder(id) {
+  const o = liveOrders.find(x => x.id === id);
+  if (!o) return;
+  const note = prompt(`Modify note for order ${o.id} (${o.customer}):\nCurrent items: ${o.itemNames}\n\nEnter a note or special instruction:`, o.adminNote || '');
+  if (note === null) return; // cancelled
+  o.adminNote = note;
+  localStorage.setItem('ph_live_orders', JSON.stringify(liveOrders));
+  showToast('✏️', `Order ${id} updated`);
   renderKanban();
 }
 
@@ -1552,6 +1589,24 @@ if (sessionStorage.getItem('ph_admin_ok') === '1') {
   document.getElementById('authOverlay').classList.remove('hidden');
   setTimeout(()=>document.getElementById('adminPwInput')?.focus(), 100);
 }
+
+// Real-time order sync — fires instantly when customer places order in another tab
+window.addEventListener('storage', e => {
+  if (e.key === 'ph_live_orders') {
+    const fresh = JSON.parse(e.newValue || '[]');
+    const newCount = fresh.filter(o => o.status === 'new').length;
+    const prevNew = liveOrders.filter(o => o.status === 'new').length;
+    liveOrders = fresh;
+    if (newCount > prevNew) {
+      playOrderAlert();
+      showToast('🛒', `New order arrived!`);
+    }
+    const ap = document.querySelector('.page.active');
+    if (ap?.id === 'page-orders') renderKanban();
+    if (ap?.id === 'page-overview') renderOverview();
+    document.getElementById('newBadge').textContent = liveOrders.filter(o=>o.status==='new').length;
+  }
+});
 
 // Scroll progress bar
 window.addEventListener('scroll', () => {
