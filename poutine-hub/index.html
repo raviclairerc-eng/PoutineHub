@@ -281,6 +281,8 @@
   footer{background:var(--text);color:rgba(255,255,255,0.85);padding:64px 5% 32px}
   .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
   .footer-brand p{color:rgba(255,255,255,0.55);font-size:0.83rem;line-height:1.7;margin-top:12px;max-width:280px}
+  .footer-brand .nav-logo-text{color:#fff}
+  .footer-brand .nav-logo-text span{color:var(--red-light,#ff5470)}
   .footer-col h4{font-size:0.82rem;font-weight:800;margin-bottom:16px;text-transform:uppercase;letter-spacing:1.5px;color:var(--gold)}
   .footer-col ul{list-style:none}
   .footer-col li{margin-bottom:10px}
@@ -475,10 +477,16 @@
   .menu-card-img{position:relative;overflow:hidden}
   .logo-img{height:36px;width:auto;object-fit:contain;border-radius:6px}
 </style>
-  <!-- Capacitor / Mobile App Ready -->
+  <!-- PWA / Mobile App Ready -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#C41E3A">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Poutine Hub">
   <meta name="format-detection" content="telephone=no">
   <style>
     /* iOS safe area insets for notch/home bar */
@@ -488,6 +496,8 @@
   <!-- Firebase Auth -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <!-- EmailJS SDK — loaded but inert in demo mode. Switch EMAIL_MODE='live' to activate -->
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
   <script>
     // TODO: Replace with your Firebase config from console.firebase.google.com
     const firebaseConfig = {
@@ -1171,6 +1181,17 @@ function renderCart() {
       </div>
       <div id="promoMsg" class="promo-ok" style="display:${discount>0?'block':'none'}">${discount>0?'✅ '+Math.round(discount*100)+'% discount applied!':''}</div>
     </div>
+    ${user && user.isGuest ? `
+    <div class="checkout-section" style="border:1.5px solid var(--gold);background:rgba(245,166,35,0.06)">
+      <h4 style="color:var(--text)">📩 Contact Info <span style="color:var(--red);font-weight:700">*</span></h4>
+      <div style="font-size:0.78rem;color:var(--muted);margin-bottom:10px;line-height:1.5">
+        We need your email or phone to send your order confirmation, pickup-ready alert, and a Google review link after.
+      </div>
+      <input class="addr-input" id="guestName" placeholder="Your name" style="margin-bottom:8px" value="${localStorage.getItem('ph_guest_name')||''}" oninput="localStorage.setItem('ph_guest_name',this.value)">
+      <input class="addr-input" id="guestEmail" type="email" placeholder="Email address (recommended)" style="margin-bottom:8px" value="${localStorage.getItem('ph_guest_email')||''}" oninput="localStorage.setItem('ph_guest_email',this.value)">
+      <input class="addr-input" id="guestPhone" type="tel" placeholder="Phone number (e.g. 416-555-0123)" value="${localStorage.getItem('ph_guest_phone')||''}" oninput="localStorage.setItem('ph_guest_phone',this.value)">
+      <div style="font-size:0.7rem;color:var(--muted);margin-top:8px">🔒 Used only for this order — we don't spam.</div>
+    </div>` : ''}
     ${user && !user.isGuest ? `<div class="cart-points-note">🌟 You'll earn ${finalPts} points on this order!</div>` : ''}
     <div class="cart-summary">
       <div class="cart-row"><span class="label">Subtotal</span><span>CA$${subtotal.toFixed(2)}</span></div>
@@ -1194,8 +1215,136 @@ function updateQty(id, delta) {
   renderCart();
 }
 
+// ── ORDER CONFIRMATION EMAIL (Demo Mode) ─────────────────────────
+// Switch EMAIL_MODE to 'live' and fill in EmailJS credentials when ready
+const EMAIL_CONFIG = {
+  EMAIL_MODE: 'demo',          // 'demo' (logs only) or 'live' (sends via EmailJS)
+  EMAILJS_PUBLIC_KEY: '',      // paste from EmailJS dashboard
+  EMAILJS_SERVICE_ID: '',      // e.g. 'service_xxxxx'
+  EMAILJS_TEMPLATE_ID: '',     // e.g. 'template_xxxxx'
+  RESTAURANT_NAME: 'Poutine Hub Toronto',
+  REPLY_TO: 'orders@poutinehub.ca'
+};
+
+function buildOrderEmailContent(order) {
+  const reviewUrl = localStorage.getItem('ph_google_review_url') || 'https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID';
+  const itemsList = order.items.map(i => `  • ${i.name} ×${i.qty} — CA$${(i.price*i.qty).toFixed(2)}`).join('\n');
+  const itemsHtml = order.items.map(i => `<li><b>${i.name}</b> ×${i.qty} — <span style="color:#C41E3A">CA$${(i.price*i.qty).toFixed(2)}</span></li>`).join('');
+  const eta = order.scheduled && order.scheduled !== 'ASAP'
+    ? `Scheduled for ${order.scheduled}`
+    : (order.type==='delivery' ? 'Delivery in ~45-60 min' : 'Ready in ~20-25 min');
+  const locationLine = order.type==='delivery'
+    ? `🚗 Delivery to: ${order.address || 'your address'}`
+    : `🏠 Pickup from: ${localStorage.getItem('ph_location')==='dundas'?'132 Dundas St E':'179 Parliament St'}`;
+
+  return {
+    to_name: user.name || 'Valued Customer',
+    to_email: user.email || '',
+    order_id: order.id,
+    order_total: `CA$${order.total.toFixed(2)}`,
+    items_text: itemsList,
+    items_html: itemsHtml,
+    eta_text: eta,
+    location_text: locationLine,
+    review_url: reviewUrl,
+    points_earned: order.points || 0,
+    restaurant_name: EMAIL_CONFIG.RESTAURANT_NAME,
+    reply_to: EMAIL_CONFIG.REPLY_TO,
+    subject: `Order #${order.id} confirmed — Thank you! 🍟`,
+    plain_body: `Hi ${user.name || 'there'},
+
+Thanks for your order at ${EMAIL_CONFIG.RESTAURANT_NAME}! We're already on it.
+
+📋 Order #${order.id}
+🍽️ Items:
+${itemsList}
+
+💰 Total: CA$${order.total.toFixed(2)}
+${locationLine}
+🕐 ${eta}
+${order.points ? '⭐ Points earned: ' + order.points : ''}
+
+Loved it? Help us out with a quick Google review:
+${reviewUrl}
+
+See you soon!
+— The ${EMAIL_CONFIG.RESTAURANT_NAME} Team`
+  };
+}
+
+function sendOrderEmail(order) {
+  // Allow both registered users and guests as long as we have a contact channel
+  if (!user.email && !user.phone) {
+    console.log('📧 [skip] No email or phone — cannot send confirmation');
+    return;
+  }
+  if (!user.email) {
+    // Phone-only — would route to SMS in live mode (Twilio). Demo mode just logs.
+    console.group('%c📱 [DEMO MODE] SMS would be sent:', 'background:#27ae60;color:#fff;padding:4px 8px;border-radius:4px;font-weight:bold');
+    console.log('To:', user.phone);
+    console.log(`${EMAIL_CONFIG.RESTAURANT_NAME}: Order #${order.id} confirmed! Total CA$${order.total.toFixed(2)}. ${order.type==='delivery'?'Out for delivery':'Ready for pickup'} in ~25 min. Review us: ${localStorage.getItem('ph_google_review_url')||'(google review link)'}`);
+    console.groupEnd();
+    showToast('📱', `SMS confirmation sent to ${user.phone} (demo)`);
+    return;
+  }
+  const content = buildOrderEmailContent(order);
+
+  if (EMAIL_CONFIG.EMAIL_MODE === 'demo') {
+    console.group('%c📧 [DEMO MODE] Email would be sent:', 'background:#C41E3A;color:#fff;padding:4px 8px;border-radius:4px;font-weight:bold');
+    console.log('%cTo:', 'font-weight:bold', `${content.to_name} <${content.to_email}>`);
+    console.log('%cSubject:', 'font-weight:bold', content.subject);
+    console.log('%cBody:', 'font-weight:bold');
+    console.log(content.plain_body);
+    console.log('%cReview Link:', 'font-weight:bold', content.review_url);
+    console.groupEnd();
+    showToast('📧', `Confirmation email sent to ${content.to_email} (demo)`);
+    return;
+  }
+
+  // LIVE MODE — uncomment when EmailJS is configured
+  if (EMAIL_CONFIG.EMAIL_MODE === 'live' && window.emailjs) {
+    emailjs.init(EMAIL_CONFIG.EMAILJS_PUBLIC_KEY);
+    emailjs.send(EMAIL_CONFIG.EMAILJS_SERVICE_ID, EMAIL_CONFIG.EMAILJS_TEMPLATE_ID, content)
+      .then(() => { showToast('📧', `Confirmation sent to ${content.to_email}`); })
+      .catch(err => { console.error('EmailJS error:', err); showToast('⚠️', 'Email send failed — order still placed'); });
+  }
+}
+
 function placeOrder(total, pts) {
   if (!user) { closeCart(); openLogin(); return; }
+
+  // Guest contact validation — must provide email OR phone before placing order
+  if (user.isGuest) {
+    const gName = (document.getElementById('guestName')?.value || localStorage.getItem('ph_guest_name') || '').trim();
+    const gEmail = (document.getElementById('guestEmail')?.value || localStorage.getItem('ph_guest_email') || '').trim();
+    const gPhone = (document.getElementById('guestPhone')?.value || localStorage.getItem('ph_guest_phone') || '').trim();
+    if (!gName) {
+      showToast('⚠️','Please enter your name');
+      document.getElementById('guestName')?.focus();
+      return;
+    }
+    if (!gEmail && !gPhone) {
+      showToast('⚠️','Please enter an email or phone for order confirmation');
+      document.getElementById('guestEmail')?.focus();
+      return;
+    }
+    // Basic format checks
+    if (gEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(gEmail)) {
+      showToast('⚠️','Please enter a valid email address');
+      document.getElementById('guestEmail')?.focus();
+      return;
+    }
+    if (gPhone && gPhone.replace(/\D/g,'').length < 10) {
+      showToast('⚠️','Please enter a valid phone number');
+      document.getElementById('guestPhone')?.focus();
+      return;
+    }
+    // Attach to user object so the rest of the flow + email/SMS picks them up
+    user.name = gName;
+    user.email = gEmail;
+    user.phone = gPhone;
+  }
+
   const orderType = localStorage.getItem('ph_order_type')||'pickup';
   const schedMode = localStorage.getItem('ph_sched_mode')||'asap';
   const schedDate = localStorage.getItem('ph_sched_date')||'';
@@ -1219,7 +1368,8 @@ function placeOrder(total, pts) {
   // ── Push to admin live orders ──────────────────────────────────
   const liveOrder = {
     id: order.id,
-    customer: user.isGuest ? 'Guest' : (user.name || user.email || 'Customer'),
+    customer: user.isGuest ? (user.name ? user.name + ' (Guest)' : 'Guest') : (user.name || user.email || 'Customer'),
+    email: user.email || '',
     itemNames: cart.map(i => `${i.name}${i.qty>1?' x'+i.qty:''}`).join(', '),
     total: order.total,
     status: 'new',
@@ -1246,6 +1396,8 @@ function placeOrder(total, pts) {
   updateCartCount(); closeCart();
   updateDashboard();
   showOrderConfirmation(order);
+  // Send order confirmation email (demo mode logs to console)
+  try { sendOrderEmail(order); } catch(e) { console.error('Email error:', e); }
 }
 function checkout(total,pts){ placeOrder(total,pts); }
 
@@ -1897,6 +2049,46 @@ document.addEventListener('DOMContentLoaded', syncDrawerAuth);
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
   AOS.init({ duration: 700, easing: 'ease-out-cubic', once: true, offset: 60 });
+</script>
+
+<!-- ── PWA Service Worker registration + Install prompt ────────────── -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('sw.js')
+      .then(reg => console.log('✅ SW registered:', reg.scope))
+      .catch(err => console.warn('SW failed:', err));
+  });
+}
+
+// Capture the install prompt so we can offer it on demand
+let _deferredInstall = null;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  _deferredInstall = e;
+  // Show a small floating "Install App" button after 4s on homepage
+  setTimeout(() => {
+    if (!_deferredInstall || document.getElementById('installAppBtn')) return;
+    const btn = document.createElement('button');
+    btn.id = 'installAppBtn';
+    btn.innerHTML = '📱 Install App';
+    btn.style.cssText = 'position:fixed;bottom:18px;left:18px;z-index:9998;background:var(--red);color:#fff;border:none;border-radius:50px;padding:11px 18px;font-weight:700;font-size:0.85rem;box-shadow:0 8px 24px rgba(196,30,58,0.35);cursor:pointer;font-family:inherit;animation:slideUp 0.4s';
+    btn.onclick = async () => {
+      if (!_deferredInstall) return;
+      _deferredInstall.prompt();
+      const { outcome } = await _deferredInstall.userChoice;
+      if (outcome === 'accepted') showToast('🎉','Installed! Find Poutine Hub on your home screen');
+      _deferredInstall = null;
+      btn.remove();
+    };
+    document.body.appendChild(btn);
+  }, 4000);
+});
+window.addEventListener('appinstalled', () => {
+  console.log('🎉 App installed');
+  document.getElementById('installAppBtn')?.remove();
+  showToast('🎉','Installed! Find Poutine Hub on your home screen');
+});
 </script>
 </body>
 </html>

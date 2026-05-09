@@ -4,6 +4,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Poutine Hub — Admin</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1C1008">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="PH Admin">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -167,6 +173,8 @@
   .k-btn-modify:hover{border-color:var(--gold);color:var(--gold)}
   .k-btn-decline{flex:1;padding:5px 0;border-radius:6px;border:1.5px solid rgba(196,30,58,0.25);background:rgba(196,30,58,0.07);color:var(--red);font-size:0.7rem;font-weight:700;cursor:pointer;transition:all 0.2s}
   .k-btn-decline:hover{background:rgba(196,30,58,0.15)}
+  .k-btn-notify{flex:1;padding:5px 0;border-radius:6px;border:1.5px solid rgba(46,204,113,0.3);background:rgba(46,204,113,0.08);color:var(--green);font-size:0.7rem;font-weight:700;cursor:pointer;transition:all 0.2s}
+  .k-btn-notify:hover{background:rgba(46,204,113,0.18)}
 
   /* MENU MANAGER CARDS */
   .menu-grid-admin{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
@@ -267,6 +275,10 @@
   .tag-scheduled{background:rgba(155,89,182,0.15);color:#9b59b6;border-radius:5px;padding:2px 7px;font-size:0.68rem;font-weight:700}
   .k-addr{font-size:0.7rem;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px}
   .k-sched{font-size:0.7rem;color:#9b59b6;font-weight:600;margin-top:2px}
+  .k-contact{display:flex;flex-direction:column;gap:2px;margin:4px 0;padding:5px 7px;background:var(--bg2);border-radius:6px;font-size:0.7rem}
+  .k-contact a{color:var(--text2);text-decoration:none;font-weight:600;display:flex;align-items:center;gap:4px;transition:color 0.15s}
+  .k-contact a:hover{color:var(--red)}
+  .k-contact .k-c-icon{font-size:0.78rem}
   .promo-table{width:100%;border-collapse:collapse}
   .promo-table th{text-align:left;padding:10px 14px;font-size:0.78rem;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border)}
   .promo-table td{padding:10px 14px;font-size:0.83rem;border-bottom:1px solid var(--border);vertical-align:middle}
@@ -984,6 +996,10 @@ function renderKanban() {
           <span class="${o.type==='delivery'?'tag-delivery':'tag-pickup'}">${o.type==='delivery'?'🚗 Delivery':'🏠 Pickup'}</span>
         </div>
         <div class="k-name">${o.customer}</div>
+        ${(o.phone||o.email)?`<div class="k-contact">
+          ${o.phone?`<a href="tel:${o.phone}" title="Call customer"><span class="k-c-icon">📞</span> ${o.phone}</a>`:''}
+          ${o.email?`<a href="mailto:${o.email}?subject=Order%20${o.id}" title="Email customer"><span class="k-c-icon">✉️</span> ${o.email}</a>`:''}
+        </div>`:''}
         ${o.address?`<div class="k-addr">📍 ${o.address}</div>`:''}
         ${o.scheduled&&o.scheduled!=='ASAP'?`<div class="k-sched">📅 ${o.scheduled}</div>`:''}
         <div class="k-items">${o.itemNames}</div>
@@ -992,6 +1008,7 @@ function renderKanban() {
         <button class="k-action" onclick="advanceOrder('${o.id}')">${cfg[col].action}</button>
         <div class="k-btn-row">
           <button class="k-btn-modify" onclick="openModifyOrder('${o.id}')">✏️ Modify</button>
+          ${(o.email||o.phone)?`<button class="k-btn-notify" onclick="notifyCustomer('${o.id}')" title="Send status update to customer">🔔 Notify</button>`:''}
           <button class="k-btn-decline" onclick="declineOrder('${o.id}')">✕ Decline</button>
         </div>
       </div>`).join('')}
@@ -1002,6 +1019,80 @@ function renderKanban() {
   </div>`;
 }
 
+// ── CUSTOMER NOTIFICATION SYSTEM (Demo Mode) ────────────────────
+const NOTIFY_CONFIG = {
+  MODE: 'demo',                // 'demo' or 'live'
+  EMAILJS_PUBLIC_KEY: '',
+  EMAILJS_SERVICE_ID: '',
+  EMAILJS_TEMPLATE_ID: '',
+  RESTAURANT_NAME: 'Poutine Hub Toronto'
+};
+
+function buildStatusMessage(order, status) {
+  const reviewUrl = localStorage.getItem('ph_google_review_url') || '(google review link not configured)';
+  const templates = {
+    preparing: {
+      subject: `Order #${order.id} — We're cooking! 🍳`,
+      body: `Hi ${order.customer.replace(' (Guest)','')},\n\nGood news — your order #${order.id} is being prepared right now! We'll let you know the moment it's ready.\n\n— The ${NOTIFY_CONFIG.RESTAURANT_NAME} Team`,
+      sms: `${NOTIFY_CONFIG.RESTAURANT_NAME}: Your order #${order.id} is being prepared! 🍳`
+    },
+    ready: {
+      subject: `Order #${order.id} is READY for pickup! 🔔`,
+      body: `Hi ${order.customer.replace(' (Guest)','')},\n\nYour order #${order.id} is ready! Come grab it while it's hot. 🔥\n\n${order.type==='delivery' ? '🚗 Out for delivery now.' : '🏠 Pickup at: 179 Parliament St'}\n\nSee you soon!\n— The ${NOTIFY_CONFIG.RESTAURANT_NAME} Team`,
+      sms: `${NOTIFY_CONFIG.RESTAURANT_NAME}: Your order #${order.id} is READY! 🔔 ${order.type==='delivery'?'Out for delivery':'Come pick it up'}`
+    },
+    delivered: {
+      subject: `Thanks for choosing ${NOTIFY_CONFIG.RESTAURANT_NAME}! 🌟`,
+      body: `Hi ${order.customer.replace(' (Guest)','')},\n\nThanks for your order #${order.id}! We hope you loved every bite.\n\nGot a minute? Help us out with a quick Google review:\n${reviewUrl}\n\nSee you next time!\n— The ${NOTIFY_CONFIG.RESTAURANT_NAME} Team`,
+      sms: `${NOTIFY_CONFIG.RESTAURANT_NAME}: Thanks for your order! 🌟 Loved it? Leave a review: ${reviewUrl}`
+    }
+  };
+  return templates[status] || null;
+}
+
+function sendCustomerNotification(order, status) {
+  if (!order.email && !order.phone) {
+    console.log('📧 [skip] No contact info for order', order.id);
+    return;
+  }
+  const msg = buildStatusMessage(order, status);
+  if (!msg) return;
+
+  if (NOTIFY_CONFIG.MODE === 'demo') {
+    if (order.email) {
+      console.group('%c📧 [DEMO] Customer Notification (Email):', 'background:#C41E3A;color:#fff;padding:4px 8px;border-radius:4px;font-weight:bold');
+      console.log('To:', order.email);
+      console.log('Subject:', msg.subject);
+      console.log('Body:\n' + msg.body);
+      console.groupEnd();
+      showToast('📧', `Email sent to ${order.email} (demo)`);
+    } else if (order.phone) {
+      console.group('%c📱 [DEMO] Customer Notification (SMS):', 'background:#27ae60;color:#fff;padding:4px 8px;border-radius:4px;font-weight:bold');
+      console.log('To:', order.phone);
+      console.log('Message:', msg.sms);
+      console.groupEnd();
+      showToast('📱', `SMS sent to ${order.phone} (demo)`);
+    }
+    return;
+  }
+  // LIVE MODE — wired for EmailJS once credentials are set
+  if (NOTIFY_CONFIG.MODE === 'live' && window.emailjs && order.email) {
+    emailjs.init(NOTIFY_CONFIG.EMAILJS_PUBLIC_KEY);
+    emailjs.send(NOTIFY_CONFIG.EMAILJS_SERVICE_ID, NOTIFY_CONFIG.EMAILJS_TEMPLATE_ID, {
+      to_name: order.customer, to_email: order.email,
+      subject: msg.subject, body: msg.body, order_id: order.id
+    }).then(()=>showToast('📧',`Notified ${order.email}`))
+      .catch(e=>{console.error(e); showToast('⚠️','Notify failed');});
+  }
+}
+
+function notifyCustomer(id) {
+  const o = liveOrders.find(x => x.id === id);
+  if (!o) return showToast('⚠️','Order not found');
+  if (!o.email && !o.phone) return showToast('⚠️','No contact info on this order');
+  sendCustomerNotification(o, o.status);
+}
+
 function advanceOrder(id) {
   const o = liveOrders.find(x => x.id === id);
   if (!o) return;
@@ -1010,6 +1101,8 @@ function advanceOrder(id) {
   o.status = next[o.status] || o.status;
   localStorage.setItem('ph_live_orders', JSON.stringify(liveOrders));
   showToast(o.status==='delivered'?'✅':'🍳', msgs[o.status]||'Updated');
+  // Auto-notify customer on each status change
+  try { sendCustomerNotification(o, o.status); } catch(e){ console.error('Notify error:',e); }
   renderKanban();
 }
 
@@ -1615,6 +1708,7 @@ window.addEventListener('scroll', () => {
   if (bar) bar.style.width = Math.min(pct, 100) + '%';
 }, { passive: true });
 </script>
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>AOS.init({ duration: 600, easing: 'ease-out-cubic', once: true, offset: 40 });</script>
 </body>
