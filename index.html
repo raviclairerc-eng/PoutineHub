@@ -488,6 +488,137 @@
   .menu-card-img img{width:100%;height:100%;object-fit:cover;border-radius:12px 12px 0 0;display:block}
   .menu-card-img{position:relative;overflow:hidden}
   .logo-img{height:36px;width:auto;object-fit:contain;border-radius:6px}
+
+  /* ── BOTTOM TAB BAR ── */
+  .bottom-tabs{display:none;position:fixed;bottom:0;left:0;right:0;z-index:9996;background:var(--card);border-top:1.5px solid var(--border);padding:6px 0 calc(6px + env(safe-area-inset-bottom));box-shadow:0 -4px 20px rgba(28,16,8,0.08)}
+  .bottom-tabs-inner{display:flex;align-items:flex-end;justify-content:space-around;max-width:480px;margin:0 auto;padding:0 4px}
+  .btab{display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 10px 4px;border:none;background:transparent;cursor:pointer;color:var(--muted);transition:color 0.2s;min-width:54px;position:relative;font-family:'DM Sans',sans-serif}
+  .btab.active{color:var(--red)}
+  .btab-icon{font-size:1.3rem;line-height:1}
+  .btab-label{font-size:0.6rem;font-weight:700;letter-spacing:0.2px}
+  .btab-center-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:-20px}
+  .btab-center-btn{width:56px;height:56px;background:var(--red);border-radius:50%;border:3px solid var(--card);box-shadow:0 4px 16px rgba(196,30,58,0.4),0 0 0 1px rgba(196,30,58,0.15);display:flex;align-items:center;justify-content:center;font-size:1.5rem;cursor:pointer;transition:transform 0.2s,background 0.2s}
+  .btab-center-btn.active,.btab-center-btn:hover{background:var(--red-light);transform:scale(1.08)}
+  .btab-center-label{font-size:0.6rem;font-weight:700;color:var(--red);letter-spacing:0.2px;font-family:'DM Sans',sans-serif}
+  .btab-badge{position:absolute;top:4px;right:6px;background:var(--red);color:#fff;border-radius:50%;width:15px;height:15px;font-size:0.55rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+
+  /* ── APP SCREENS (home / orders / account) ── */
+  #appHome,#appOrders,#appAccount{display:none;min-height:100dvh;background:var(--bg);padding-bottom:calc(84px + env(safe-area-inset-bottom));overflow-y:auto}
+
+  /* App header (red top bar) */
+  .app-header{background:var(--red);padding:calc(env(safe-area-inset-top,0px) + 12px) 16px 14px}
+  .app-header-top{display:flex;align-items:center;justify-content:space-between}
+  .app-logo{display:flex;align-items:center;gap:9px}
+  .app-logo-icon{width:36px;height:36px;background:rgba(255,255,255,0.2);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px}
+  .app-logo-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:#fff}
+  .app-logo-name span{color:var(--gold)}
+  .app-cart-btn{background:rgba(255,255,255,0.18);border:none;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.05rem;display:flex;align-items:center;justify-content:center;position:relative;flex-shrink:0}
+  .app-cart-badge{position:absolute;top:-3px;right:-3px;background:var(--gold);color:#000;border-radius:50%;width:15px;height:15px;font-size:0.58rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .app-loc-bar{background:rgba(0,0,0,0.22);border-radius:10px;padding:8px 12px;display:flex;align-items:center;gap:6px;margin-top:10px}
+  .app-loc-bar select{background:transparent;border:none;color:#fff;font-weight:600;font-size:0.83rem;cursor:pointer;flex:1;outline:none;font-family:'DM Sans',sans-serif;-webkit-appearance:none}
+  .app-loc-bar select option{background:#C41E3A}
+
+  /* Rewards card */
+  .rewards-card{background:#fff;border-radius:16px;margin:14px;padding:16px 18px;box-shadow:0 6px 20px rgba(0,0,0,0.1)}
+  .rc-top{display:flex;align-items:flex-start;justify-content:space-between}
+  .rc-pts{font-size:2.2rem;font-weight:900;color:var(--text);font-family:'Playfair Display',serif;line-height:1;display:flex;align-items:baseline;gap:4px}
+  .rc-pts-unit{font-size:0.9rem;font-weight:800;color:var(--red)}
+  .rc-program{font-size:0.72rem;color:var(--muted);font-weight:600;margin-top:3px}
+  .rc-info{width:28px;height:28px;background:rgba(196,30,58,0.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:0.78rem;border:none;cursor:pointer;color:var(--red);font-weight:800}
+  .rc-bar-track{height:6px;background:var(--bg2);border-radius:6px;margin:12px 0 5px;overflow:hidden}
+  .rc-bar-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--gold));border-radius:6px;transition:width 1.2s cubic-bezier(0.34,1.56,0.64,1)}
+  .rc-dots{display:flex;justify-content:space-between;margin-bottom:12px}
+  .rc-dot{width:8px;height:8px;border-radius:50%;background:var(--border2)}
+  .rc-dot.done{background:var(--gold)}
+  .rc-bottom{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);padding-top:12px}
+  .rc-next-label{font-size:0.88rem;font-weight:700;color:var(--text)}
+  .rc-next-sub{font-size:0.7rem;color:var(--muted);margin-top:2px}
+  .rc-redeem{background:var(--text);color:#fff;border:none;padding:8px 16px;border-radius:20px;font-size:0.78rem;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background 0.2s}
+  .rc-redeem:hover{background:var(--red)}
+
+  /* App section headers */
+  .app-section-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 8px}
+  .app-section-lbl{font-size:0.7rem;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:var(--muted)}
+  .app-section-see{font-size:0.78rem;font-weight:700;color:var(--red);background:none;border:none;cursor:pointer;padding:0;font-family:'DM Sans',sans-serif}
+
+  /* Offers scroll */
+  .offers-scroll{display:flex;gap:12px;overflow-x:auto;padding:0 14px 14px;scrollbar-width:none}
+  .offers-scroll::-webkit-scrollbar{display:none}
+  .offer-card{flex:0 0 190px;border-radius:14px;overflow:hidden;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,0.1);transition:transform 0.2s}
+  .offer-card:hover{transform:translateY(-3px)}
+  .offer-card-img{height:110px;display:flex;align-items:center;justify-content:center;font-size:50px;position:relative}
+  .style-red{background:linear-gradient(135deg,var(--red),#8B0000)}
+  .style-gold{background:linear-gradient(135deg,#C8820F,var(--gold))}
+  .style-dark{background:linear-gradient(135deg,#1C1008,#3D2B1A)}
+  .style-green{background:linear-gradient(135deg,#1a5c2a,#27AE60)}
+  .offer-label{position:absolute;top:8px;left:8px;background:#fff;color:var(--red);font-size:0.6rem;font-weight:800;padding:3px 8px;border-radius:12px;text-transform:uppercase;letter-spacing:0.5px}
+  .offer-card-body{padding:10px 12px;background:#fff}
+  .offer-card-name{font-size:0.85rem;font-weight:800;color:var(--text);line-height:1.2}
+  .offer-card-desc{font-size:0.7rem;color:var(--muted);margin-top:2px}
+
+  /* Recent order chips (home screen) */
+  .roc{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px 14px;margin:0 14px 10px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:border-color 0.2s}
+  .roc:hover{border-color:var(--red)}
+  .roc-icon{width:42px;height:42px;background:var(--bg2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+  .roc-info{flex:1;min-width:0}
+  .roc-name{font-size:0.86rem;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .roc-meta{font-size:0.7rem;color:var(--muted);margin-top:2px}
+  .roc-right{text-align:right;flex-shrink:0}
+  .roc-total{font-size:0.9rem;font-weight:900;color:var(--red)}
+  .roc-status{font-size:0.65rem;font-weight:700;padding:2px 7px;border-radius:8px;margin-top:3px;display:inline-block}
+  .st-confirmed,.st-delivered{background:rgba(39,174,96,0.12);color:var(--green)}
+  .st-preparing{background:rgba(245,166,35,0.12);color:var(--gold-dark)}
+  .st-ready{background:rgba(196,30,58,0.1);color:var(--red)}
+
+  /* Orders screen */
+  .app-screen-hd{background:var(--red);padding:calc(env(safe-area-inset-top,0px) + 14px) 18px 18px}
+  .app-screen-title{font-family:'Playfair Display',serif;font-size:1.35rem;font-weight:900;color:#fff}
+  .app-screen-sub{color:rgba(255,255,255,0.7);font-size:0.8rem;margin-top:2px}
+  .orders-list{padding:14px}
+  .order-full-card{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:14px;margin-bottom:12px}
+  .ofc-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:6px}
+  .ofc-id{font-size:0.75rem;font-weight:700;color:var(--muted)}
+  .ofc-date{font-size:0.7rem;color:var(--muted);margin-top:2px}
+  .ofc-items-text{font-size:0.82rem;color:var(--text2);padding:8px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin:6px 0;line-height:1.5}
+  .ofc-foot{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+  .ofc-total{font-size:1rem;font-weight:900;color:var(--red);font-family:'Playfair Display',serif}
+  .ofc-reorder{background:transparent;border:1.5px solid var(--gold);color:var(--gold-dark);padding:6px 14px;border-radius:20px;font-size:0.78rem;font-weight:700;cursor:pointer;transition:all 0.2s;font-family:'DM Sans',sans-serif}
+  .ofc-reorder:hover{background:rgba(245,166,35,0.1)}
+  .orders-empty{text-align:center;padding:60px 20px;color:var(--muted)}
+  .oe-icon{font-size:3.5rem;margin-bottom:14px}
+
+  /* Account screen */
+  .account-hd{background:var(--red);padding:calc(env(safe-area-inset-top,0px) + 14px) 18px 28px;text-align:center}
+  .account-avatar{width:66px;height:66px;background:rgba(255,255,255,0.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.8rem;color:#fff;margin:0 auto 10px;font-weight:900}
+  .account-name-txt{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:900;color:#fff}
+  .account-email-txt{color:rgba(255,255,255,0.7);font-size:0.8rem;margin-top:3px}
+  .account-tier-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.15);color:#fff;padding:4px 12px;border-radius:20px;font-size:0.72rem;font-weight:700;margin-top:8px}
+  .account-body{padding:14px}
+  .acc-pts-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 16px;margin-bottom:14px;display:flex;align-items:center;gap:14px}
+  .acc-pts-icon{width:44px;height:44px;background:rgba(245,166,35,0.1);border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+  .acc-pts-val{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--red);line-height:1}
+  .acc-pts-lbl{font-size:0.7rem;color:var(--muted);font-weight:600}
+  .acc-menu{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;margin-bottom:14px}
+  .acc-item{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer;transition:background 0.15s}
+  .acc-item:last-child{border:none}
+  .acc-item:hover{background:var(--bg2)}
+  .acc-item-left{display:flex;align-items:center;gap:12px}
+  .acc-item-ic{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:0.95rem}
+  .ic-red{background:rgba(196,30,58,0.08)}.ic-gold{background:rgba(245,166,35,0.1)}.ic-green{background:rgba(39,174,96,0.1)}.ic-blue{background:rgba(41,128,185,0.1)}
+  .acc-item-txt{font-size:0.88rem;font-weight:600;color:var(--text)}
+  .acc-item-sub{font-size:0.7rem;color:var(--muted);margin-top:1px}
+  .acc-arrow{color:var(--muted);font-size:0.9rem}
+  .btn-app-signout{width:100%;background:transparent;border:1.5px solid var(--border);color:var(--muted);padding:12px;border-radius:50px;font-weight:600;font-size:0.88rem;cursor:pointer;margin:8px 0;transition:all 0.2s;font-family:'DM Sans',sans-serif}
+  .btn-app-signout:hover{border-color:var(--red);color:var(--red)}
+  .btn-app-signin{width:100%;background:var(--red);color:#fff;border:none;padding:14px;border-radius:50px;font-weight:800;font-size:0.95rem;cursor:pointer;margin:16px 0 8px;transition:all 0.25s;font-family:'DM Sans',sans-serif}
+  .btn-app-signin:hover{background:var(--red-light)}
+
+  @media(max-width:768px){
+    body.app-mode #hero,body.app-mode #about,body.app-mode #points,body.app-mode #locations,body.app-mode footer,body.app-mode .marquee-strip,body.app-mode #specialBanner,body.app-mode #scrollProgress,body.app-mode nav,body.app-mode .mobile-drawer,body.app-mode .drawer-overlay,body.app-mode .parallax-divider,body.app-mode #google-review,body.app-mode #push-banner,body.app-mode #loyaltySection,body.app-mode #reviewSection,body.app-mode section:not(#menu):not(#hero):not(#about):not(#points):not(#locations){display:none!important}
+    body.app-mode #menu{padding-top:0}
+    .bottom-tabs{display:flex}
+    .floating-cart{bottom:calc(82px + env(safe-area-inset-bottom))}
+  }
 </style>
   <!-- PWA / Mobile App Ready -->
   <link rel="manifest" href="manifest.json">
@@ -852,6 +983,219 @@
     </div>
   </div>
 </footer>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     APP HOME SCREEN  (mobile bottom-tab layout)
+═══════════════════════════════════════════════════════════════ -->
+<div id="appHome">
+  <!-- Header -->
+  <div class="app-header">
+    <div class="app-header-top">
+      <div class="app-logo">
+        <div class="app-logo-icon">🍟</div>
+        <div class="app-logo-name">Poutine <span>Hub</span></div>
+      </div>
+      <button class="app-cart-btn" onclick="openCart()" aria-label="Cart">
+        🛒
+        <span class="app-cart-badge" id="appCartBadge" style="display:none">0</span>
+      </button>
+    </div>
+    <div class="app-loc-bar">
+      <span style="color:rgba(255,255,255,0.7);font-size:0.9rem">📍</span>
+      <select onchange="setLocation(this.value)" id="appLocationSel">
+        <option value="parliament">Parliament St, Toronto</option>
+        <option value="dundas">Dundas St, Toronto</option>
+      </select>
+      <span style="color:rgba(255,255,255,0.5);font-size:0.7rem">▼</span>
+    </div>
+  </div>
+
+  <!-- Rewards Card -->
+  <div class="rewards-card" id="appRewardsCard">
+    <div class="rc-top">
+      <div>
+        <div class="rc-pts">
+          <span id="appPtsDisplay">0</span>
+          <span class="rc-pts-unit">pts</span>
+          <span style="font-size:1rem;margin-left:2px;color:var(--gold)">✦</span>
+        </div>
+        <div class="rc-program">Poutine Hub Rewards Program</div>
+      </div>
+      <button class="rc-info" onclick="switchTab('account')" aria-label="Account info">ℹ</button>
+    </div>
+    <div class="rc-bar-track"><div class="rc-bar-fill" id="appPtsBar" style="width:0%"></div></div>
+    <div class="rc-dots">
+      <div class="rc-dot" id="rcd1"></div>
+      <div class="rc-dot" id="rcd2"></div>
+      <div class="rc-dot" id="rcd3"></div>
+      <div class="rc-dot" id="rcd4"></div>
+      <div class="rc-dot" id="rcd5"></div>
+      <div class="rc-dot" id="rcd6"></div>
+    </div>
+    <div class="rc-bottom">
+      <div>
+        <div class="rc-next-label" id="appNextReward">Classic Poutine</div>
+        <div class="rc-next-sub" id="appNextSub">Unlock in 1,000 points</div>
+      </div>
+      <button class="rc-redeem" onclick="openCart()">Redeem</button>
+    </div>
+  </div>
+
+  <!-- Top Offers -->
+  <div class="app-section-hd">
+    <span class="app-section-lbl">Top Offers</span>
+    <button class="app-section-see" onclick="switchTab('menu')">See all →</button>
+  </div>
+  <div class="offers-scroll">
+    <div class="offer-card" onclick="switchTab('menu')">
+      <div class="offer-card-img style-red">
+        <span class="offer-label">🔥 Deal</span>🍟🍟
+      </div>
+      <div class="offer-card-body">
+        <div class="offer-card-name">Half &amp; Half Combo</div>
+        <div class="offer-card-desc">2 Poutines — CA$24.99</div>
+      </div>
+    </div>
+    <div class="offer-card" onclick="switchTab('menu')">
+      <div class="offer-card-img style-gold">
+        <span class="offer-label">⭐ Bestseller</span>🌶️
+      </div>
+      <div class="offer-card-body">
+        <div class="offer-card-name">Butter Chicken Poutine</div>
+        <div class="offer-card-desc">Toronto's #1 fusion poutine</div>
+      </div>
+    </div>
+    <div class="offer-card" onclick="switchTab('menu')">
+      <div class="offer-card-img style-dark">
+        <span class="offer-label">🌙 Late Night</span>🌙
+      </div>
+      <div class="offer-card-body">
+        <div class="offer-card-name">Night Owl Special</div>
+        <div class="offer-card-desc">After 10PM — save CA$5</div>
+      </div>
+    </div>
+    <div class="offer-card" onclick="switchTab('menu')">
+      <div class="offer-card-img style-green">
+        <span class="offer-label">🎓 Student</span>🎓
+      </div>
+      <div class="offer-card-body">
+        <div class="offer-card-name">Student Deal</div>
+        <div class="offer-card-desc">Show your ID — save CA$3</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Orders -->
+  <div class="app-section-hd">
+    <span class="app-section-lbl">Orders</span>
+    <button class="app-section-see" onclick="switchTab('orders')">View all →</button>
+  </div>
+  <div id="appRecentOrders"></div>
+
+  <!-- Order CTA -->
+  <div style="padding:4px 14px 16px">
+    <button class="btn-primary" style="width:100%;justify-content:center;border-radius:14px;padding:15px;font-size:1rem" onclick="switchTab('menu')">🛒 Order Now</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     APP ORDERS SCREEN
+═══════════════════════════════════════════════════════════════ -->
+<div id="appOrders">
+  <div class="app-screen-hd">
+    <div class="app-screen-title">Your Orders</div>
+    <div class="app-screen-sub">Track and reorder your favourites</div>
+  </div>
+  <div class="orders-list" id="appOrdersList"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     APP ACCOUNT SCREEN
+═══════════════════════════════════════════════════════════════ -->
+<div id="appAccount">
+  <div class="account-hd">
+    <div class="account-avatar" id="appAvatar">👤</div>
+    <div class="account-name-txt" id="appAccountName">Welcome!</div>
+    <div class="account-email-txt" id="appAccountEmail">Sign in to earn rewards</div>
+    <div class="account-tier-badge" id="appAccountTier">🥉 Bronze Member</div>
+  </div>
+  <div class="account-body">
+    <div class="acc-pts-card">
+      <div class="acc-pts-icon">⭐</div>
+      <div>
+        <div class="acc-pts-val" id="appAccPts">0</div>
+        <div class="acc-pts-lbl">Reward Points</div>
+      </div>
+    </div>
+    <div class="acc-menu">
+      <div class="acc-item" onclick="switchTab('orders')">
+        <div class="acc-item-left">
+          <div class="acc-item-ic ic-gold">📋</div>
+          <div><div class="acc-item-txt">Order History</div><div class="acc-item-sub">View all your past orders</div></div>
+        </div>
+        <span class="acc-arrow">›</span>
+      </div>
+      <div class="acc-item" onclick="switchTab('rewards')">
+        <div class="acc-item-left">
+          <div class="acc-item-ic ic-red">⭐</div>
+          <div><div class="acc-item-txt">Rewards Program</div><div class="acc-item-sub">Earn 10 pts per dollar spent</div></div>
+        </div>
+        <span class="acc-arrow">›</span>
+      </div>
+      <div class="acc-item" onclick="window.open('https://maps.google.com/?q=Poutine+Hub+Toronto','_blank')">
+        <div class="acc-item-left">
+          <div class="acc-item-ic ic-green">📍</div>
+          <div><div class="acc-item-txt">Locations</div><div class="acc-item-sub">Parliament St &amp; Dundas St</div></div>
+        </div>
+        <span class="acc-arrow">›</span>
+      </div>
+      <div class="acc-item" onclick="window.open('tel:6479377734')">
+        <div class="acc-item-left">
+          <div class="acc-item-ic ic-blue">📞</div>
+          <div><div class="acc-item-txt">Call Us</div><div class="acc-item-sub">(647) 937-7734</div></div>
+        </div>
+        <span class="acc-arrow">›</span>
+      </div>
+      <div class="acc-item" onclick="window.open('https://instagram.com/poutine.hub','_blank')">
+        <div class="acc-item-left">
+          <div class="acc-item-ic ic-gold">📸</div>
+          <div><div class="acc-item-txt">Follow on Instagram</div><div class="acc-item-sub">@poutine.hub</div></div>
+        </div>
+        <span class="acc-arrow">›</span>
+      </div>
+    </div>
+    <div id="appAccAuthBtns"></div>
+    <p style="text-align:center;font-size:0.7rem;color:var(--muted);margin-top:8px">Poutine Hub Toronto © 2026</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     BOTTOM TAB BAR  (mobile only)
+═══════════════════════════════════════════════════════════════ -->
+<nav class="bottom-tabs" id="bottomTabs" role="tablist" aria-label="Main navigation">
+  <div class="bottom-tabs-inner">
+    <button class="btab active" id="btab-home" onclick="switchTab('home')" role="tab" aria-label="Home">
+      <span class="btab-icon">🏠</span>
+      <span class="btab-label">Home</span>
+    </button>
+    <button class="btab" id="btab-rewards" onclick="switchTab('rewards')" role="tab" aria-label="Rewards">
+      <span class="btab-icon">⭐</span>
+      <span class="btab-label">Rewards</span>
+    </button>
+    <div class="btab-center-wrap">
+      <button class="btab-center-btn" id="btab-menu-btn" onclick="switchTab('menu')" aria-label="Menu">🍟</button>
+      <span class="btab-center-label">Menu</span>
+    </div>
+    <button class="btab" id="btab-orders" onclick="switchTab('orders')" role="tab" aria-label="Orders">
+      <span class="btab-icon">📋</span>
+      <span class="btab-label">Orders</span>
+    </button>
+    <button class="btab" id="btab-account" onclick="switchTab('account')" role="tab" aria-label="Account">
+      <span class="btab-icon">👤</span>
+      <span class="btab-label">Account</span>
+    </button>
+  </div>
+</nav>
 
 <!-- CART MODAL -->
 <!-- Floating cart bar — shows when cart has items -->
@@ -2086,6 +2430,240 @@ const _origUpdateCartCount = updateCartCount;
 updateCartCount = function() { _origUpdateCartCount(); const cd = document.getElementById('cartCountDrawer'); if(cd) cd.textContent = document.getElementById('cartCount')?.textContent || '0'; };
 // Sync on load
 document.addEventListener('DOMContentLoaded', syncDrawerAuth);
+
+// ── APP TAB NAVIGATION ────────────────────────────────────────────────
+let _currentTab = 'home';
+
+function switchTab(tab) {
+  const isMobile = window.innerWidth <= 768;
+  _currentTab = tab;
+
+  if (!isMobile) {
+    // Desktop: scroll to matching section
+    const map = { home:'#hero', menu:'#menu', rewards:'#points', orders:'#dashboard', account:'#dashboard' };
+    const target = document.querySelector(map[tab] || '#hero');
+    if (target) target.scrollIntoView({ behavior:'smooth' });
+    return;
+  }
+
+  // Mobile: app mode
+  document.body.classList.add('app-mode');
+
+  // Hide all app screens & menu section
+  ['appHome','appOrders','appAccount'].forEach(id => { const el = document.getElementById(id); if(el) el.style.display = 'none'; });
+  const menuSec = document.getElementById('menu');
+  if (menuSec) menuSec.style.display = 'none';
+
+  // Reset all tab states
+  document.querySelectorAll('.btab').forEach(b => b.classList.remove('active'));
+  const menuBtn = document.getElementById('btab-menu-btn');
+  if (menuBtn) menuBtn.classList.remove('active');
+
+  window.scrollTo(0, 0);
+
+  if (tab === 'home' || tab === 'rewards') {
+    document.getElementById('appHome').style.display = 'block';
+    document.getElementById('btab-home')?.classList.add(tab==='home'?'active':'');
+    document.getElementById('btab-rewards')?.classList.add(tab==='rewards'?'active':'');
+    renderAppHome();
+    if (tab === 'rewards') setTimeout(() => document.getElementById('appRewardsCard')?.scrollIntoView({ behavior:'smooth', block:'start' }), 150);
+  } else if (tab === 'menu') {
+    // Show only menu section, keep all others hidden
+    document.querySelectorAll('section').forEach(el => el.style.setProperty('display','none','important'));
+    if (menuSec) { menuSec.style.removeProperty('display'); menuSec.style.display = 'block'; menuSec.style.paddingTop = '14px'; }
+    if (menuBtn) menuBtn.classList.add('active');
+  } else if (tab === 'orders') {
+    document.getElementById('appOrders').style.display = 'block';
+    document.getElementById('btab-orders')?.classList.add('active');
+    renderAppOrders();
+  } else if (tab === 'account') {
+    document.getElementById('appAccount').style.display = 'block';
+    document.getElementById('btab-account')?.classList.add('active');
+    renderAppAccount();
+  }
+}
+
+function renderAppHome() {
+  const orders = JSON.parse(localStorage.getItem('ph_orders') || '[]');
+  const pts = user?.points || 0;
+
+  // Points display
+  const ptsEl = document.getElementById('appPtsDisplay');
+  const ptsBar = document.getElementById('appPtsBar');
+  if (ptsEl) ptsEl.textContent = pts.toLocaleString();
+
+  // Progress bar
+  const milestones = [500, 1000, 2000, 3500, 5000, 10000];
+  const nextMs = milestones.find(m => m > pts) || 10000;
+  const prevMs = milestones.filter(m => m <= pts).pop() || 0;
+  const pct = prevMs === 0 ? (pts / milestones[0]) * 100 : ((pts - prevMs) / (nextMs - prevMs)) * 100;
+  if (ptsBar) setTimeout(() => { ptsBar.style.width = Math.min(pct, 100) + '%'; }, 200);
+
+  // Milestone dots
+  milestones.forEach((m, i) => {
+    const dot = document.getElementById('rcd' + (i + 1));
+    if (dot) dot.classList.toggle('done', pts >= m);
+  });
+
+  // Next reward text
+  const rewardTiers = [
+    { pts:500,  name:'Free Poutine Gravy' },
+    { pts:1000, name:'Free Classic Poutine' },
+    { pts:2000, name:'Free Fusion Poutine' },
+    { pts:3500, name:'Free Combo Meal' },
+    { pts:5000, name:'Free Family Pack' }
+  ];
+  const nextR = rewardTiers.find(r => r.pts > pts) || rewardTiers[rewardTiers.length - 1];
+  const nextLabel = document.getElementById('appNextReward');
+  const nextSub   = document.getElementById('appNextSub');
+  if (nextLabel) nextLabel.textContent = nextR.name;
+  if (nextSub)   nextSub.textContent   = pts >= nextR.pts ? '🎉 Ready to redeem!' : `Unlock in ${(nextR.pts - pts).toLocaleString()} points`;
+
+  // App cart badge
+  const totalQty = cart.reduce((a,i) => a + i.qty, 0);
+  const badge = document.getElementById('appCartBadge');
+  if (badge) { badge.textContent = totalQty; badge.style.display = totalQty > 0 ? 'flex' : 'none'; }
+
+  // Recent orders
+  const container = document.getElementById('appRecentOrders');
+  if (!container) return;
+  if (!orders.length) {
+    container.innerHTML = '<div style="text-align:center;padding:20px 14px;color:var(--muted);font-size:0.85rem">No orders yet — try something delicious! 🍟</div>';
+    return;
+  }
+  const statusCls   = { confirmed:'st-confirmed', preparing:'st-preparing', ready:'st-ready', delivered:'st-delivered' };
+  const statusLabel = { confirmed:'Confirmed ✓', preparing:'Preparing...', ready:'Ready! 🔔', delivered:'Delivered ✓' };
+  container.innerHTML = orders.slice(0, 3).map(o => {
+    const names = o.items.map(i => i.name).join(', ');
+    const short = names.length > 34 ? names.substring(0, 34) + '…' : names;
+    const sc = statusCls[o.status] || 'st-confirmed';
+    const sl = statusLabel[o.status] || 'Confirmed ✓';
+    const emoji = o.items[0]?.emoji || '🍟';
+    return `<div class="roc" onclick="switchTab('orders')">
+      <div class="roc-icon">${emoji}</div>
+      <div class="roc-info">
+        <div class="roc-name">${short}</div>
+        <div class="roc-meta">${o.date} · ${o.type || 'Pickup'}</div>
+      </div>
+      <div class="roc-right">
+        <div class="roc-total">CA$${(o.total||0).toFixed(2)}</div>
+        <span class="roc-status ${sc}">${sl}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderAppOrders() {
+  const orders = JSON.parse(localStorage.getItem('ph_orders') || '[]');
+  const container = document.getElementById('appOrdersList');
+  if (!container) return;
+  if (!orders.length) {
+    container.innerHTML = `<div class="orders-empty"><div class="oe-icon">🍟</div>
+      <h3 style="font-size:1.05rem;font-weight:800;color:var(--text);margin-bottom:6px">No orders yet</h3>
+      <p style="font-size:0.85rem;margin-bottom:18px">Place your first order and track it here!</p>
+      <button class="btn-primary" onclick="switchTab('menu')">Browse Menu →</button></div>`;
+    return;
+  }
+  const statusCls   = { confirmed:'st-confirmed', preparing:'st-preparing', ready:'st-ready', delivered:'st-delivered' };
+  const statusLabel = { confirmed:'Confirmed ✓', preparing:'Preparing...', ready:'Ready! 🔔', delivered:'Delivered ✓' };
+  container.innerHTML = orders.map(o => {
+    const itemsText = o.items.map(i => `${i.qty}× ${i.name}`).join(', ');
+    const sc = statusCls[o.status] || 'st-confirmed';
+    const sl = statusLabel[o.status] || 'Confirmed ✓';
+    const itemsJSON = JSON.stringify(o.items).replace(/"/g, '&quot;');
+    return `<div class="order-full-card">
+      <div class="ofc-top">
+        <div>
+          <div class="ofc-id">${o.id}</div>
+          <div class="ofc-date">${o.date} · ${o.type || 'Pickup'}</div>
+        </div>
+        <span class="roc-status ${sc}">${sl}</span>
+      </div>
+      <div class="ofc-items-text">${itemsText}</div>
+      <div class="ofc-foot">
+        <div class="ofc-total">CA$${(o.total||0).toFixed(2)}</div>
+        <button class="ofc-reorder" onclick='reorderItems(${itemsJSON})'>Reorder</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderAppAccount() {
+  const loggedIn = user && !user.isGuest;
+  const pts = user?.points || 0;
+  const avatar   = document.getElementById('appAvatar');
+  const nameEl   = document.getElementById('appAccountName');
+  const emailEl  = document.getElementById('appAccountEmail');
+  const tierEl   = document.getElementById('appAccountTier');
+  const accPtsEl = document.getElementById('appAccPts');
+
+  if (loggedIn) {
+    const initials = (user.name || 'U').split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
+    if (avatar)  avatar.textContent  = initials;
+    if (nameEl)  nameEl.textContent  = user.name  || 'Member';
+    if (emailEl) emailEl.textContent = user.email || '';
+  } else {
+    if (avatar)  avatar.textContent  = '👤';
+    if (nameEl)  nameEl.textContent  = 'Welcome!';
+    if (emailEl) emailEl.textContent = 'Sign in to earn rewards';
+  }
+  if (accPtsEl) accPtsEl.textContent = pts.toLocaleString();
+  const tier = pts < 5000 ? '🥉 Bronze Member' : pts < 15000 ? '🥈 Silver Member' : '🥇 Gold Member';
+  if (tierEl) tierEl.textContent = tier;
+
+  const authBtns = document.getElementById('appAccAuthBtns');
+  if (authBtns) {
+    authBtns.innerHTML = loggedIn
+      ? `<button class="btn-app-signout" onclick="handleLogout()">Sign Out</button>`
+      : `<button class="btn-app-signin" onclick="openLogin()">Sign In / Create Account</button>
+         <p style="text-align:center;font-size:0.74rem;color:var(--muted)">Earn 10 pts for every dollar spent 🍟</p>`;
+  }
+}
+
+function reorderItems(items) {
+  items.forEach(item => {
+    const existing = cart.find(c => c.id === item.id);
+    if (existing) existing.qty += item.qty;
+    else cart.push({ ...item });
+  });
+  localStorage.setItem('ph_cart', JSON.stringify(cart));
+  updateCartCount();
+  showToast('🔁', 'Items added to cart!');
+  switchTab('menu');
+}
+
+// Init: activate app mode on mobile automatically
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.innerWidth <= 768) {
+    document.body.classList.add('app-mode');
+    // Explicitly hide all desktop sections & extra elements
+    const desktopHide = ['hero','about','menu','points','locations','specialBanner','scrollProgress','mainNav','mobileDrawer','drawerOverlay','google-review','push-banner','loyaltySection','reviewSection','dashboard'];
+    desktopHide.forEach(id => { const el=document.getElementById(id); if(el) el.style.setProperty('display','none','important'); });
+    // Hide parallax dividers, sections & any other desktop elements
+    document.querySelectorAll('.parallax-divider, section, #google-review, #push-banner, #loyaltySection').forEach(el => el.style.setProperty('display','none','important'));
+    // Hide all direct body children that aren't app screens, modals, or tab bar
+    const appKeep = new Set(['appHome','appOrders','appAccount','bottomTabs','floatingCart','cartModal','customModal','confirmOverlay','reviewModal','loginModal','toast','scrollProgress']);
+    document.querySelectorAll('body > *').forEach(el => { if (!appKeep.has(el.id) && !el.classList.contains('toast') && !el.classList.contains('confirm-overlay') && !el.classList.contains('modal-overlay')) { el.style.setProperty('display','none','important'); } });
+    // Force show bottom tab bar (fixed position, always visible)
+    const bt = document.getElementById('bottomTabs');
+    if (bt) bt.style.setProperty('display','flex','important');
+    // Hide app screens except home
+    ['appOrders','appAccount'].forEach(id => { const el=document.getElementById(id); if(el) el.style.display='none'; });
+    // Show home
+    const ah = document.getElementById('appHome');
+    if (ah) ah.style.display = 'block';
+    renderAppHome();
+  }
+});
+
+// Keep app cart badge in sync whenever cart updates
+const _origUCC2 = updateCartCount;
+updateCartCount = function() {
+  _origUCC2();
+  const totalQty = cart.reduce((a,i) => a + i.qty, 0);
+  const badge = document.getElementById('appCartBadge');
+  if (badge) { badge.textContent = totalQty; badge.style.display = totalQty > 0 ? 'flex' : 'none'; }
+};
 </script>
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
