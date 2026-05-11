@@ -68,16 +68,17 @@
   .cart-count{background:var(--red);color:#fff;border-radius:50%;width:18px;height:18px;font-size:0.67rem;display:flex;align-items:center;justify-content:center;font-weight:700}
 
   /* ── FLOATING CART BAR ── */
-  .floating-cart{position:fixed;left:50%;transform:translateX(-50%) translateY(120%);bottom:calc(18px + env(safe-area-inset-bottom));z-index:9997;display:flex;align-items:center;gap:14px;background:var(--red);color:#fff;padding:13px 20px 13px 18px;border-radius:60px;box-shadow:0 12px 32px rgba(196,30,58,0.4),0 4px 12px rgba(28,16,8,0.15);cursor:pointer;font-family:'DM Sans',sans-serif;font-weight:700;transition:transform 0.4s cubic-bezier(0.34,1.56,0.64,1),background 0.2s;min-width:240px;max-width:calc(100vw - 40px);border:none}
-  .floating-cart.show{transform:translateX(-50%) translateY(0)}
+  /* Floating cart bubble — compact icon in bottom-right */
+  .floating-cart{position:fixed;right:18px;bottom:calc(90px + env(safe-area-inset-bottom));z-index:9997;width:56px;height:56px;border-radius:50%;background:var(--red);color:#fff;border:none;cursor:pointer;display:none;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(196,30,58,0.45),0 2px 8px rgba(28,16,8,0.18);transition:transform 0.35s cubic-bezier(0.34,1.56,0.64,1),opacity 0.25s;transform:scale(0);opacity:0}
+  .floating-cart.show{display:flex;transform:scale(1);opacity:1}
   .floating-cart:hover{background:var(--red-light)}
-  .floating-cart .fc-badge{background:#fff;color:var(--red);border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;font-size:0.85rem;font-weight:800;flex-shrink:0}
-  .floating-cart .fc-label{flex:1;font-size:0.92rem;text-align:center;letter-spacing:0.2px}
-  .floating-cart .fc-total{font-size:0.95rem;font-weight:800;flex-shrink:0;border-left:1.5px solid rgba(255,255,255,0.25);padding-left:14px}
-  .floating-cart .fc-arrow{font-size:1.05rem;flex-shrink:0;transition:transform 0.2s}
-  .floating-cart:hover .fc-arrow{transform:translateX(3px)}
-  @keyframes cartPulse{0%,100%{transform:translateX(-50%) translateY(0) scale(1)}50%{transform:translateX(-50%) translateY(0) scale(1.04)}}
-  .floating-cart.pulse{animation:cartPulse 0.5s ease}
+  .floating-cart:active{transform:scale(0.93)}
+  .floating-cart .fc-icon{font-size:1.45rem;line-height:1;pointer-events:none}
+  .floating-cart .fc-badge{position:absolute;top:-4px;right:-4px;background:#fff;color:var(--red);border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:0.72rem;font-weight:800;border:2px solid var(--red);pointer-events:none}
+  /* hide fc-label and fc-total — no longer used */
+  .floating-cart .fc-label,.floating-cart .fc-total,.floating-cart .fc-arrow{display:none}
+  @keyframes cartPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+  .floating-cart.pulse{animation:cartPulse 0.4s ease}
   /* Hide floating cart whenever any modal or overlay is open */
   body:has(.modal-overlay.open) .floating-cart,
   body:has(.confirm-overlay.open) .floating-cart { display:none!important }
@@ -620,7 +621,6 @@
     body.app-mode #hero,body.app-mode #about,body.app-mode #points,body.app-mode #locations,body.app-mode footer,body.app-mode .marquee-strip,body.app-mode #specialBanner,body.app-mode #scrollProgress,body.app-mode nav,body.app-mode .mobile-drawer,body.app-mode .drawer-overlay,body.app-mode .parallax-divider,body.app-mode #google-review,body.app-mode #push-banner,body.app-mode #loyaltySection,body.app-mode #reviewSection,body.app-mode section:not(#menu):not(#hero):not(#about):not(#points):not(#locations){display:none!important}
     body.app-mode #menu{padding-top:0}
     .bottom-tabs{display:flex}
-    .floating-cart{bottom:calc(82px + env(safe-area-inset-bottom))}
   }
 </style>
   <!-- PWA / Mobile App Ready -->
@@ -1203,10 +1203,8 @@
 <!-- CART MODAL -->
 <!-- Floating cart bar — shows when cart has items -->
 <button class="floating-cart" id="floatingCart" onclick="openCart()" aria-label="View cart">
+  <span class="fc-icon">🛒</span>
   <span class="fc-badge" id="fcBadge">0</span>
-  <span class="fc-label">View Cart</span>
-  <span class="fc-total" id="fcTotal">CA$0.00</span>
-  <span class="fc-arrow">→</span>
 </button>
 
 <div class="modal-overlay" id="cartModal">
@@ -1470,19 +1468,16 @@ function updateCartCount() {
   const totalAmt = cart.reduce((a,i) => a + (i.price * i.qty), 0);
   document.getElementById('cartCount').textContent = totalQty;
 
-  // Floating cart bar
+  // Floating cart bubble
   const fc = document.getElementById('floatingCart');
   const fcBadge = document.getElementById('fcBadge');
-  const fcTotal = document.getElementById('fcTotal');
-  if (fc && fcBadge && fcTotal) {
+  if (fc && fcBadge) {
     fcBadge.textContent = totalQty;
-    fcTotal.textContent = `CA$${totalAmt.toFixed(2)}`;
-    // Don't show floating cart while cart modal is open (avoid double UI)
+    // Don't show while cart modal is open
     const cartOpen = document.getElementById('cartModal')?.classList.contains('open');
     if (totalQty > 0 && !cartOpen) {
       const wasShown = fc.classList.contains('show');
       fc.classList.add('show');
-      // Pulse on item add (when count increases while bar already visible)
       if (wasShown) { fc.classList.remove('pulse'); void fc.offsetWidth; fc.classList.add('pulse'); }
     } else {
       fc.classList.remove('show');
