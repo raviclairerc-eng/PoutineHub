@@ -78,6 +78,9 @@
   .floating-cart:hover .fc-arrow{transform:translateX(3px)}
   @keyframes cartPulse{0%,100%{transform:translateX(-50%) translateY(0) scale(1)}50%{transform:translateX(-50%) translateY(0) scale(1.04)}}
   .floating-cart.pulse{animation:cartPulse 0.5s ease}
+  /* Hide floating cart whenever any modal or overlay is open */
+  body:has(.modal-overlay.open) .floating-cart,
+  body:has(.confirm-overlay.open) .floating-cart { display:none!important }
   .btn-login{background:var(--red);color:#fff;border:none;padding:9px 20px;border-radius:50px;cursor:pointer;font-weight:700;font-size:0.82rem;transition:all 0.25s;font-family:'DM Sans',sans-serif}
   .btn-login:hover{background:var(--red-light);transform:translateY(-1px);box-shadow:0 6px 20px rgba(196,30,58,0.3)}
   .btn-user{background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:9px 16px;border-radius:50px;cursor:pointer;font-size:0.82rem;font-weight:600;display:none;align-items:center;gap:6px;transition:all 0.2s}
@@ -220,7 +223,7 @@
   .btn-call:hover{border-color:var(--red);color:var(--red)}
 
   /* ── MODALS ── */
-  .modal-overlay{position:fixed;inset:0;background:rgba(28,16,8,0.6);backdrop-filter:blur(4px);z-index:2000;display:none;align-items:center;justify-content:center}
+  .modal-overlay{position:fixed;inset:0;background:rgba(28,16,8,0.6);backdrop-filter:blur(4px);z-index:9998;display:none;align-items:center;justify-content:center}
   .modal-overlay.open{display:flex}
   .modal{background:var(--card);border:1px solid var(--border);border-radius:24px;width:92%;max-width:480px;max-height:88vh;overflow-y:auto;box-shadow:0 32px 80px rgba(28,16,8,0.2)}
   .modal-header{padding:22px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--card);z-index:1}
@@ -377,7 +380,7 @@
   .time-slots{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
   .slot-btn{padding:6px 11px;border:1px solid var(--border);border-radius:7px;background:transparent;color:var(--text);cursor:pointer;font-size:0.78rem;font-weight:600;transition:all 0.2s}
   .slot-btn.active{border-color:var(--gold);background:rgba(245,166,35,0.1);color:var(--gold)}
-  .confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:5000;display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+  .confirm-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.95);z-index:9999;display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
   .confirm-overlay.open{display:flex}
   .confirm-box{background:var(--card);border:1px solid var(--border);border-radius:20px;width:90%;max-width:440px;padding:28px;text-align:center}
   .confirm-icon{font-size:3.2rem;margin-bottom:10px}
