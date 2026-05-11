@@ -1284,6 +1284,25 @@
   </div>
 </div>
 
+<!-- GOOGLE REVIEW AUTO-PROMPT MODAL -->
+<div class="modal-overlay" id="googleReviewModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>🌟 How was your order?</h2>
+      <button class="modal-close" onclick="dismissGoogleReview(false)">✕</button>
+    </div>
+    <div class="modal-body" id="googleReviewBody">
+      <p style="text-align:center;color:var(--muted);font-size:0.92rem;margin:0 0 16px">
+        Hope you enjoyed your <strong id="grOrderName">poutine</strong>! 🍟<br>
+        Could you spare 30 seconds to leave us a Google review? It really helps small businesses like ours.
+      </p>
+      <button class="btn-checkout" style="margin-top:8px" onclick="openGoogleReview()">⭐ Leave a Google Review</button>
+      <button class="btn-checkout" style="margin-top:8px;background:transparent;color:var(--muted);border:1px solid var(--border)" onclick="dismissGoogleReview(false)">Maybe later</button>
+      <button style="margin-top:8px;background:transparent;border:none;color:var(--muted);font-size:0.78rem;width:100%;cursor:pointer;text-decoration:underline" onclick="dismissGoogleReview(true)">Don't ask again for this order</button>
+    </div>
+  </div>
+</div>
+
 <!-- LOGIN MODAL -->
 <div class="modal-overlay" id="loginModal">
   <div class="modal">
@@ -1873,24 +1892,11 @@ function sendOrderEmail(order) {
       console.warn('EmailJS: no recipient email — skipping send');
       return;
     }
-    console.log('📧 [EmailJS] Sending with:', {
-      service: EMAIL_CONFIG.EMAILJS_SERVICE_ID,
-      template: EMAIL_CONFIG.EMAILJS_TEMPLATE_ID,
-      publicKey: EMAIL_CONFIG.EMAILJS_PUBLIC_KEY,
-      to_email: content.to_email
-    });
     emailjs.send(EMAIL_CONFIG.EMAILJS_SERVICE_ID, EMAIL_CONFIG.EMAILJS_TEMPLATE_ID, content)
-      .then((r) => {
-        console.log('✅ [EmailJS] Sent OK:', r);
-        showToast('📧', `Confirmation sent to ${content.to_email}`);
-      })
+      .then(() => { showToast('📧', `Confirmation sent to ${content.to_email}`); })
       .catch(err => {
-        const errMsg = `EmailJS error — status: ${err?.status || '?'} | text: ${err?.text || err?.message || JSON.stringify(err)}`;
-        console.error(errMsg, err);
-        // Show full error so we can debug
-        showToast('⚠️', `Email failed: ${err?.text || err?.status || 'unknown'}`);
-        // Persist last error for inspection
-        window.__lastEmailError = { status: err?.status, text: err?.text, raw: err };
+        console.error('EmailJS error:', err?.text || err?.message || err);
+        showToast('⚠️', 'Email send failed — order still placed');
       });
   }
 }
@@ -1925,7 +1931,11 @@ function placeOrder(total, pts) {
     type:orderType,
     scheduled: schedMode==='schedule' ? `${schedDate} ${schedTime}` : 'ASAP',
     address: orderType==='delivery' ? address : '',
-    status:'confirmed'
+    status:'confirmed',
+    placedAt: Date.now(),
+    reviewPromptAt: Date.now() + (orderType==='delivery' ? 45*60*1000 : 25*60*1000),
+    reviewPrompted: false,
+    reviewed: false
   };
   orders.unshift(order);
   localStorage.setItem('ph_orders', JSON.stringify(orders));
@@ -1963,8 +1973,85 @@ function placeOrder(total, pts) {
   showOrderConfirmation(order);
   // Send order confirmation email (demo mode logs to console)
   try { sendOrderEmail(order); } catch(e) { console.error('Email error:', e); }
+  // Schedule the Google review auto-prompt
+  try { scheduleReviewPrompt(order); } catch(e) { console.error('Review prompt error:', e); }
 }
 function checkout(total,pts){ placeOrder(total,pts); }
+
+// ── GOOGLE REVIEW AUTO-PROMPT ───────────────────────────────────────
+let _currentReviewOrderId = null;
+function scheduleReviewPrompt(order) {
+  const delay = Math.max(60000, (order.reviewPromptAt || 0) - Date.now());
+  // Only schedule in-session if delay is < 2 hours (otherwise wait for next visit)
+  if (delay < 2 * 60 * 60 * 1000) {
+    setTimeout(() => showGoogleReviewPrompt(order.id), delay);
+  }
+}
+function showGoogleReviewPrompt(orderId) {
+  const all = JSON.parse(localStorage.getItem('ph_orders') || '[]');
+  const order = all.find(o => o.id === orderId);
+  if (!order || order.reviewPrompted || order.reviewed) return;
+  // Don't show if another modal is open
+  if (document.querySelector('.modal-overlay.open')) {
+    // Try again in 60s
+    setTimeout(() => showGoogleReviewPrompt(orderId), 60000);
+    return;
+  }
+  _currentReviewOrderId = orderId;
+  const firstItem = order.items && order.items[0] ? order.items[0].name : 'order';
+  const nameEl = document.getElementById('grOrderName');
+  if (nameEl) nameEl.textContent = firstItem;
+  document.getElementById('googleReviewModal').classList.add('open');
+  document.getElementById('floatingCart')?.classList.remove('show');
+}
+function openGoogleReview() {
+  const reviewUrl = localStorage.getItem('ph_google_review_url') ||
+    'https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID';
+  window.open(reviewUrl, '_blank', 'noopener,noreferrer');
+  markOrderReviewed(_currentReviewOrderId);
+  document.getElementById('googleReviewModal').classList.remove('open');
+  showToast('🙏', 'Thanks for supporting us!');
+}
+function dismissGoogleReview(permanent) {
+  if (_currentReviewOrderId) {
+    const all = JSON.parse(localStorage.getItem('ph_orders') || '[]');
+    const idx = all.findIndex(o => o.id === _currentReviewOrderId);
+    if (idx >= 0) {
+      if (permanent) all[idx].reviewPrompted = true;
+      localStorage.setItem('ph_orders', JSON.stringify(all));
+      orders = all;
+    }
+  }
+  document.getElementById('googleReviewModal').classList.remove('open');
+}
+function markOrderReviewed(orderId) {
+  const all = JSON.parse(localStorage.getItem('ph_orders') || '[]');
+  const idx = all.findIndex(o => o.id === orderId);
+  if (idx >= 0) {
+    all[idx].reviewed = true;
+    all[idx].reviewPrompted = true;
+    localStorage.setItem('ph_orders', JSON.stringify(all));
+    orders = all;
+  }
+}
+function checkPendingReviewPrompts() {
+  const all = JSON.parse(localStorage.getItem('ph_orders') || '[]');
+  const now = Date.now();
+  // Find oldest order due for prompting but not yet prompted/reviewed
+  const due = all.find(o => o.reviewPromptAt && o.reviewPromptAt <= now && !o.reviewPrompted && !o.reviewed);
+  if (due) {
+    // Small delay so the page can settle
+    setTimeout(() => showGoogleReviewPrompt(due.id), 3000);
+  }
+  // Also schedule any upcoming ones within the next 2 hours
+  all.forEach(o => {
+    if (o.reviewPromptAt && o.reviewPromptAt > now && !o.reviewPrompted && !o.reviewed) {
+      const delay = o.reviewPromptAt - now;
+      if (delay < 2 * 60 * 60 * 1000) setTimeout(() => showGoogleReviewPrompt(o.id), delay);
+    }
+  });
+}
+document.addEventListener('DOMContentLoaded', () => { try { checkPendingReviewPrompts(); } catch(e) {} });
 
 function openLogin() { document.getElementById('loginModal').classList.add('open'); document.getElementById('floatingCart')?.classList.remove('show'); }
 function closeLogin() { document.getElementById('loginModal').classList.remove('open'); updateCartCount(); }
