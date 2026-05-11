@@ -1857,12 +1857,28 @@ function sendOrderEmail(order) {
     return;
   }
 
-  // LIVE MODE — uncomment when EmailJS is configured
+  // LIVE MODE
   if (EMAIL_CONFIG.EMAIL_MODE === 'live' && window.emailjs) {
-    emailjs.init(EMAIL_CONFIG.EMAILJS_PUBLIC_KEY);
+    // Support both old (string) and new (object) EmailJS SDK init format
+    try {
+      emailjs.init({ publicKey: EMAIL_CONFIG.EMAILJS_PUBLIC_KEY });
+    } catch(e) {
+      emailjs.init(EMAIL_CONFIG.EMAILJS_PUBLIC_KEY);
+    }
+    // Ensure to_email is set — fall back to guest stored email
+    if (!content.to_email) {
+      content.to_email = localStorage.getItem('ph_guest_email') || '';
+    }
+    if (!content.to_email) {
+      console.warn('EmailJS: no recipient email — skipping send');
+      return;
+    }
     emailjs.send(EMAIL_CONFIG.EMAILJS_SERVICE_ID, EMAIL_CONFIG.EMAILJS_TEMPLATE_ID, content)
       .then(() => { showToast('📧', `Confirmation sent to ${content.to_email}`); })
-      .catch(err => { console.error('EmailJS error:', err); showToast('⚠️', 'Email send failed — order still placed'); });
+      .catch(err => {
+        console.error('EmailJS error:', err?.text || err?.message || JSON.stringify(err));
+        showToast('⚠️', 'Email send failed — order still placed');
+      });
   }
 }
 
