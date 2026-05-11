@@ -1873,11 +1873,24 @@ function sendOrderEmail(order) {
       console.warn('EmailJS: no recipient email — skipping send');
       return;
     }
+    console.log('📧 [EmailJS] Sending with:', {
+      service: EMAIL_CONFIG.EMAILJS_SERVICE_ID,
+      template: EMAIL_CONFIG.EMAILJS_TEMPLATE_ID,
+      publicKey: EMAIL_CONFIG.EMAILJS_PUBLIC_KEY,
+      to_email: content.to_email
+    });
     emailjs.send(EMAIL_CONFIG.EMAILJS_SERVICE_ID, EMAIL_CONFIG.EMAILJS_TEMPLATE_ID, content)
-      .then(() => { showToast('📧', `Confirmation sent to ${content.to_email}`); })
+      .then((r) => {
+        console.log('✅ [EmailJS] Sent OK:', r);
+        showToast('📧', `Confirmation sent to ${content.to_email}`);
+      })
       .catch(err => {
-        console.error('EmailJS error:', err?.text || err?.message || JSON.stringify(err));
-        showToast('⚠️', 'Email send failed — order still placed');
+        const errMsg = `EmailJS error — status: ${err?.status || '?'} | text: ${err?.text || err?.message || JSON.stringify(err)}`;
+        console.error(errMsg, err);
+        // Show full error so we can debug
+        showToast('⚠️', `Email failed: ${err?.text || err?.status || 'unknown'}`);
+        // Persist last error for inspection
+        window.__lastEmailError = { status: err?.status, text: err?.text, raw: err };
       });
   }
 }
