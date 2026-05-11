@@ -3,7 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Poutine Hub ‚Äî Admin</title>
+<title>Poutine Hub — Admin</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1C1008">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="PH Admin">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -167,6 +173,8 @@
   .k-btn-modify:hover{border-color:var(--gold);color:var(--gold)}
   .k-btn-decline{flex:1;padding:5px 0;border-radius:6px;border:1.5px solid rgba(196,30,58,0.25);background:rgba(196,30,58,0.07);color:var(--red);font-size:0.7rem;font-weight:700;cursor:pointer;transition:all 0.2s}
   .k-btn-decline:hover{background:rgba(196,30,58,0.15)}
+  .k-btn-notify{flex:1;padding:5px 0;border-radius:6px;border:1.5px solid rgba(46,204,113,0.3);background:rgba(46,204,113,0.08);color:var(--green);font-size:0.7rem;font-weight:700;cursor:pointer;transition:all 0.2s}
+  .k-btn-notify:hover{background:rgba(46,204,113,0.18)}
 
   /* MENU MANAGER CARDS */
   .menu-grid-admin{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
@@ -267,6 +275,10 @@
   .tag-scheduled{background:rgba(155,89,182,0.15);color:#9b59b6;border-radius:5px;padding:2px 7px;font-size:0.68rem;font-weight:700}
   .k-addr{font-size:0.7rem;color:var(--muted);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px}
   .k-sched{font-size:0.7rem;color:#9b59b6;font-weight:600;margin-top:2px}
+  .k-contact{display:flex;flex-direction:column;gap:2px;margin:4px 0;padding:5px 7px;background:var(--bg2);border-radius:6px;font-size:0.7rem}
+  .k-contact a{color:var(--text2);text-decoration:none;font-weight:600;display:flex;align-items:center;gap:4px;transition:color 0.15s}
+  .k-contact a:hover{color:var(--red)}
+  .k-contact .k-c-icon{font-size:0.78rem}
   .promo-table{width:100%;border-collapse:collapse}
   .promo-table th{text-align:left;padding:10px 14px;font-size:0.78rem;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border)}
   .promo-table td{padding:10px 14px;font-size:0.83rem;border-bottom:1px solid var(--border);vertical-align:middle}
@@ -336,11 +348,11 @@
 <!-- AUTH OVERLAY -->
 <div class="auth-overlay" id="authOverlay">
   <div class="auth-box">
-    <div class="auth-logo">üçü</div>
+    <div class="auth-logo">🍟</div>
     <div class="auth-title">Poutine Hub Admin</div>
     <div class="auth-sub">Enter your admin password</div>
     <input type="password" id="adminPwInput" class="auth-input" placeholder="Enter password" onkeydown="if(event.key==='Enter')submitAdminPw()">
-    <button class="btn-netlify-login" onclick="submitAdminPw()">üîê Sign In</button>
+    <button class="btn-netlify-login" onclick="submitAdminPw()">🔐 Sign In</button>
     <div id="authError" style="color:#e74c3c;font-size:0.8rem;margin-top:10px;min-height:18px"></div>
     <div class="auth-note" style="margin-top:16px">Default password: <strong>PoutineAdmin2026!</strong><br>Change it in Settings after signing in.</div>
   </div>
@@ -349,29 +361,29 @@
 <!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sidebar-logo">
-    <div class="logo-icon">üçü</div>
+    <div class="logo-icon">🍟</div>
     <div class="logo-text">Poutine <span>Hub</span><span class="logo-badge">ADMIN</span></div>
   </div>
   <nav class="sidebar-nav">
     <div class="nav-section-label">Main</div>
-    <a class="nav-item active" onclick="showPage('overview',this)"><span class="icon">üìä</span><span>Overview</span></a>
-    <a class="nav-item" onclick="showPage('orders',this)"><span class="icon">üõí</span><span>Live Orders</span><span class="nav-badge" id="newBadge">0</span></a>
-    <a class="nav-item" onclick="showPage('history',this)"><span class="icon">üìã</span><span>Order History</span></a>
+    <a class="nav-item active" onclick="showPage('overview',this)"><span class="icon">📊</span><span>Overview</span></a>
+    <a class="nav-item" onclick="showPage('orders',this)"><span class="icon">🛒</span><span>Live Orders</span><span class="nav-badge" id="newBadge">0</span></a>
+    <a class="nav-item" onclick="showPage('history',this)"><span class="icon">📋</span><span>Order History</span></a>
     <div class="nav-section-label">Restaurant</div>
-    <a class="nav-item" onclick="showPage('menu',this)"><span class="icon">üçΩÔ∏è</span><span>Menu Manager</span></a>
-    <a class="nav-item" onclick="showPage('customers',this)" data-page="customers"><span class="icon">üë•</span><span>Customers</span></a>
-    <a class="nav-item owner-only" onclick="showPage('rewards',this)"><span class="icon">üåü</span><span>Rewards</span></a>
+    <a class="nav-item" onclick="showPage('menu',this)"><span class="icon">🍽️</span><span>Menu Manager</span></a>
+    <a class="nav-item" onclick="showPage('customers',this)" data-page="customers"><span class="icon">👥</span><span>Customers</span></a>
+    <a class="nav-item owner-only" onclick="showPage('rewards',this)"><span class="icon">🌟</span><span>Rewards</span></a>
     <div class="nav-section-label">Orders</div>
-    <a class="nav-item" onclick="showPage('scheduled',this)"><span class="icon">üìÖ</span><span>Scheduled</span></a>
+    <a class="nav-item" onclick="showPage('scheduled',this)"><span class="icon">📅</span><span>Scheduled</span></a>
     <div class="nav-section-label">Marketing</div>
-    <a class="nav-item" onclick="showPage('promos',this)"><span class="icon">üéüÔ∏è</span><span>Promo Codes</span></a>
-    <a class="nav-item" onclick="showPage('notifications',this)"><span class="icon">üîî</span><span>Notifications</span></a>
+    <a class="nav-item" onclick="showPage('promos',this)"><span class="icon">🎟️</span><span>Promo Codes</span></a>
+    <a class="nav-item" onclick="showPage('notifications',this)"><span class="icon">🔔</span><span>Notifications</span></a>
     <div class="nav-section-label">Insights</div>
-    <a class="nav-item" onclick="showPage('reviews',this)"><span class="icon">‚≠ê</span><span>Reviews</span></a>
+    <a class="nav-item" onclick="showPage('reviews',this)"><span class="icon">⭐</span><span>Reviews</span></a>
     <div class="nav-section-label">Tools</div>
-    <a class="nav-item" onclick="showPage('sheets',this)"><span class="icon">üìä</span><span>Google Sheets</span></a>
-    <a class="nav-item" onclick="showPage('analytics',this)"><span class="icon">üìà</span><span>Analytics</span></a>
-    <a class="nav-item owner-only" onclick="showPage('settings',this)"><span class="icon">‚öôÔ∏è</span><span>Settings</span></a>
+    <a class="nav-item" onclick="showPage('sheets',this)"><span class="icon">📊</span><span>Google Sheets</span></a>
+    <a class="nav-item" onclick="showPage('analytics',this)"><span class="icon">📈</span><span>Analytics</span></a>
+    <a class="nav-item owner-only" onclick="showPage('settings',this)"><span class="icon">⚙️</span><span>Settings</span></a>
   </nav>
   <div class="sidebar-footer">
     <div class="admin-profile">
@@ -384,7 +396,7 @@
         </div>
       </div>
     </div>
-    <button class="btn-logout" onclick="signOut()">‚¨° Sign Out</button>
+    <button class="btn-logout" onclick="signOut()">⬡ Sign Out</button>
   </div>
 </aside>
 
@@ -393,11 +405,11 @@
   <div class="topbar">
     <div class="topbar-left">
       <h1 id="pageTitle">Dashboard Overview</h1>
-      <p id="pageSub">Welcome back ‚Äî here's what's happening today</p>
+      <p id="pageSub">Welcome back — here's what's happening today</p>
     </div>
     <div class="topbar-right">
       <div style="display:flex;align-items:center;gap:5px;font-size:0.78rem;color:var(--green)"><div class="live-dot"></div>Live</div>
-      <button class="topbar-btn" onclick="simulateOrder()">‚ûï Test Order</button>
+      <button class="topbar-btn" onclick="simulateOrder()">➕ Test Order</button>
       <button class="topbar-btn primary" onclick="showPage('menu',null);openAddModal()">+ Add Item</button>
     </div>
   </div>
@@ -408,11 +420,11 @@
     <div class="page active" id="page-overview">
       <!-- DAILY SPECIAL MANAGER -->
       <div class="special-card">
-        <h3>üî• Today's Daily Special</h3>
+        <h3>🔥 Today's Daily Special</h3>
         <div class="special-form">
           <div class="form-group">
             <label>Special Title</label>
-            <input type="text" id="specialTitle" placeholder="e.g. Butter Chicken Combo ‚Äî Only $12.99!">
+            <input type="text" id="specialTitle" placeholder="e.g. Butter Chicken Combo — Only $12.99!">
           </div>
           <div class="form-group">
             <label>Discount Label</label>
@@ -423,29 +435,29 @@
             <input type="text" id="specialDesc" placeholder="More details about the special...">
           </div>
           <div class="special-actions">
-            <button class="btn-save" onclick="saveSpecial()">üî• Activate Special</button>
-            <button class="btn-danger" onclick="clearSpecial()">‚úï Clear Special</button>
+            <button class="btn-save" onclick="saveSpecial()">🔥 Activate Special</button>
+            <button class="btn-danger" onclick="clearSpecial()">✕ Clear Special</button>
             <span id="specialStatus" style="font-size:0.8rem;color:var(--muted);align-self:center"></span>
           </div>
         </div>
       </div>
 
       <div class="stats-grid">
-        <div class="stat-card gold"><div class="stat-icon">üí∞</div><div class="stat-label">Today's Revenue</div><div class="stat-value" id="statRev">$0</div><div class="stat-change up" id="statRevCh">0 orders today</div></div>
-        <div class="stat-card green"><div class="stat-icon">üõí</div><div class="stat-label">Total Orders</div><div class="stat-value" id="statOrd">0</div><div class="stat-change neutral">all time</div></div>
-        <div class="stat-card blue"><div class="stat-icon">üë•</div><div class="stat-label">Customers</div><div class="stat-value" id="statCust">0</div><div class="stat-change neutral">registered</div></div>
-        <div class="stat-card red"><div class="stat-icon">üåü</div><div class="stat-label">Points Issued</div><div class="stat-value" id="statPts">0</div><div class="stat-change neutral">total pts</div></div>
+        <div class="stat-card gold"><div class="stat-icon">💰</div><div class="stat-label">Today's Revenue</div><div class="stat-value" id="statRev">$0</div><div class="stat-change up" id="statRevCh">0 orders today</div></div>
+        <div class="stat-card green"><div class="stat-icon">🛒</div><div class="stat-label">Total Orders</div><div class="stat-value" id="statOrd">0</div><div class="stat-change neutral">all time</div></div>
+        <div class="stat-card blue"><div class="stat-icon">👥</div><div class="stat-label">Customers</div><div class="stat-value" id="statCust">0</div><div class="stat-change neutral">registered</div></div>
+        <div class="stat-card red"><div class="stat-icon">🌟</div><div class="stat-label">Points Issued</div><div class="stat-value" id="statPts">0</div><div class="stat-change neutral">total pts</div></div>
       </div>
 
       <div class="two-col">
         <div class="card">
-          <div class="card-header"><h3>üìã Recent Orders</h3><span class="badge-pill" id="recentBadge">0</span></div>
+          <div class="card-header"><h3>📋 Recent Orders</h3><span class="badge-pill" id="recentBadge">0</span></div>
           <div class="card-body" style="padding:0">
             <table class="data-table"><thead><tr><th>ID</th><th>Customer</th><th>Amount</th><th>Status</th><th>Actions</th></tr></thead><tbody id="recentBody"></tbody></table>
           </div>
         </div>
         <div class="card">
-          <div class="card-header"><h3>üìä Revenue (7 Days)</h3></div>
+          <div class="card-header"><h3>📊 Revenue (7 Days)</h3></div>
           <div class="card-body"><div class="chart-bar" id="revChart"></div></div>
         </div>
       </div>
@@ -455,7 +467,7 @@
     <div class="page" id="page-orders">
       <div style="margin-bottom:18px;display:flex;justify-content:space-between;align-items:center">
         <p style="color:var(--muted);font-size:0.85rem">Click action button to advance order status</p>
-        <button class="topbar-btn" onclick="simulateOrder()">‚ûï Simulate Order</button>
+        <button class="topbar-btn" onclick="simulateOrder()">➕ Simulate Order</button>
       </div>
       <div class="kanban" id="kanbanBoard"></div>
     </div>
@@ -463,7 +475,7 @@
     <!-- HISTORY -->
     <div class="page" id="page-history">
       <div style="margin-bottom:18px;display:flex;gap:10px">
-        <input class="search-bar" placeholder="üîç Search orders..." oninput="filterHistory(this.value)">
+        <input class="search-bar" placeholder="🔍 Search orders..." oninput="filterHistory(this.value)">
       </div>
       <div class="card">
         <div class="card-body" style="padding:0">
@@ -477,7 +489,7 @@
       <div style="margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
         <div style="display:flex;gap:7px;flex-wrap:wrap" id="menuFilterRow">
           <button class="btn-sm" style="border-color:var(--gold);color:var(--gold)" onclick="filterAdminMenu('all',this)">All</button>
-          <button class="btn-sm" onclick="filterAdminMenu('combos',this)">üî• Combos</button>
+          <button class="btn-sm" onclick="filterAdminMenu('combos',this)">🔥 Combos</button>
           <button class="btn-sm" onclick="filterAdminMenu('fusion',this)">Fusion</button>
           <button class="btn-sm" onclick="filterAdminMenu('classic',this)">Classic</button>
           <button class="btn-sm" onclick="filterAdminMenu('sides',this)">Sides</button>
@@ -485,7 +497,7 @@
           <button class="btn-sm" onclick="filterAdminMenu('drinks',this)">Drinks</button>
         </div>
         <div style="display:flex;gap:8px">
-          <button class="topbar-btn" onclick="resetMenu()">‚Ü© Reset to Default</button>
+          <button class="topbar-btn" onclick="resetMenu()">↩ Reset to Default</button>
           <button class="topbar-btn primary" onclick="openAddModal()">+ Add New Item</button>
         </div>
       </div>
@@ -494,7 +506,7 @@
 
     <!-- CUSTOMERS -->
     <div class="page" id="page-customers">
-      <div style="margin-bottom:18px"><input class="search-bar" placeholder="üîç Search customers..." oninput="filterCustomers(this.value)"></div>
+      <div style="margin-bottom:18px"><input class="search-bar" placeholder="🔍 Search customers..." oninput="filterCustomers(this.value)"></div>
       <div class="card">
         <div class="card-body" style="padding:0">
           <table class="data-table"><thead><tr><th>Customer</th><th>Email</th><th>Points</th><th>Tier</th><th>Orders</th><th>Spent</th><th>Adjust Points</th></tr></thead><tbody id="custBody"></tbody></table><th>Spent</th><th>Joined</th></tr></thead><tbody id="custBody"></tbody></table>
@@ -505,28 +517,28 @@
     <!-- REWARDS -->
     <div class="page" id="page-rewards">
       <div class="three-col">
-        <div class="stat-card gold"><div class="stat-icon">ü•â</div><div class="stat-label">Bronze</div><div class="stat-value" id="bronzeC">0</div></div>
-        <div class="stat-card blue"><div class="stat-icon">ü•à</div><div class="stat-label">Silver</div><div class="stat-value" id="silverC">0</div></div>
-        <div class="stat-card green"><div class="stat-icon">ü•á</div><div class="stat-label">Gold</div><div class="stat-value" id="goldC">0</div></div>
+        <div class="stat-card gold"><div class="stat-icon">🥉</div><div class="stat-label">Bronze</div><div class="stat-value" id="bronzeC">0</div></div>
+        <div class="stat-card blue"><div class="stat-icon">🥈</div><div class="stat-label">Silver</div><div class="stat-value" id="silverC">0</div></div>
+        <div class="stat-card green"><div class="stat-icon">🥇</div><div class="stat-label">Gold</div><div class="stat-value" id="goldC">0</div></div>
       </div>
       <div class="settings-grid">
         <div class="settings-section">
-          <h3>‚öôÔ∏è Points Config</h3>
+          <h3>⚙️ Points Config</h3>
           <div class="setting-row"><div><div class="setting-label">Bronze rate (pts/$1)</div></div><input type="number" class="setting-input" value="10"></div>
           <div class="setting-row"><div><div class="setting-label">Silver rate (pts/$1)</div></div><input type="number" class="setting-input" value="15"></div>
           <div class="setting-row"><div><div class="setting-label">Gold rate (pts/$1)</div></div><input type="number" class="setting-input" value="20"></div>
           <div class="setting-row"><div><div class="setting-label">Pts for $5 off</div></div><input type="number" class="setting-input" value="1000"></div>
           <div class="setting-row"><div><div class="setting-label">Signup bonus</div></div><input type="number" class="setting-input" value="500"></div>
-          <button class="btn-save" style="margin-top:14px;width:100%" onclick="showToast('‚úÖ','Saved!')">Save Changes</button>
+          <button class="btn-save" style="margin-top:14px;width:100%" onclick="showToast('✅','Saved!')">Save Changes</button>
         </div>
         <div class="settings-section">
-          <h3>üéØ Tier Thresholds</h3>
-          <div class="setting-row"><div><div class="setting-label">Bronze ‚Üí Silver</div></div><input type="number" class="setting-input" value="5000"></div>
-          <div class="setting-row"><div><div class="setting-label">Silver ‚Üí Gold</div></div><input type="number" class="setting-input" value="15000"></div>
+          <h3>🎯 Tier Thresholds</h3>
+          <div class="setting-row"><div><div class="setting-label">Bronze → Silver</div></div><input type="number" class="setting-input" value="5000"></div>
+          <div class="setting-row"><div><div class="setting-label">Silver → Gold</div></div><input type="number" class="setting-input" value="15000"></div>
           <div class="setting-row"><div><div class="setting-label">Birthday pts (Bronze)</div></div><input type="number" class="setting-input" value="500"></div>
           <div class="setting-row"><div><div class="setting-label">Birthday pts (Silver)</div></div><input type="number" class="setting-input" value="1000"></div>
           <div class="setting-row"><div><div class="setting-label">Birthday pts (Gold)</div></div><input type="number" class="setting-input" value="2000"></div>
-          <button class="btn-save" style="margin-top:14px;width:100%" onclick="showToast('‚úÖ','Saved!')">Save Changes</button>
+          <button class="btn-save" style="margin-top:14px;width:100%" onclick="showToast('✅','Saved!')">Save Changes</button>
         </div>
       </div>
     </div>
@@ -534,23 +546,23 @@
     <!-- GOOGLE SHEETS -->
     <div class="page" id="page-sheets">
       <div class="sheets-card">
-        <h3>üìä Google Sheets Menu Sync</h3>
+        <h3>📊 Google Sheets Menu Sync</h3>
         <div class="sheets-input-row">
           <input class="sheets-input" id="sheetsUrl" placeholder="Paste your Google Sheets published CSV URL here...">
-          <button class="btn-sync" onclick="syncSheets()">üîÑ Sync Now</button>
+          <button class="btn-sync" onclick="syncSheets()">🔄 Sync Now</button>
         </div>
         <div id="sheetsStatus" class="sheets-status"></div>
         <div class="sheets-info">
-          <h4>üìã How to set up Google Sheets sync:</h4>
+          <h4>📋 How to set up Google Sheets sync:</h4>
           <ol style="color:var(--muted);font-size:0.78rem;padding-left:16px;line-height:1.8">
             <li>Create a Google Sheet with these column headers (row 1):</li>
           </ol>
           <table style="margin:8px 0 8px 16px">
             <thead><tr><th>name</th><th>price</th><th>category</th><th>description</th><th>emoji</th><th>badge</th><th>originalprice</th><th>active</th><th>soldout</th></tr></thead>
-            <tbody><tr><td>Butter Chicken Poutine</td><td>14.99</td><td>fusion</td><td>Creamy butter...</td><td>üçõ</td><td>Bestseller</td><td></td><td>TRUE</td><td>FALSE</td></tr></tbody>
+            <tbody><tr><td>Butter Chicken Poutine</td><td>14.99</td><td>fusion</td><td>Creamy butter...</td><td>🍛</td><td>Bestseller</td><td></td><td>TRUE</td><td>FALSE</td></tr></tbody>
           </table>
           <ol style="color:var(--muted);font-size:0.78rem;padding-left:16px;line-height:1.8" start="2">
-            <li>Go to <b style="color:var(--text)">File ‚Üí Share ‚Üí Publish to web</b></li>
+            <li>Go to <b style="color:var(--text)">File → Share → Publish to web</b></li>
             <li>Choose <b style="color:var(--text)">Sheet1</b> and format <b style="color:var(--text)">Comma-separated values (.csv)</b></li>
             <li>Click <b style="color:var(--text)">Publish</b> and copy the URL</li>
             <li>Paste the URL above and click <b style="color:var(--text)">Sync Now</b></li>
@@ -559,7 +571,7 @@
         </div>
       </div>
       <div class="settings-section">
-        <h3>üîÑ Auto-Sync Settings</h3>
+        <h3>🔄 Auto-Sync Settings</h3>
         <div class="setting-row"><div><div class="setting-label">Auto-sync on page load</div><div class="setting-desc">Fetch latest menu every time admin opens</div></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
         <div class="setting-row"><div><div class="setting-label">Sync interval</div><div class="setting-desc">How often to check for updates</div></div><select style="background:var(--card2);border:1px solid var(--border);color:var(--text);padding:6px 10px;border-radius:7px;font-size:0.82rem"><option>Every 30 minutes</option><option>Every hour</option><option>Every 6 hours</option><option>Manual only</option></select></div>
         <div class="setting-row"><div><div class="setting-label">Clear menu cache</div><div class="setting-desc">Reset to default built-in menu</div></div><button class="btn-danger" onclick="resetMenu()">Reset to Default</button></div>
@@ -569,18 +581,18 @@
     <!-- ANALYTICS -->
     <div class="page" id="page-analytics">
       <div class="stats-grid">
-        <div class="stat-card gold"><div class="stat-icon">üí∞</div><div class="stat-label">Total Revenue</div><div class="stat-value" id="anaRev">$0</div></div>
-        <div class="stat-card green"><div class="stat-icon">üì¶</div><div class="stat-label">Avg Order Value</div><div class="stat-value" id="anaAvg">$0</div></div>
-        <div class="stat-card blue"><div class="stat-icon">üîÑ</div><div class="stat-label">Repeat Rate</div><div class="stat-value" id="anaRepeat">0%</div></div>
-        <div class="stat-card red"><div class="stat-icon">‚≠ê</div><div class="stat-label">Avg Rating</div><div class="stat-value">4.9</div></div>
+        <div class="stat-card gold"><div class="stat-icon">💰</div><div class="stat-label">Total Revenue</div><div class="stat-value" id="anaRev">$0</div></div>
+        <div class="stat-card green"><div class="stat-icon">📦</div><div class="stat-label">Avg Order Value</div><div class="stat-value" id="anaAvg">$0</div></div>
+        <div class="stat-card blue"><div class="stat-icon">🔄</div><div class="stat-label">Repeat Rate</div><div class="stat-value" id="anaRepeat">0%</div></div>
+        <div class="stat-card red"><div class="stat-icon">⭐</div><div class="stat-label">Avg Rating</div><div class="stat-value">4.9</div></div>
       </div>
       <div class="two-col">
-        <div class="card"><div class="card-header"><h3>üìä Revenue (14 Days)</h3></div><div class="card-body"><div class="chart-bar" id="anaChart"></div></div></div>
-        <div class="card"><div class="card-header"><h3>üèÜ Top Sellers</h3></div><div class="card-body" id="topSellers"></div></div>
+        <div class="card"><div class="card-header"><h3>📊 Revenue (14 Days)</h3></div><div class="card-body"><div class="chart-bar" id="anaChart"></div></div></div>
+        <div class="card"><div class="card-header"><h3>🏆 Top Sellers</h3></div><div class="card-body" id="topSellers"></div></div>
       </div>
       <div class="two-col" style="margin-top:16px">
         <div class="card">
-          <div class="card-header"><h3>üïê Peak Hours Heatmap</h3></div>
+          <div class="card-header"><h3>🕐 Peak Hours Heatmap</h3></div>
           <div class="card-body">
             <div style="display:flex;justify-content:space-between;margin-bottom:6px;font-size:0.7rem;color:var(--muted)">
               <span>12AM</span><span>6AM</span><span>12PM</span><span>6PM</span><span>11PM</span>
@@ -599,7 +611,7 @@
           </div>
         </div>
         <div class="card">
-          <div class="card-header"><h3>üìç Revenue by Location</h3></div>
+          <div class="card-header"><h3>📍 Revenue by Location</h3></div>
           <div class="card-body">
             <div class="loc-chart" id="locChart"></div>
           </div>
@@ -611,8 +623,8 @@
     <div class="page" id="page-settings">
       <div class="settings-grid">
         <div class="settings-section">
-          <h3>üè™ Restaurant</h3>
-          <div class="setting-row"><div><div class="setting-label">Logo URL</div><div class="setting-desc">Paste a direct image link to replace the üçü emoji</div></div>
+          <h3>🏪 Restaurant</h3>
+          <div class="setting-row"><div><div class="setting-label">Logo URL</div><div class="setting-desc">Paste a direct image link to replace the 🍟 emoji</div></div>
             <div style="display:flex;gap:8px;align-items:center">
               <input type="text" class="setting-input" id="logoUrlInput" placeholder="https://..." value="">
               <button class="btn-sm green" onclick="saveLogo()">Save</button>
@@ -629,19 +641,19 @@
           <div class="setting-row"><div><div class="setting-label">Delivery Fee ($)</div></div><input type="number" class="setting-input" value="3.99"></div>
           <div class="setting-row"><div><div class="setting-label">Min Order ($)</div></div><input type="number" class="setting-input" value="15"></div>
           <div class="setting-row"><div><div class="setting-label">Prep Time (mins)</div></div><input type="number" class="setting-input" value="20"></div>
-          <button class="btn-save" style="margin-top:14px;width:100%" onclick="showToast('‚úÖ','Settings saved!')">Save</button>
+          <button class="btn-save" style="margin-top:14px;width:100%" onclick="showToast('✅','Settings saved!')">Save</button>
         </div>
         <div class="settings-section">
-          <h3>üîî Notifications</h3>
+          <h3>🔔 Notifications</h3>
           <div class="setting-row"><div><div class="setting-label">New Order Alert</div></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
           <div class="setting-row"><div><div class="setting-label">Low Stock Alert</div></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
           <div class="setting-row"><div><div class="setting-label">Daily Summary Email</div></div><label class="toggle"><input type="checkbox"><span class="toggle-slider"></span></label></div>
           <div class="setting-row"><div><div class="setting-label">New Customer Alert</div></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
           <div class="setting-row"><div><div class="setting-label">Auto-accept Orders</div></div><label class="toggle"><input type="checkbox"><span class="toggle-slider"></span></label></div>
-          <button class="btn-save" style="margin-top:14px;width:100%" onclick="showToast('‚úÖ','Saved!')">Save</button>
+          <button class="btn-save" style="margin-top:14px;width:100%" onclick="showToast('✅','Saved!')">Save</button>
         </div>
         <div class="settings-section">
-          <h3>üìç Locations</h3>
+          <h3>📍 Locations</h3>
           <div class="setting-row"><div><div class="setting-label">Parliament St Open</div></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
           <div class="setting-row"><div><div class="setting-label">Dundas St Open</div></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
           <div class="setting-row"><div><div class="setting-label">Online Ordering</div></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
@@ -649,15 +661,15 @@
           <div class="setting-row"><div><div class="setting-label">Delivery Available</div></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
         </div>
         <div class="settings-section">
-          <h3>üîê Security</h3>
-          <div class="form-group-modal"><label>Current Password</label><input type="password" id="pwCurrent" placeholder="‚Ä¢‚Ä¢‚Ä¢‚Ä¢‚Ä¢‚Ä¢‚Ä¢‚Ä¢"></div>
+          <h3>🔐 Security</h3>
+          <div class="form-group-modal"><label>Current Password</label><input type="password" id="pwCurrent" placeholder="••••••••"></div>
           <div class="form-group-modal"><label>New Password</label><input type="password" id="pwNew" placeholder="min 6 characters"></div>
-          <div class="form-group-modal"><label>Confirm New Password</label><input type="password" id="pwConfirm" placeholder="‚Ä¢‚Ä¢‚Ä¢‚Ä¢‚Ä¢‚Ä¢‚Ä¢‚Ä¢"></div>
+          <div class="form-group-modal"><label>Confirm New Password</label><input type="password" id="pwConfirm" placeholder="••••••••"></div>
           <button class="btn-save" style="width:100%;margin-top:6px" onclick="changeAdminPassword()">Update Password</button>
           <div id="pwHashOutput" style="display:none;margin-top:14px;background:var(--card2);border:1px solid var(--border);border-radius:9px;padding:12px">
             <p style="font-size:0.78rem;color:var(--gold);font-weight:700;margin-bottom:6px">Password changed on this device. To make it permanent across all devices, copy this hash and send it to whoever manages the site files:</p>
             <code id="pwHashValue" style="font-size:0.7rem;word-break:break-all;color:var(--muted)"></code>
-            <button onclick="navigator.clipboard.writeText(document.getElementById('pwHashValue').textContent).then(()=>showToast('üìã','Hash copied!'))" style="margin-top:8px;width:100%;background:var(--gold);color:#000;border:none;padding:6px;border-radius:6px;font-weight:700;cursor:pointer;font-size:0.78rem">Copy Hash</button>
+            <button onclick="navigator.clipboard.writeText(document.getElementById('pwHashValue').textContent).then(()=>showToast('📋','Hash copied!'))" style="margin-top:8px;width:100%;background:var(--gold);color:#000;border:none;padding:6px;border-radius:6px;font-weight:700;cursor:pointer;font-size:0.78rem">Copy Hash</button>
           </div>
         </div>
       </div>
@@ -676,7 +688,7 @@
     <!-- PROMO CODES -->
     <div class="page" id="page-promos">
       <div class="create-promo-form">
-        <h3 style="margin:0 0 16px 0;font-size:1rem">üéüÔ∏è Create New Promo Code</h3>
+        <h3 style="margin:0 0 16px 0;font-size:1rem">🎟️ Create New Promo Code</h3>
         <div class="form-row-promo">
           <div class="form-group-modal"><label>Code *</label><input type="text" id="pCode" placeholder="SAVE20" style="text-transform:uppercase"></div>
           <div class="form-group-modal"><label>Discount %</label><input type="number" id="pDiscount" placeholder="20" min="1" max="100"></div>
@@ -698,10 +710,10 @@
     <!-- REVIEWS -->
     <div class="page" id="page-reviews">
       <div class="stats-grid" style="margin-bottom:20px">
-        <div class="stat-card gold"><div class="stat-icon">‚≠ê</div><div class="stat-label">Avg Rating</div><div class="stat-value" id="revAvg">‚Äî</div></div>
-        <div class="stat-card green"><div class="stat-icon">üí¨</div><div class="stat-label">Total Reviews</div><div class="stat-value" id="revTotal">0</div></div>
-        <div class="stat-card blue"><div class="stat-icon">üèÜ</div><div class="stat-label">Top Rated Item</div><div class="stat-value" id="revTop" style="font-size:0.85rem">‚Äî</div></div>
-        <div class="stat-card red"><div class="stat-icon">‚ö†Ô∏è</div><div class="stat-label">Need Attention</div><div class="stat-value" id="revLow">0</div></div>
+        <div class="stat-card gold"><div class="stat-icon">⭐</div><div class="stat-label">Avg Rating</div><div class="stat-value" id="revAvg">—</div></div>
+        <div class="stat-card green"><div class="stat-icon">💬</div><div class="stat-label">Total Reviews</div><div class="stat-value" id="revTotal">0</div></div>
+        <div class="stat-card blue"><div class="stat-icon">🏆</div><div class="stat-label">Top Rated Item</div><div class="stat-value" id="revTop" style="font-size:0.85rem">—</div></div>
+        <div class="stat-card red"><div class="stat-icon">⚠️</div><div class="stat-label">Need Attention</div><div class="stat-value" id="revLow">0</div></div>
       </div>
       <div id="reviewsList"></div>
     </div>
@@ -709,16 +721,16 @@
     <!-- NOTIFICATIONS -->
     <div class="page" id="page-notifications">
       <div class="notif-composer">
-        <h3 style="margin:0 0 14px 0;font-size:1rem">üì£ Send Push Notification</h3>
+        <h3 style="margin:0 0 14px 0;font-size:1rem">📣 Send Push Notification</h3>
         <input class="notif-input" id="notifTitle" placeholder="Notification title (e.g. Flash Deal Today Only!)">
         <textarea class="notif-input" id="notifBody" rows="2" placeholder="Message body (e.g. Get 20% off all combos until 9PM)"></textarea>
         <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
-          <button class="btn-save" onclick="sendNotif()">üì§ Send to All Subscribers</button>
-          <label class="sound-toggle"><input type="checkbox" id="soundToggle" checked onchange="localStorage.setItem('ph_sound',this.checked)"> üîî Order sound alerts</label>
+          <button class="btn-save" onclick="sendNotif()">📤 Send to All Subscribers</button>
+          <label class="sound-toggle"><input type="checkbox" id="soundToggle" checked onchange="localStorage.setItem('ph_sound',this.checked)"> 🔔 Order sound alerts</label>
         </div>
       </div>
       <div class="card">
-        <div class="card-header"><h3>üìã Sent Notifications</h3></div>
+        <div class="card-header"><h3>📋 Sent Notifications</h3></div>
         <div class="card-body" id="notifHistory" style="padding:14px">
           <p style="color:var(--muted);font-size:0.85rem">No notifications sent yet.</p>
         </div>
@@ -732,8 +744,8 @@
 <div class="modal-overlay" id="itemModal">
   <div class="modal">
     <div class="modal-head">
-      <h2 id="modalTitle">üçΩÔ∏è Add Menu Item</h2>
-      <button class="modal-close" onclick="closeItemModal()">‚úï</button>
+      <h2 id="modalTitle">🍽️ Add Menu Item</h2>
+      <button class="modal-close" onclick="closeItemModal()">✕</button>
     </div>
     <div class="modal-body">
       <input type="hidden" id="editItemId" value="">
@@ -745,17 +757,17 @@
         <div class="form-group-modal"><label>Original Price (for combos)</label><input type="number" id="iOrigPrice" placeholder="Leave blank if not a combo" step="0.01"></div>
         <div class="form-group-modal"><label>Category *</label>
           <select id="iCat">
-            <option value="fusion">üå∂Ô∏è Fusion Poutine</option>
-            <option value="classic">üçü Classic Poutine</option>
-            <option value="combos">üî• Combo Deal</option>
-            <option value="sides">üßÄ Sides</option>
-            <option value="mac">üßÜ Mac & Cheese</option>
-            <option value="drinks">ü•§ Drinks</option>
+            <option value="fusion">🌶️ Fusion Poutine</option>
+            <option value="classic">🍟 Classic Poutine</option>
+            <option value="combos">🔥 Combo Deal</option>
+            <option value="sides">🧀 Sides</option>
+            <option value="mac">🧆 Mac & Cheese</option>
+            <option value="drinks">🥤 Drinks</option>
           </select>
         </div>
       </div>
       <div class="form-row">
-        <div class="form-group-modal"><label>Emoji Icon</label><input type="text" id="iEmoji" placeholder="üçü"></div>
+        <div class="form-group-modal"><label>Emoji Icon</label><input type="text" id="iEmoji" placeholder="🍟"></div>
         <div class="form-group-modal"><label>Image URL (optional)</label><input type="text" id="iImageUrl" placeholder="https://... (overrides emoji)"></div>
         <div class="form-group-modal"><label>Badge</label>
           <select id="iBadge">
@@ -774,36 +786,36 @@
         <div class="toggle-row"><label class="toggle"><input type="checkbox" id="iActive" checked><span class="toggle-slider"></span></label><span class="toggle-label">Active (visible on menu)</span></div>
         <div class="toggle-row"><label class="toggle"><input type="checkbox" id="iSoldOut"><span class="toggle-slider"></span></label><span class="toggle-label">Mark as Sold Out</span></div>
       </div>
-      <button class="btn-modal-save" onclick="saveItem()">Save Item ‚úì</button>
+      <button class="btn-modal-save" onclick="saveItem()">Save Item ✓</button>
     </div>
   </div>
 </div>
 
-<div class="toast" id="toast"><span id="tIcon">‚úÖ</span> <span id="tMsg">Done!</span></div>
+<div class="toast" id="toast"><span id="tIcon">✅</span> <span id="tMsg">Done!</span></div>
 
 <script>
 const defaultMenu = [
-  {id:1,name:"Butter Chicken Poutine",desc:"Creamy butter chicken gravy, cheese curds, crispy fries.",price:14.99,cat:"fusion",emoji:"üçõ",badge:"Bestseller",soldOut:false,active:true},
-  {id:2,name:"Tikka Masala Poutine",desc:"Bold tikka masala sauce, cheese curds, golden fries.",price:14.99,cat:"fusion",emoji:"üå∂Ô∏è",badge:"Spicy",soldOut:false,active:true},
-  {id:3,name:"Crispy Chicken Poutine",desc:"Crispy fried chicken, brown gravy, cheese curds.",price:13.99,cat:"fusion",emoji:"üçó",badge:"New",soldOut:false,active:true},
-  {id:4,name:"Bacon Daddy",desc:"Double bacon, caramelized onions, cheddar sauce.",price:15.99,cat:"fusion",emoji:"ü•ì",badge:"",soldOut:false,active:true},
-  {id:5,name:"Meat Lover Poutine",desc:"Pulled pork, beef, bacon, three-cheese blend.",price:16.99,cat:"fusion",emoji:"ü•©",badge:"Fan Fave",soldOut:false,active:true},
-  {id:6,name:"Classic Poutine",desc:"Golden fries, squeaky cheese curds, rich brown gravy.",price:10.99,cat:"classic",emoji:"üçü",badge:"",soldOut:false,active:true},
-  {id:7,name:"Bacon Poutine",desc:"Classic poutine with crispy smoked bacon.",price:13.99,cat:"classic",emoji:"üçü",badge:"",soldOut:false,active:true},
-  {id:8,name:"Veggie Poutine",desc:"Roasted vegetables, mushroom gravy, cheese curds.",price:11.99,cat:"classic",emoji:"ü•¶",badge:"Veggie",soldOut:false,active:true},
-  {id:9,name:"Classic Fries",desc:"Golden, crispy, perfectly salted.",price:5.99,cat:"sides",emoji:"üçü",badge:"",soldOut:false,active:true},
-  {id:10,name:"Cajun Fries",desc:"Seasoned with our signature Cajun spice blend.",price:7.99,cat:"sides",emoji:"üå∂Ô∏è",badge:"",soldOut:false,active:true},
-  {id:11,name:"Onion Rings",desc:"Beer-battered with house-made dipping sauce.",price:6.99,cat:"sides",emoji:"üßÖ",badge:"",soldOut:false,active:true},
-  {id:12,name:"Meat Lover Mac & Cheese",desc:"Five-cheese mac with pulled pork and bacon.",price:15.99,cat:"mac",emoji:"üßÄ",badge:"Bestseller",soldOut:false,active:true},
-  {id:13,name:"Classic Mac & Cheese",desc:"Five-cheese blend, golden breadcrumb crust.",price:11.99,cat:"mac",emoji:"üßÜ",badge:"",soldOut:false,active:true},
-  {id:14,name:"Mango Lassi",desc:"Sweet, creamy mango lassi.",price:4.99,cat:"drinks",emoji:"ü•≠",badge:"",soldOut:false,active:true},
-  {id:15,name:"Pop / Soft Drink",desc:"Coke, Sprite, Orange, or Root Beer.",price:2.99,cat:"drinks",emoji:"ü•§",badge:"",soldOut:false,active:true},
-  {id:16,name:"Date Night Combo",desc:"2 Fusion Poutines + 2 Soft Drinks.",price:27.99,originalPrice:33.98,cat:"combos",emoji:"‚ù§Ô∏è",badge:"Save $6",soldOut:false,active:true},
-  {id:17,name:"Family Pack",desc:"4 Classic Poutines + 4 Soft Drinks.",price:43.99,originalPrice:55.96,cat:"combos",emoji:"üë®‚Äçüë©‚Äçüëß‚Äçüë¶",badge:"Save $12",soldOut:false,active:true},
-  {id:18,name:"Lunch Special",desc:"1 Classic Poutine + Cajun Fries + 1 Soft Drink.",price:16.99,originalPrice:19.97,cat:"combos",emoji:"üåû",badge:"Save $3",soldOut:false,active:true},
-  {id:19,name:"Party Bundle",desc:"6 Fusion Poutines + 6 Soft Drinks.",price:79.99,originalPrice:107.94,cat:"combos",emoji:"üéâ",badge:"Save $28",soldOut:false,active:true},
-  {id:20,name:"Student Deal",desc:"1 Classic Poutine + Cajun Fries. Show student ID.",price:13.99,originalPrice:16.98,cat:"combos",emoji:"üéì",badge:"Save $3",soldOut:false,active:true},
-  {id:21,name:"Late Night Special",desc:"2 Fusion Poutines after 10PM only!",price:24.99,originalPrice:29.98,cat:"combos",emoji:"üåô",badge:"Save $5",soldOut:false,active:true},
+  {id:1,name:"Butter Chicken Poutine",desc:"Creamy butter chicken gravy, cheese curds, crispy fries.",price:14.99,cat:"fusion",emoji:"🍛",badge:"Bestseller",soldOut:false,active:true},
+  {id:2,name:"Tikka Masala Poutine",desc:"Bold tikka masala sauce, cheese curds, golden fries.",price:14.99,cat:"fusion",emoji:"🌶️",badge:"Spicy",soldOut:false,active:true},
+  {id:3,name:"Crispy Chicken Poutine",desc:"Crispy fried chicken, brown gravy, cheese curds.",price:13.99,cat:"fusion",emoji:"🍗",badge:"New",soldOut:false,active:true},
+  {id:4,name:"Bacon Daddy",desc:"Double bacon, caramelized onions, cheddar sauce.",price:15.99,cat:"fusion",emoji:"🥓",badge:"",soldOut:false,active:true},
+  {id:5,name:"Meat Lover Poutine",desc:"Pulled pork, beef, bacon, three-cheese blend.",price:16.99,cat:"fusion",emoji:"🥩",badge:"Fan Fave",soldOut:false,active:true},
+  {id:6,name:"Classic Poutine",desc:"Golden fries, squeaky cheese curds, rich brown gravy.",price:10.99,cat:"classic",emoji:"🍟",badge:"",soldOut:false,active:true},
+  {id:7,name:"Bacon Poutine",desc:"Classic poutine with crispy smoked bacon.",price:13.99,cat:"classic",emoji:"🍟",badge:"",soldOut:false,active:true},
+  {id:8,name:"Veggie Poutine",desc:"Roasted vegetables, mushroom gravy, cheese curds.",price:11.99,cat:"classic",emoji:"🥦",badge:"Veggie",soldOut:false,active:true},
+  {id:9,name:"Classic Fries",desc:"Golden, crispy, perfectly salted.",price:5.99,cat:"sides",emoji:"🍟",badge:"",soldOut:false,active:true},
+  {id:10,name:"Cajun Fries",desc:"Seasoned with our signature Cajun spice blend.",price:7.99,cat:"sides",emoji:"🌶️",badge:"",soldOut:false,active:true},
+  {id:11,name:"Onion Rings",desc:"Beer-battered with house-made dipping sauce.",price:6.99,cat:"sides",emoji:"🧅",badge:"",soldOut:false,active:true},
+  {id:12,name:"Meat Lover Mac & Cheese",desc:"Five-cheese mac with pulled pork and bacon.",price:15.99,cat:"mac",emoji:"🧀",badge:"Bestseller",soldOut:false,active:true},
+  {id:13,name:"Classic Mac & Cheese",desc:"Five-cheese blend, golden breadcrumb crust.",price:11.99,cat:"mac",emoji:"🧆",badge:"",soldOut:false,active:true},
+  {id:14,name:"Mango Lassi",desc:"Sweet, creamy mango lassi.",price:4.99,cat:"drinks",emoji:"🥭",badge:"",soldOut:false,active:true},
+  {id:15,name:"Pop / Soft Drink",desc:"Coke, Sprite, Orange, or Root Beer.",price:2.99,cat:"drinks",emoji:"🥤",badge:"",soldOut:false,active:true},
+  {id:16,name:"Date Night Combo",desc:"2 Fusion Poutines + 2 Soft Drinks.",price:27.99,originalPrice:33.98,cat:"combos",emoji:"❤️",badge:"Save $6",soldOut:false,active:true},
+  {id:17,name:"Family Pack",desc:"4 Classic Poutines + 4 Soft Drinks.",price:43.99,originalPrice:55.96,cat:"combos",emoji:"👨‍👩‍👧‍👦",badge:"Save $12",soldOut:false,active:true},
+  {id:18,name:"Lunch Special",desc:"1 Classic Poutine + Cajun Fries + 1 Soft Drink.",price:16.99,originalPrice:19.97,cat:"combos",emoji:"🌞",badge:"Save $3",soldOut:false,active:true},
+  {id:19,name:"Party Bundle",desc:"6 Fusion Poutines + 6 Soft Drinks.",price:79.99,originalPrice:107.94,cat:"combos",emoji:"🎉",badge:"Save $28",soldOut:false,active:true},
+  {id:20,name:"Student Deal",desc:"1 Classic Poutine + Cajun Fries. Show student ID.",price:13.99,originalPrice:16.98,cat:"combos",emoji:"🎓",badge:"Save $3",soldOut:false,active:true},
+  {id:21,name:"Late Night Special",desc:"2 Fusion Poutines after 10PM only!",price:24.99,originalPrice:29.98,cat:"combos",emoji:"🌙",badge:"Save $5",soldOut:false,active:true},
 ];
 
 let menuItems = JSON.parse(localStorage.getItem('ph_menu') || 'null') || JSON.parse(JSON.stringify(defaultMenu));
@@ -837,12 +849,12 @@ function saveSpecial() {
   const title = document.getElementById('specialTitle').value;
   const discount = document.getElementById('specialDiscount').value;
   const desc = document.getElementById('specialDesc').value;
-  if (!title) { showToast('‚ö†Ô∏è','Enter a special title'); return; }
+  if (!title) { showToast('⚠️','Enter a special title'); return; }
   const special = {title, discount, desc, active:true, set:new Date().toLocaleString()};
   localStorage.setItem('ph_daily_special', JSON.stringify(special));
-  document.getElementById('specialStatus').textContent = '‚úÖ Special is live on customer site!';
+  document.getElementById('specialStatus').textContent = '✅ Special is live on customer site!';
   document.getElementById('specialStatus').style.color = 'var(--green)';
-  showToast('üî•','Daily special activated!');
+  showToast('🔥','Daily special activated!');
 }
 
 function clearSpecial() {
@@ -850,9 +862,9 @@ function clearSpecial() {
   document.getElementById('specialTitle').value = '';
   document.getElementById('specialDiscount').value = '';
   document.getElementById('specialDesc').value = '';
-  document.getElementById('specialStatus').textContent = '‚úï Special cleared';
+  document.getElementById('specialStatus').textContent = '✕ Special cleared';
   document.getElementById('specialStatus').style.color = 'var(--muted)';
-  showToast('‚úï','Daily special cleared');
+  showToast('✕','Daily special cleared');
 }
 
 function loadSheetsPage() {
@@ -863,10 +875,10 @@ function loadSheetsPage() {
 // GOOGLE SHEETS SYNC
 async function syncSheets() {
   const url = document.getElementById('sheetsUrl').value.trim();
-  if (!url) { showToast('‚ö†Ô∏è','Enter a Google Sheets URL'); return; }
+  if (!url) { showToast('⚠️','Enter a Google Sheets URL'); return; }
   const status = document.getElementById('sheetsStatus');
   status.className = 'sheets-status';
-  status.textContent = 'üîÑ Syncing...';
+  status.textContent = '🔄 Syncing...';
   status.style.display = 'block';
   try {
     const res = await fetch(url);
@@ -886,7 +898,7 @@ async function syncSheets() {
         price: parseFloat(obj.price) || 0,
         originalPrice: obj.originalprice ? parseFloat(obj.originalprice) : null,
         cat: obj.category || obj.cat || 'fusion',
-        emoji: obj.emoji || 'üçü',
+        emoji: obj.emoji || '🍟',
         badge: obj.badge || '',
         soldOut: obj.soldout === 'TRUE' || obj.soldout === 'true',
         active: obj.active !== 'FALSE' && obj.active !== 'false',
@@ -896,14 +908,14 @@ async function syncSheets() {
     menuItems = items;
     saveMenu();
     localStorage.setItem('ph_sheets_url', url);
-    status.textContent = `‚úÖ Synced ${items.length} items successfully!`;
+    status.textContent = `✅ Synced ${items.length} items successfully!`;
     status.className = 'sheets-status success';
-    showToast('‚úÖ', `${items.length} menu items synced from Google Sheets!`);
+    showToast('✅', `${items.length} menu items synced from Google Sheets!`);
     renderAdminMenu('all');
   } catch(e) {
-    status.textContent = `‚ùå Sync failed: ${e.message}. Make sure the sheet is published as CSV.`;
+    status.textContent = `❌ Sync failed: ${e.message}. Make sure the sheet is published as CSV.`;
     status.className = 'sheets-status error';
-    showToast('‚ùå','Sync failed. Check URL and sheet permissions.');
+    showToast('❌','Sync failed. Check URL and sheet permissions.');
   }
 }
 
@@ -913,7 +925,7 @@ function resetMenu() {
   saveMenu();
   localStorage.removeItem('ph_sheets_url');
   renderAdminMenu('all');
-  showToast('‚Ü©','Menu reset to default');
+  showToast('↩','Menu reset to default');
 }
 
 // OVERVIEW
@@ -951,7 +963,7 @@ function loadSpecialForm() {
     document.getElementById('specialTitle').value = s.title || '';
     document.getElementById('specialDiscount').value = s.discount || '';
     document.getElementById('specialDesc').value = s.desc || '';
-    document.getElementById('specialStatus').textContent = `‚úÖ Active since ${s.set}`;
+    document.getElementById('specialStatus').textContent = `✅ Active since ${s.set}`;
     document.getElementById('specialStatus').style.color = 'var(--green)';
   }
 }
@@ -972,7 +984,7 @@ function renderRevChart() {
 function renderKanban() {
   document.getElementById('newBadge').textContent = liveOrders.filter(o=>o.status==='new').length;
   const cols = ['new','preparing','ready'];
-  const cfg = {new:{label:'üîµ New',cls:'col-new',action:'Start Preparing ‚Üí'},preparing:{label:'üü† Preparing',cls:'col-preparing',action:'Mark Ready ‚Üí'},ready:{label:'üü£ Ready for Pickup',cls:'col-ready',action:'Mark Delivered ‚úì'}};
+  const cfg = {new:{label:'🔵 New',cls:'col-new',action:'Start Preparing →'},preparing:{label:'🟠 Preparing',cls:'col-preparing',action:'Mark Ready →'},ready:{label:'🟣 Ready for Pickup',cls:'col-ready',action:'Mark Delivered ✓'}};
   document.getElementById('kanbanBoard').innerHTML = cols.map(col => {
     const colO = liveOrders.filter(o => o.status === col);
     return `<div class="kanban-col ${cfg[col].cls}">
@@ -981,35 +993,116 @@ function renderKanban() {
       ${colO.map(o=>`<div class="kanban-card">
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
           <div class="k-id">${o.id}</div>
-          <span class="${o.type==='delivery'?'tag-delivery':'tag-pickup'}">${o.type==='delivery'?'üöó Delivery':'üè† Pickup'}</span>
+          <span class="${o.type==='delivery'?'tag-delivery':'tag-pickup'}">${o.type==='delivery'?'🚗 Delivery':'🏠 Pickup'}</span>
         </div>
         <div class="k-name">${o.customer}</div>
-        ${o.address?`<div class="k-addr">üìç ${o.address}</div>`:''}
-        ${o.scheduled&&o.scheduled!=='ASAP'?`<div class="k-sched">üìÖ ${o.scheduled}</div>`:''}
+        ${(o.phone||o.email)?`<div class="k-contact">
+          ${o.phone?`<a href="tel:${o.phone}" title="Call customer"><span class="k-c-icon">📞</span> ${o.phone}</a>`:''}
+          ${o.email?`<a href="mailto:${o.email}?subject=Order%20${o.id}" title="Email customer"><span class="k-c-icon">✉️</span> ${o.email}</a>`:''}
+        </div>`:''}
+        ${o.address?`<div class="k-addr">📍 ${o.address}</div>`:''}
+        ${o.scheduled&&o.scheduled!=='ASAP'?`<div class="k-sched">📅 ${o.scheduled}</div>`:''}
         <div class="k-items">${o.itemNames}</div>
-        ${o.adminNote?`<div style="font-size:0.68rem;background:rgba(245,166,35,0.12);color:#9a6000;border-radius:5px;padding:3px 6px;margin-bottom:4px">üìù ${o.adminNote}</div>`:''}
+        ${o.adminNote?`<div style="font-size:0.68rem;background:rgba(245,166,35,0.12);color:#9a6000;border-radius:5px;padding:3px 6px;margin-bottom:4px">📝 ${o.adminNote}</div>`:''}
         <div class="k-footer"><span class="k-total">CA$${parseFloat(o.total).toFixed(2)}</span><span class="k-time">${o.time}</span></div>
         <button class="k-action" onclick="advanceOrder('${o.id}')">${cfg[col].action}</button>
         <div class="k-btn-row">
-          <button class="k-btn-modify" onclick="openModifyOrder('${o.id}')">‚úèÔ∏è Modify</button>
-          <button class="k-btn-decline" onclick="declineOrder('${o.id}')">‚úï Decline</button>
+          <button class="k-btn-modify" onclick="openModifyOrder('${o.id}')">✏️ Modify</button>
+          ${(o.email||o.phone)?`<button class="k-btn-notify" onclick="notifyCustomer('${o.id}')" title="Send status update to customer">🔔 Notify</button>`:''}
+          <button class="k-btn-decline" onclick="declineOrder('${o.id}')">✕ Decline</button>
         </div>
       </div>`).join('')}
     </div>`;
   }).join('') + `<div class="kanban-col col-done">
-    <div class="kanban-header"><span class="kanban-title">‚úÖ Done</span><span class="kanban-count">${liveOrders.filter(o=>o.status==='delivered').length}</span></div>
-    ${liveOrders.filter(o=>o.status==='delivered').map(o=>`<div class="kanban-card" style="opacity:0.55"><div class="k-id">${o.id}</div><div class="k-name">${o.customer}</div><div class="k-footer"><span class="k-total">CA$${parseFloat(o.total).toFixed(2)}</span><span style="color:var(--green);font-size:0.7rem;font-weight:700">‚úì</span></div></div>`).join('')}
+    <div class="kanban-header"><span class="kanban-title">✅ Done</span><span class="kanban-count">${liveOrders.filter(o=>o.status==='delivered').length}</span></div>
+    ${liveOrders.filter(o=>o.status==='delivered').map(o=>`<div class="kanban-card" style="opacity:0.55"><div class="k-id">${o.id}</div><div class="k-name">${o.customer}</div><div class="k-footer"><span class="k-total">CA$${parseFloat(o.total).toFixed(2)}</span><span style="color:var(--green);font-size:0.7rem;font-weight:700">✓</span></div></div>`).join('')}
   </div>`;
+}
+
+// ── CUSTOMER NOTIFICATION SYSTEM (Demo Mode) ────────────────────
+const NOTIFY_CONFIG = {
+  MODE: 'demo',                // 'demo' or 'live'
+  EMAILJS_PUBLIC_KEY: '',
+  EMAILJS_SERVICE_ID: '',
+  EMAILJS_TEMPLATE_ID: '',
+  RESTAURANT_NAME: 'Poutine Hub Toronto'
+};
+
+function buildStatusMessage(order, status) {
+  const reviewUrl = localStorage.getItem('ph_google_review_url') || '(google review link not configured)';
+  const templates = {
+    preparing: {
+      subject: `Order #${order.id} — We're cooking! 🍳`,
+      body: `Hi ${order.customer.replace(' (Guest)','')},\n\nGood news — your order #${order.id} is being prepared right now! We'll let you know the moment it's ready.\n\n— The ${NOTIFY_CONFIG.RESTAURANT_NAME} Team`,
+      sms: `${NOTIFY_CONFIG.RESTAURANT_NAME}: Your order #${order.id} is being prepared! 🍳`
+    },
+    ready: {
+      subject: `Order #${order.id} is READY for pickup! 🔔`,
+      body: `Hi ${order.customer.replace(' (Guest)','')},\n\nYour order #${order.id} is ready! Come grab it while it's hot. 🔥\n\n${order.type==='delivery' ? '🚗 Out for delivery now.' : '🏠 Pickup at: 179 Parliament St'}\n\nSee you soon!\n— The ${NOTIFY_CONFIG.RESTAURANT_NAME} Team`,
+      sms: `${NOTIFY_CONFIG.RESTAURANT_NAME}: Your order #${order.id} is READY! 🔔 ${order.type==='delivery'?'Out for delivery':'Come pick it up'}`
+    },
+    delivered: {
+      subject: `Thanks for choosing ${NOTIFY_CONFIG.RESTAURANT_NAME}! 🌟`,
+      body: `Hi ${order.customer.replace(' (Guest)','')},\n\nThanks for your order #${order.id}! We hope you loved every bite.\n\nGot a minute? Help us out with a quick Google review:\n${reviewUrl}\n\nSee you next time!\n— The ${NOTIFY_CONFIG.RESTAURANT_NAME} Team`,
+      sms: `${NOTIFY_CONFIG.RESTAURANT_NAME}: Thanks for your order! 🌟 Loved it? Leave a review: ${reviewUrl}`
+    }
+  };
+  return templates[status] || null;
+}
+
+function sendCustomerNotification(order, status) {
+  if (!order.email && !order.phone) {
+    console.log('📧 [skip] No contact info for order', order.id);
+    return;
+  }
+  const msg = buildStatusMessage(order, status);
+  if (!msg) return;
+
+  if (NOTIFY_CONFIG.MODE === 'demo') {
+    if (order.email) {
+      console.group('%c📧 [DEMO] Customer Notification (Email):', 'background:#C41E3A;color:#fff;padding:4px 8px;border-radius:4px;font-weight:bold');
+      console.log('To:', order.email);
+      console.log('Subject:', msg.subject);
+      console.log('Body:\n' + msg.body);
+      console.groupEnd();
+      showToast('📧', `Email sent to ${order.email} (demo)`);
+    } else if (order.phone) {
+      console.group('%c📱 [DEMO] Customer Notification (SMS):', 'background:#27ae60;color:#fff;padding:4px 8px;border-radius:4px;font-weight:bold');
+      console.log('To:', order.phone);
+      console.log('Message:', msg.sms);
+      console.groupEnd();
+      showToast('📱', `SMS sent to ${order.phone} (demo)`);
+    }
+    return;
+  }
+  // LIVE MODE — wired for EmailJS once credentials are set
+  if (NOTIFY_CONFIG.MODE === 'live' && window.emailjs && order.email) {
+    emailjs.init(NOTIFY_CONFIG.EMAILJS_PUBLIC_KEY);
+    emailjs.send(NOTIFY_CONFIG.EMAILJS_SERVICE_ID, NOTIFY_CONFIG.EMAILJS_TEMPLATE_ID, {
+      to_name: order.customer, to_email: order.email,
+      subject: msg.subject, body: msg.body, order_id: order.id
+    }).then(()=>showToast('📧',`Notified ${order.email}`))
+      .catch(e=>{console.error(e); showToast('⚠️','Notify failed');});
+  }
+}
+
+function notifyCustomer(id) {
+  const o = liveOrders.find(x => x.id === id);
+  if (!o) return showToast('⚠️','Order not found');
+  if (!o.email && !o.phone) return showToast('⚠️','No contact info on this order');
+  sendCustomerNotification(o, o.status);
 }
 
 function advanceOrder(id) {
   const o = liveOrders.find(x => x.id === id);
   if (!o) return;
   const next = {new:'preparing',preparing:'ready',ready:'delivered'};
-  const msgs = {preparing:'üç≥ Preparing!',ready:'üîî Ready!',delivered:'‚úÖ Delivered!'};
+  const msgs = {preparing:'🍳 Preparing!',ready:'🔔 Ready!',delivered:'✅ Delivered!'};
   o.status = next[o.status] || o.status;
   localStorage.setItem('ph_live_orders', JSON.stringify(liveOrders));
-  showToast(o.status==='delivered'?'‚úÖ':'üç≥', msgs[o.status]||'Updated');
+  showToast(o.status==='delivered'?'✅':'🍳', msgs[o.status]||'Updated');
+  // Auto-notify customer on each status change
+  try { sendCustomerNotification(o, o.status); } catch(e){ console.error('Notify error:',e); }
   renderKanban();
 }
 
@@ -1021,7 +1114,7 @@ function declineOrder(id) {
   o.status = 'declined';
   liveOrders.splice(idx, 1); // remove from active board
   localStorage.setItem('ph_live_orders', JSON.stringify(liveOrders));
-  showToast('‚úï', `Order ${id} declined`);
+  showToast('✕', `Order ${id} declined`);
   renderKanban();
   renderOverview();
 }
@@ -1033,7 +1126,7 @@ function openModifyOrder(id) {
   if (note === null) return; // cancelled
   o.adminNote = note;
   localStorage.setItem('ph_live_orders', JSON.stringify(liveOrders));
-  showToast('‚úèÔ∏è', `Order ${id} updated`);
+  showToast('✏️', `Order ${id} updated`);
   renderKanban();
 }
 
@@ -1047,7 +1140,7 @@ function simulateOrder() {
   liveOrders.unshift(order);
   localStorage.setItem('ph_live_orders', JSON.stringify(liveOrders));
   document.getElementById('newBadge').textContent = liveOrders.filter(o=>o.status==='new').length;
-  showToast('üõí',`New order from ${name}! CA$${total}`);
+  showToast('🛒',`New order from ${name}! CA$${total}`);
   playOrderAlert();
   const ap = document.querySelector('.page.active');
   if (ap?.id==='page-orders') renderKanban();
@@ -1076,7 +1169,7 @@ function renderAdminMenu(filter) {
       </div>
       <div class="menu-admin-body">
         <div class="menu-admin-name">${item.name}</div>
-        <div class="menu-admin-cat">${item.cat}${item.originalPrice?` ¬∑ CA$${item.originalPrice.toFixed(2)} orig`:''}</div>
+        <div class="menu-admin-cat">${item.cat}${item.originalPrice?` · CA$${item.originalPrice.toFixed(2)} orig`:''}</div>
         <div class="menu-admin-footer">
           <span class="menu-admin-price">CA$${item.price.toFixed(2)}</span>
           <div style="display:flex;align-items:center;gap:8px">
@@ -1086,9 +1179,9 @@ function renderAdminMenu(filter) {
           </div>
         </div>
         <div class="menu-admin-actions">
-          <button class="btn-sm" onclick="openEditModal(${item.id})">‚úèÔ∏è Edit</button>
-          <button class="btn-sm ${item.soldOut?'green':'orange'}" onclick="toggleSoldOut(${item.id},${!item.soldOut})">${item.soldOut?'‚úì Restock':'‚ö† Sold Out'}</button>
-          <button class="btn-sm red" onclick="deleteItem(${item.id})">üóë</button>
+          <button class="btn-sm" onclick="openEditModal(${item.id})">✏️ Edit</button>
+          <button class="btn-sm ${item.soldOut?'green':'orange'}" onclick="toggleSoldOut(${item.id},${!item.soldOut})">${item.soldOut?'✓ Restock':'⚠ Sold Out'}</button>
+          <button class="btn-sm red" onclick="deleteItem(${item.id})">🗑</button>
         </div>
       </div>
     </div>`).join('');
@@ -1102,7 +1195,7 @@ function filterAdminMenu(cat, btn) {
 
 function toggleActive(id, val) {
   const item = menuItems.find(i=>i.id===id);
-  if (item) { item.active=val; saveMenu(); showToast(val?'‚úÖ':'‚ö†Ô∏è',`${item.name} ${val?'enabled':'hidden'}`); }
+  if (item) { item.active=val; saveMenu(); showToast(val?'✅':'⚠️',`${item.name} ${val?'enabled':'hidden'}`); }
 }
 
 function toggleSoldOut(id, val) {
@@ -1114,7 +1207,7 @@ function toggleSoldOut(id, val) {
     so[id] = val;
     localStorage.setItem('ph_soldout', JSON.stringify(so));
     saveMenu();
-    showToast(val?'‚ö†Ô∏è':'‚úÖ', `${item.name} marked as ${val?'sold out':'in stock'}`);
+    showToast(val?'⚠️':'✅', `${item.name} marked as ${val?'sold out':'in stock'}`);
     renderAdminMenu('all');
   }
 }
@@ -1124,18 +1217,18 @@ function deleteItem(id) {
   menuItems = menuItems.filter(i=>i.id!==id);
   saveMenu();
   renderAdminMenu('all');
-  showToast('üóë','Item deleted');
+  showToast('🗑','Item deleted');
 }
 
 // ADD / EDIT MODAL
 function openAddModal() {
   document.getElementById('editItemId').value = '';
-  document.getElementById('modalTitle').textContent = 'üçΩÔ∏è Add New Menu Item';
+  document.getElementById('modalTitle').textContent = '🍽️ Add New Menu Item';
   document.getElementById('iName').value='';
   document.getElementById('iPrice').value='';
   document.getElementById('iOrigPrice').value='';
   document.getElementById('iDesc').value='';
-  document.getElementById('iEmoji').value='üçü';
+  document.getElementById('iEmoji').value='🍟';
   document.getElementById('iCat').value='fusion';
   document.getElementById('iBadge').value='';
   document.getElementById('iActive').checked=true;
@@ -1148,12 +1241,12 @@ function openEditModal(id) {
   const item = menuItems.find(i=>i.id===id);
   if (!item) return;
   document.getElementById('editItemId').value = id;
-  document.getElementById('modalTitle').textContent = `‚úèÔ∏è Edit: ${item.name}`;
+  document.getElementById('modalTitle').textContent = `✏️ Edit: ${item.name}`;
   document.getElementById('iName').value = item.name;
   document.getElementById('iPrice').value = item.price;
   document.getElementById('iOrigPrice').value = item.originalPrice || '';
   document.getElementById('iDesc').value = item.desc;
-  document.getElementById('iEmoji').value = item.emoji || 'üçü';
+  document.getElementById('iEmoji').value = item.emoji || '🍟';
   document.getElementById('iCat').value = item.cat;
   document.getElementById('iBadge').value = item.badge || '';
   document.getElementById('iActive').checked = item.active !== false;
@@ -1167,7 +1260,7 @@ function closeItemModal() { document.getElementById('itemModal').classList.remov
 function saveItem() {
   const name = document.getElementById('iName').value.trim();
   const price = parseFloat(document.getElementById('iPrice').value);
-  if (!name || !price) { showToast('‚ö†Ô∏è','Name and price are required'); return; }
+  if (!name || !price) { showToast('⚠️','Name and price are required'); return; }
   const editId = parseInt(document.getElementById('editItemId').value);
   const origPrice = parseFloat(document.getElementById('iOrigPrice').value) || null;
   const soldOut = document.getElementById('iSoldOut').checked;
@@ -1177,20 +1270,20 @@ function saveItem() {
     if (item) {
       item.name=name; item.price=price; item.originalPrice=origPrice;
       item.desc=document.getElementById('iDesc').value;
-      item.emoji=document.getElementById('iEmoji').value||'üçü';
+      item.emoji=document.getElementById('iEmoji').value||'🍟';
       item.imageUrl=document.getElementById('iImageUrl').value.trim()||null;
       item.cat=document.getElementById('iCat').value;
       item.badge=document.getElementById('iBadge').value;
       item.active=document.getElementById('iActive').checked;
       item.soldOut=soldOut;
     }
-    showToast('‚úÖ',`${name} updated!`);
+    showToast('✅',`${name} updated!`);
   } else {
     const newItem = {
       id: Date.now(),
       name, price, originalPrice:origPrice,
       desc:document.getElementById('iDesc').value,
-      emoji:document.getElementById('iEmoji').value||'üçü',
+      emoji:document.getElementById('iEmoji').value||'🍟',
       imageUrl:document.getElementById('iImageUrl').value.trim()||null,
       cat:document.getElementById('iCat').value,
       badge:document.getElementById('iBadge').value,
@@ -1198,7 +1291,7 @@ function saveItem() {
       soldOut
     };
     menuItems.push(newItem);
-    showToast('‚úÖ',`${name} added to menu!`);
+    showToast('✅',`${name} added to menu!`);
   }
 
   // Update soldout registry
@@ -1217,7 +1310,7 @@ function renderCustomers(filter='') {
   document.getElementById('custBody').innerHTML = accs.length===0
     ? '<tr><td colspan="7" style="text-align:center;padding:36px;color:var(--muted)">No customers yet</td></tr>'
     : accs.map(u=>{
-        const tier = u.points>=15000?'ü•á Gold':u.points>=5000?'ü•à Silver':'ü•â Bronze';
+        const tier = u.points>=15000?'🥇 Gold':u.points>=5000?'🥈 Silver':'🥉 Bronze';
         return `<tr>
           <td><div class="cust-cell"><div class="cust-av" style="background:var(--gold);color:#000">${u.name[0]}</div><div style="font-weight:600">${u.name}</div></div></td>
           <td style="color:var(--muted);font-size:0.82rem">${u.email}</td>
@@ -1257,29 +1350,29 @@ function renderAnalytics() {
   // Avg rating from reviews
   const allRevs = JSON.parse(localStorage.getItem('ph_reviews')||'{}');
   const allRatings = Object.values(allRevs).flat().map(r=>r.rating);
-  const avgRating = allRatings.length ? (allRatings.reduce((a,b)=>a+b,0)/allRatings.length).toFixed(1) : '‚Äî';
+  const avgRating = allRatings.length ? (allRatings.reduce((a,b)=>a+b,0)/allRatings.length).toFixed(1) : '—';
   document.getElementById('anaRev').textContent='$'+total.toFixed(2);
   document.getElementById('anaAvg').textContent='$'+avg.toFixed(2);
   document.getElementById('anaRepeat').textContent=repeatRate+'%';
   document.getElementById('anaRating').textContent=avgRating;
-  // Revenue chart ‚Äî real data by day
+  // Revenue chart — real data by day
   const days=['D-13','D-12','D-11','D-10','D-9','D-8','D-7','D-6','D-5','D-4','D-3','D-2','D-1','Today'];
   const vals=[32,58,44,76,95,110,88,142,67,103,119,87,156,total>0?parseFloat(total.toFixed(2)):72];
   const max=Math.max(...vals);
   document.getElementById('anaChart').innerHTML=days.map((d,i)=>`<div class="bar-wrap"><div class="bar-val" style="font-size:0.6rem">$${Math.round(vals[i])}</div><div class="bar" style="height:${(vals[i]/max)*100}%"></div><div class="bar-label" style="font-size:0.6rem">${d}</div></div>`).join('');
   document.getElementById('topSellers').innerHTML=[
-    {name:'Butter Chicken Poutine',pct:45,emoji:'üçõ'},
-    {name:'Date Night Combo',pct:42,emoji:'‚ù§Ô∏è'},
-    {name:'Meat Lover Mac & Cheese',pct:38,emoji:'üßÄ'},
-    {name:'Crispy Chicken Poutine',pct:31,emoji:'üçó'},
-    {name:'Family Pack',pct:28,emoji:'üë®‚Äçüë©‚Äçüëß‚Äçüë¶'},
+    {name:'Butter Chicken Poutine',pct:45,emoji:'🍛'},
+    {name:'Date Night Combo',pct:42,emoji:'❤️'},
+    {name:'Meat Lover Mac & Cheese',pct:38,emoji:'🧀'},
+    {name:'Crispy Chicken Poutine',pct:31,emoji:'🍗'},
+    {name:'Family Pack',pct:28,emoji:'👨‍👩‍👧‍👦'},
   ].map(item=>`<div style="display:flex;align-items:center;gap:9px;margin-bottom:13px"><span style="font-size:1.15rem">${item.emoji}</span><div style="flex:1"><div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-size:0.8rem;font-weight:600">${item.name}</span><span style="font-size:0.75rem;color:var(--gold)">${item.pct}%</span></div><div style="height:5px;background:var(--border);border-radius:3px;overflow:hidden"><div style="height:100%;width:${item.pct}%;background:linear-gradient(to right,var(--gold),var(--red));border-radius:3px"></div></div></div></div>`).join('');
   renderPeakHours();
   renderLocChart();
 }
 
 
-// ‚îÄ‚îÄ SOUND ALERT ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── SOUND ALERT ───────────────────────────────────────────────────
 function playOrderAlert() {
   const soundOn = document.getElementById('soundToggle')?.checked ?? (localStorage.getItem('ph_sound')!=='false');
   if (!soundOn) return;
@@ -1295,7 +1388,7 @@ function playOrderAlert() {
   } catch(e){}
 }
 
-// ‚îÄ‚îÄ SCHEDULED ORDERS ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── SCHEDULED ORDERS ─────────────────────────────────────────────
 function renderScheduled() {
   const all = [...liveOrders, ...getOrders()];
   const sched = all.filter(o => o.scheduled && o.scheduled !== 'ASAP')
@@ -1307,18 +1400,18 @@ function renderScheduled() {
       <div class="sched-card">
         <div>
           <div style="font-weight:700;font-size:0.95rem">${o.customer||'Guest'}</div>
-          <div style="font-size:0.8rem;color:var(--muted);margin-top:3px">#${o.id} ¬∑ ${o.type==='delivery'?'üöó Delivery to '+o.address:'üè† Pickup'}</div>
+          <div style="font-size:0.8rem;color:var(--muted);margin-top:3px">#${o.id} · ${o.type==='delivery'?'🚗 Delivery to '+o.address:'🏠 Pickup'}</div>
           <div style="font-size:0.82rem;margin-top:4px">${(o.items||[]).slice(0,2).map(i=>i.emoji+' '+i.name).join(', ')}${(o.items||[]).length>2?' ...':''}</div>
         </div>
         <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
-          <span class="sched-time">üìÖ ${o.scheduled}</span>
+          <span class="sched-time">📅 ${o.scheduled}</span>
           <span style="color:var(--gold);font-weight:700">CA$${parseFloat(o.total).toFixed(2)}</span>
           <span class="tag-${o.status||'confirmed'}" style="font-size:0.72rem">${o.status||'confirmed'}</span>
         </div>
       </div>`).join('');
 }
 
-// ‚îÄ‚îÄ PROMO CODES ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── PROMO CODES ───────────────────────────────────────────────────
 const DEFAULT_PROMOS = [
   {code:'POUTINE10',discount:10,label:'10% off any order',uses:0,maxUses:0,active:true},
   {code:'WELCOME20',discount:20,label:'20% off first order',uses:0,maxUses:1,active:true},
@@ -1339,9 +1432,9 @@ function renderPromos() {
         <td style="color:var(--gold);font-weight:700">${p.discount}%</td>
         <td style="color:var(--muted);font-size:0.82rem">${p.label}</td>
         <td>${p.uses||0}</td>
-        <td>${p.maxUses||'‚àû'}</td>
+        <td>${p.maxUses||'∞'}</td>
         <td><label class="toggle" style="margin:0"><input type="checkbox" ${p.active?'checked':''} onchange="togglePromo(${i},this.checked)"><span class="toggle-slider"></span></label></td>
-        <td><button class="btn-sm red" onclick="deletePromo(${i})">üóë</button></td>
+        <td><button class="btn-sm red" onclick="deletePromo(${i})">🗑</button></td>
       </tr>`).join('');
 }
 function createPromo() {
@@ -1349,32 +1442,32 @@ function createPromo() {
   const discount = parseInt(document.getElementById('pDiscount').value);
   const label = document.getElementById('pLabel').value.trim();
   const maxUses = parseInt(document.getElementById('pMaxUses').value)||0;
-  if (!code || !discount) { showToast('‚ö†Ô∏è','Code and discount % required'); return; }
+  if (!code || !discount) { showToast('⚠️','Code and discount % required'); return; }
   const promos = getPromos();
-  if (promos.find(p=>p.code===code)) { showToast('‚ùå','Code already exists'); return; }
+  if (promos.find(p=>p.code===code)) { showToast('❌','Code already exists'); return; }
   promos.push({code,discount,label:label||discount+'% off',uses:0,maxUses,active:true});
   savePromos(promos); renderPromos();
   document.getElementById('pCode').value=''; document.getElementById('pDiscount').value='';
   document.getElementById('pLabel').value=''; document.getElementById('pMaxUses').value='0';
-  showToast('‚úÖ','Promo code created!');
+  showToast('✅','Promo code created!');
 }
 function togglePromo(i, val) {
   const promos = getPromos(); promos[i].active = val;
-  savePromos(promos); showToast(val?'‚úÖ':'‚ö†Ô∏è', val?'Code activated':'Code deactivated');
+  savePromos(promos); showToast(val?'✅':'⚠️', val?'Code activated':'Code deactivated');
 }
 function deletePromo(i) {
   if (!confirm('Delete this promo code?')) return;
   const promos = getPromos(); promos.splice(i,1);
-  savePromos(promos); renderPromos(); showToast('üóë','Code deleted');
+  savePromos(promos); renderPromos(); showToast('🗑','Code deleted');
 }
 
-// ‚îÄ‚îÄ REVIEWS ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── REVIEWS ───────────────────────────────────────────────────────
 function renderReviews() {
   const reviews = JSON.parse(localStorage.getItem('ph_reviews')||'{}');
   const menu = JSON.parse(localStorage.getItem('ph_menu')||'[]');
   const allRatings = Object.values(reviews).flat().map(r=>r.rating);
   const totalRevs = allRatings.length;
-  const avgRating = totalRevs ? (allRatings.reduce((a,b)=>a+b,0)/totalRevs).toFixed(1) : '‚Äî';
+  const avgRating = totalRevs ? (allRatings.reduce((a,b)=>a+b,0)/totalRevs).toFixed(1) : '—';
   const lowItems = Object.entries(reviews).filter(([id,revs])=>revs.length&&(revs.reduce((a,r)=>a+r.rating,0)/revs.length)<3).length;
   document.getElementById('revAvg').textContent = avgRating;
   document.getElementById('revTotal').textContent = totalRevs;
@@ -1382,23 +1475,23 @@ function renderReviews() {
   // top rated
   let topId=null,topAvg=0;
   Object.entries(reviews).forEach(([id,revs])=>{if(!revs.length)return;const avg=revs.reduce((a,r)=>a+r.rating,0)/revs.length;if(avg>topAvg){topAvg=avg;topId=id;}});
-  const topItem = topId ? (menu.find(i=>i.id==topId)||{name:'Item #'+topId,emoji:'üçü'}) : null;
-  document.getElementById('revTop').textContent = topItem ? topItem.emoji+' '+topItem.name : '‚Äî';
+  const topItem = topId ? (menu.find(i=>i.id==topId)||{name:'Item #'+topId,emoji:'🍟'}) : null;
+  document.getElementById('revTop').textContent = topItem ? topItem.emoji+' '+topItem.name : '—';
   const list = document.getElementById('reviewsList');
   if (totalRevs === 0) { list.innerHTML='<div style="text-align:center;padding:40px;color:var(--muted)">No reviews yet. Reviews appear after customers rate their orders.</div>'; return; }
   list.innerHTML = Object.entries(reviews).map(([id, revs]) => {
     if (!revs.length) return '';
-    const it = menu.find(i=>i.id==id)||{name:'Item #'+id,emoji:'üçü'};
+    const it = menu.find(i=>i.id==id)||{name:'Item #'+id,emoji:'🍟'};
     const avg = (revs.reduce((a,r)=>a+r.rating,0)/revs.length).toFixed(1);
-    const stars = '‚òÖ'.repeat(Math.round(avg))+'‚òÜ'.repeat(5-Math.round(avg));
+    const stars = '★'.repeat(Math.round(avg))+'☆'.repeat(5-Math.round(avg));
     return `<div class="review-item-card">
       <div style="display:flex;justify-content:space-between;align-items:center">
         <div style="font-weight:700;font-size:0.95rem">${it.emoji} ${it.name}</div>
         <div><span class="review-stars">${stars}</span> <span style="color:var(--gold);font-weight:700">${avg}</span> <span style="color:var(--muted);font-size:0.78rem">(${revs.length} review${revs.length!==1?'s':''})</span></div>
       </div>
       ${revs.map((r,i)=>`<div class="review-entry">
-        <div>${'‚òÖ'.repeat(r.rating)+'‚òÜ'.repeat(5-r.rating)} ${r.comment||'<em style="color:var(--muted)">No comment</em>'}</div>
-        <div class="review-meta">${r.user||'Guest'} ¬∑ ${r.date}</div>
+        <div>${'★'.repeat(r.rating)+'☆'.repeat(5-r.rating)} ${r.comment||'<em style="color:var(--muted)">No comment</em>'}</div>
+        <div class="review-meta">${r.user||'Guest'} · ${r.date}</div>
         <button class="btn-sm red" style="margin-top:6px;font-size:0.72rem" onclick="deleteReview(${id},${i})">Remove</button>
       </div>`).join('')}
     </div>`;
@@ -1406,10 +1499,10 @@ function renderReviews() {
 }
 function deleteReview(itemId, idx) {
   const reviews = JSON.parse(localStorage.getItem('ph_reviews')||'{}');
-  if (reviews[itemId]) { reviews[itemId].splice(idx,1); localStorage.setItem('ph_reviews',JSON.stringify(reviews)); renderReviews(); showToast('üóë','Review removed'); }
+  if (reviews[itemId]) { reviews[itemId].splice(idx,1); localStorage.setItem('ph_reviews',JSON.stringify(reviews)); renderReviews(); showToast('🗑','Review removed'); }
 }
 
-// ‚îÄ‚îÄ NOTIFICATIONS ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── NOTIFICATIONS ─────────────────────────────────────────────────
 function renderNotifications() {
   const soundOn = localStorage.getItem('ph_sound') !== 'false';
   if(document.getElementById('soundToggle')) document.getElementById('soundToggle').checked = soundOn;
@@ -1422,10 +1515,10 @@ function renderNotifications() {
 function sendNotif() {
   const title = document.getElementById('notifTitle').value.trim();
   const body = document.getElementById('notifBody').value.trim();
-  if (!title) { showToast('‚ö†Ô∏è','Enter a notification title'); return; }
-  if (!('Notification' in window)) { showToast('‚ö†Ô∏è','Browser notifications not supported'); return; }
+  if (!title) { showToast('⚠️','Enter a notification title'); return; }
+  if (!('Notification' in window)) { showToast('⚠️','Browser notifications not supported'); return; }
   if (Notification.permission !== 'granted') {
-    Notification.requestPermission().then(p => { if(p==='granted') doSendNotif(title,body); else showToast('‚ö†Ô∏è','Permission denied ‚Äî ask customers to enable notifications first'); });
+    Notification.requestPermission().then(p => { if(p==='granted') doSendNotif(title,body); else showToast('⚠️','Permission denied — ask customers to enable notifications first'); });
     return;
   }
   doSendNotif(title,body);
@@ -1436,23 +1529,23 @@ function doSendNotif(title,body) {
   sent.unshift({title,body,date:new Date().toLocaleString()});
   localStorage.setItem('ph_notif_sent', JSON.stringify(sent.slice(0,20)));
   document.getElementById('notifTitle').value=''; document.getElementById('notifBody').value='';
-  showToast('üì§','Notification sent!'); renderNotifications();
+  showToast('📤','Notification sent!'); renderNotifications();
 }
 
-// ‚îÄ‚îÄ CUSTOMER POINTS ADJUSTMENT ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── CUSTOMER POINTS ADJUSTMENT ────────────────────────────────────
 function adjustPoints(email, direction) {
   const key = 'pts-' + email.replace('@','_');
   const pts = parseInt(document.getElementById(key)?.value || '0');
-  if (!pts || pts <= 0) { showToast('‚ö†Ô∏è','Enter a valid points amount'); return; }
+  if (!pts || pts <= 0) { showToast('⚠️','Enter a valid points amount'); return; }
   const acc = JSON.parse(localStorage.getItem(`ph_account_${email}`) || 'null');
-  if (!acc) { showToast('‚ùå','Customer not found'); return; }
+  if (!acc) { showToast('❌','Customer not found'); return; }
   acc.points = Math.max(0, (acc.points||0) + (direction * pts));
   localStorage.setItem(`ph_account_${email}`, JSON.stringify(acc));
-  showToast('‚úÖ', `${direction>0?'+':''}${direction*pts} pts ‚Üí ${acc.name.split(' ')[0]}`);
+  showToast('✅', `${direction>0?'+':''}${direction*pts} pts → ${acc.name.split(' ')[0]}`);
   renderCustomers();
 }
 
-// ‚îÄ‚îÄ PEAK HOURS HEATMAP ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── PEAK HOURS HEATMAP ────────────────────────────────────────────
 function renderPeakHours() {
   const orders = [...liveOrders, ...getOrders()];
   const hourCount = Array(24).fill(0);
@@ -1464,11 +1557,11 @@ function renderPeakHours() {
   if(!heatmap) return;
   heatmap.innerHTML = combined.map((v,h)=>{
     const pct=v/max; const bg=pct<0.2?'var(--card2)':pct<0.5?`rgba(245,166,35,${(pct*0.6).toFixed(2)})`:pct<0.8?`rgba(245,166,35,${(pct*0.85).toFixed(2)})`:'var(--gold)';
-    return `<div class="heat-cell" style="background:${bg}" title="${h}:00 ‚Äî ${v} orders">${h}</div>`;
+    return `<div class="heat-cell" style="background:${bg}" title="${h}:00 — ${v} orders">${h}</div>`;
   }).join('');
 }
 
-// ‚îÄ‚îÄ REVENUE BY LOCATION ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── REVENUE BY LOCATION ───────────────────────────────────────────
 function renderLocChart() {
   const orders = [...liveOrders, ...getOrders()];
   const parlRev = orders.filter(o=>!o.address||(o.address||'').toLowerCase().includes('parliament')).reduce((a,o)=>a+parseFloat(o.total||0),0);
@@ -1491,7 +1584,7 @@ function renderLocChart() {
 function saveLogo() {
   const url = document.getElementById('logoUrlInput')?.value.trim();
   localStorage.setItem('ph_logo_url', url||'');
-  showToast('üñºÔ∏è', url ? 'Logo saved ‚Äî live on customer site!' : 'Logo cleared');
+  showToast('🖼️', url ? 'Logo saved — live on customer site!' : 'Logo cleared');
 }
 function initLogoField() {
   const el = document.getElementById('logoUrlInput');
@@ -1502,18 +1595,18 @@ function initLogoField() {
 function saveGoogleReview() {
   const url = document.getElementById('googleReviewInput')?.value.trim();
   localStorage.setItem('ph_google_review_url', url||'');
-  showToast('‚≠ê', url ? 'Google Review link saved!' : 'Link cleared');
+  showToast('⭐', url ? 'Google Review link saved!' : 'Link cleared');
 }
 async function changeAdminPassword() {
   const current = document.getElementById('pwCurrent').value;
   const newPw   = document.getElementById('pwNew').value;
   const confirm = document.getElementById('pwConfirm').value;
-  if (!current || !newPw || !confirm) { showToast('‚ö†Ô∏è','Fill in all three fields'); return; }
-  if (newPw.length < 6) { showToast('‚ö†Ô∏è','New password must be 6+ characters'); return; }
-  if (newPw !== confirm) { showToast('‚ö†Ô∏è','Passwords do not match'); return; }
+  if (!current || !newPw || !confirm) { showToast('⚠️','Fill in all three fields'); return; }
+  if (newPw.length < 6) { showToast('⚠️','New password must be 6+ characters'); return; }
+  if (newPw !== confirm) { showToast('⚠️','Passwords do not match'); return; }
   const currentHash = await sha256(current);
   const stored = localStorage.getItem('ph_admin_hash') || DEFAULT_HASH;
-  if (currentHash !== stored) { showToast('‚ùå','Current password is incorrect'); return; }
+  if (currentHash !== stored) { showToast('❌','Current password is incorrect'); return; }
   const newHash = await sha256(newPw);
   localStorage.setItem('ph_admin_hash', newHash);
   document.getElementById('pwCurrent').value = '';
@@ -1531,8 +1624,8 @@ function showToast(icon, msg) {
   setTimeout(()=>t.classList.remove('show'),3000);
 }
 
-// ‚îÄ‚îÄ NETLIFY IDENTITY AUTH ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
-// ‚îÄ‚îÄ Admin Auth (SHA-256 password gate) ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ‚îÄ
+// ── NETLIFY IDENTITY AUTH ────────────────────────────────────────
+// ── Admin Auth (SHA-256 password gate) ──────────────────────────
 const DEFAULT_HASH = '60bf50497f76686216ad53e2c3c089bbe76d7712bf776c3c7121dae5a3eedd11';
 
 async function sha256(str) {
@@ -1590,7 +1683,7 @@ if (sessionStorage.getItem('ph_admin_ok') === '1') {
   setTimeout(()=>document.getElementById('adminPwInput')?.focus(), 100);
 }
 
-// Real-time order sync ‚Äî fires instantly when customer places order in another tab
+// Real-time order sync — fires instantly when customer places order in another tab
 window.addEventListener('storage', e => {
   if (e.key === 'ph_live_orders') {
     const fresh = JSON.parse(e.newValue || '[]');
@@ -1599,7 +1692,7 @@ window.addEventListener('storage', e => {
     liveOrders = fresh;
     if (newCount > prevNew) {
       playOrderAlert();
-      showToast('üõí', `New order arrived!`);
+      showToast('🛒', `New order arrived!`);
     }
     const ap = document.querySelector('.page.active');
     if (ap?.id === 'page-orders') renderKanban();
@@ -1615,6 +1708,7 @@ window.addEventListener('scroll', () => {
   if (bar) bar.style.width = Math.min(pct, 100) + '%';
 }, { passive: true });
 </script>
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>AOS.init({ duration: 600, easing: 'ease-out-cubic', once: true, offset: 40 });</script>
 </body>
