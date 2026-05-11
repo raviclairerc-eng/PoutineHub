@@ -1786,8 +1786,8 @@ function placeOrder(total, pts) {
 }
 function checkout(total,pts){ placeOrder(total,pts); }
 
-function openLogin() { document.getElementById('loginModal').classList.add('open'); }
-function closeLogin() { document.getElementById('loginModal').classList.remove('open'); }
+function openLogin() { document.getElementById('loginModal').classList.add('open'); document.getElementById('floatingCart')?.classList.remove('show'); }
+function closeLogin() { document.getElementById('loginModal').classList.remove('open'); updateCartCount(); }
 function switchTab(tab, btn) {
   document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
@@ -2044,6 +2044,7 @@ function openCustomize(id) {
     <button class="btn-checkout" style="margin-top:10px" onclick="addCustomized()">Add to Cart →</button>
   `;
   document.getElementById('customModal').classList.add('open');
+  document.getElementById('floatingCart')?.classList.remove('show');
 }
 function pickOpt(btn, type, val) {
   btn.closest('.opt-btns').querySelectorAll('.opt-btn').forEach(b=>b.classList.remove('active'));
@@ -2068,7 +2069,7 @@ function addCustomized() {
   updateCartCount(); closeCustomize();
   showToast('🛒', customItem.name + ' added!');
 }
-function closeCustomize() { document.getElementById('customModal').classList.remove('open'); }
+function closeCustomize() { document.getElementById('customModal').classList.remove('open'); updateCartCount(); }
 
 // ── ORDER TYPE / SCHEDULE / TIP ───────────────────────────────────
 function setOrderType(type, btn) {
@@ -2178,6 +2179,7 @@ function openReviewModal(order) {
     <button class="btn-checkout" style="margin-top:12px" onclick="submitReview(${item.id})">Submit Review</button>
   `;
   document.getElementById('reviewModal').classList.add('open');
+  document.getElementById('floatingCart')?.classList.remove('show');
 }
 function setReviewRating(n) {
   reviewRating = n;
