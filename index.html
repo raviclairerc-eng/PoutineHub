@@ -143,12 +143,17 @@
 
   /* ── MENU ── */
   #menu{background:var(--bg)}
-  .menu-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:40px}
-  .tab{padding:9px 20px;border-radius:50px;border:1.5px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;font-size:0.82rem;font-weight:600;transition:all 0.22s;font-family:'DM Sans',sans-serif}
-  .tab.active{background:var(--red);border-color:var(--red);color:#fff}
+  /* Menu category tabs — horizontal scroll pill row */
+  .menu-tabs-wrap{position:sticky;top:0;z-index:80;background:var(--bg);padding:10px 0 8px;margin:0 -20px 28px;border-bottom:1px solid var(--border)}
+  .menu-tabs{display:flex;gap:8px;flex-wrap:nowrap;overflow-x:auto;padding:0 20px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .menu-tabs::-webkit-scrollbar{display:none}
+  .tab{flex-shrink:0;scroll-snap-align:start;padding:8px 18px;border-radius:50px;border:1.5px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;font-size:0.82rem;font-weight:600;transition:all 0.22s;font-family:'DM Sans',sans-serif;white-space:nowrap}
+  .tab.active{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 3px 10px rgba(196,30,58,0.3)}
   .tab:hover:not(.active){border-color:var(--red);color:var(--red)}
   .tab.combo-tab{border-color:rgba(196,30,58,0.35);color:var(--red)}
-  .tab.combo-tab.active{background:var(--red);border-color:var(--red);color:#fff}
+  .tab.combo-tab.active{background:var(--red);border-color:var(--red);color:#fff;box-shadow:0 3px 10px rgba(196,30,58,0.3)}
+  /* Fade edges to hint scrollability */
+  .menu-tabs-wrap::after{content:'';position:absolute;right:0;top:0;bottom:0;width:32px;background:linear-gradient(to left,var(--bg),transparent);pointer-events:none}
   .menu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
 
   /* ── MENU CARD (Five Guys bold style) ── */
@@ -620,6 +625,7 @@
   @media(max-width:768px){
     body.app-mode #hero,body.app-mode #about,body.app-mode #points,body.app-mode #locations,body.app-mode footer,body.app-mode .marquee-strip,body.app-mode #specialBanner,body.app-mode #scrollProgress,body.app-mode nav,body.app-mode .mobile-drawer,body.app-mode .drawer-overlay,body.app-mode .parallax-divider,body.app-mode #google-review,body.app-mode #push-banner,body.app-mode #loyaltySection,body.app-mode #reviewSection,body.app-mode section:not(#menu):not(#hero):not(#about):not(#points):not(#locations){display:none!important}
     body.app-mode #menu{padding-top:0}
+    body.app-mode .menu-tabs-wrap{top:0;margin:0 -16px 20px;border-radius:0}
     .bottom-tabs{display:flex}
   }
 </style>
@@ -791,14 +797,16 @@
   <div class="section-label" data-aos="fade-up">What We Serve</div>
   <h2 class="section-title" data-aos="fade-up" data-aos-delay="100">Our Menu</h2>
   <div id="sheetsNotice" style="display:none;background:rgba(52,152,219,0.08);border:1px solid rgba(52,152,219,0.2);border-radius:10px;padding:10px 16px;margin-bottom:20px;font-size:0.82rem;color:var(--blue)">✅ Menu loaded from Google Sheets</div>
-  <div class="menu-tabs">
-    <button class="tab active" onclick="filterMenu('all',this)">All Items</button>
-    <button class="tab combo-tab" onclick="filterMenu('combos',this)">🔥 Combo Deals</button>
-    <button class="tab" onclick="filterMenu('fusion',this)">🌶️ Fusion Poutines</button>
-    <button class="tab" onclick="filterMenu('classic',this)">🍟 Classic Poutines</button>
-    <button class="tab" onclick="filterMenu('sides',this)">🧀 Sides</button>
-    <button class="tab" onclick="filterMenu('mac',this)">🧆 Mac & Cheese</button>
-    <button class="tab" onclick="filterMenu('drinks',this)">🥤 Drinks</button>
+  <div class="menu-tabs-wrap">
+    <div class="menu-tabs" id="menuTabs">
+      <button class="tab active" onclick="filterMenu('all',this)">All Items</button>
+      <button class="tab combo-tab" onclick="filterMenu('combos',this)">🔥 Combo Deals</button>
+      <button class="tab" onclick="filterMenu('fusion',this)">🌶️ Fusion Poutines</button>
+      <button class="tab" onclick="filterMenu('classic',this)">🍟 Classic Poutines</button>
+      <button class="tab" onclick="filterMenu('sides',this)">🧀 Sides</button>
+      <button class="tab" onclick="filterMenu('mac',this)">🧆 Mac & Cheese</button>
+      <button class="tab" onclick="filterMenu('drinks',this)">🥤 Drinks</button>
+    </div>
   </div>
   <div class="menu-grid" id="menuGrid"></div>
 </section>
@@ -1446,6 +1454,8 @@ function renderMenu(filter = 'all') {
 function filterMenu(cat, btn) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
+  // Scroll active tab into view inside the horizontal scroll row
+  btn.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
   renderMenu(cat);
 }
 
